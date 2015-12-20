@@ -1,9 +1,8 @@
 cmake_minimum_required(VERSION 2.8) 
 PROJECT (IN5X)
 find_package(OpenCV REQUIRED )
-set( NAME_SRC
-    src/main.cpp    
-)
+
+FILE (GLOB_RECURSE sourceFiles src/*)
 
 INCLUDE_DIRECTORIES( ${CMAKE_CURRENT_SOURCE_DIR}/include )
 link_directories( ${CMAKE_BINARY_DIR}/bin)
@@ -17,6 +16,6 @@ endif()
 
 SET(CMAKE_EXE_LINKER_FLAGS "-static")
 
-add_executable( IN5X ${NAME_SRC} )
+add_executable( IN5X ${sourceFiles} )
 
 target_link_libraries( IN5X ${OpenCV_LIBS} )
