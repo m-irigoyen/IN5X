@@ -64,8 +64,22 @@ Cliquez sur generate. C'est tout.
 Si il y a un erreur à ce stade là, c'est qu'il y a problème.
 
 Sinon, c'est fini ! Votre dossier de build devrait maintenant contenir une solution visual studio (IN5X.sln). Ouvrez la.
-La solution contient 3 projets : ALL_BUILD, IN5X et ZERO_CHECK. Définissez IN5X comme projet de démarrage (clic droit sur IN5X / définir comme projet de démarrage), puis vous pouvez compiler, exécuter, et ça doit marcher.
+La solution contient 3 projets : ALL_BUILD, IN5X et ZERO_CHECK. Définissez IN5X comme projet de démarrage (clic droit sur IN5X / définir comme projet de démarrage), puis vous pouvez compiler.
 
+Il ne devrait pas y avoir d'erreurs à ce point.
+
+
+4 - La base de données
+Vous devez copier la base de données des photos dans le dossier Project/res/database/
+A partir de là, vous pourrez y accéder dans le code en tappant "../Project/res/database/maPhotoJolie.jpg"
+
+Mais c'est long et propice aux fautes de frappe, donc j'ai mis un alias dans la classe PATHS, que vous pourrez utiliser comme ça : 
+irmead("../Project/res/database/maPhotoJolie.jpg");	// Equivalent
+irmead(PATHS::DATABASE + "maPhotoJolie.jpg");	// Equivalent
+
+5 - Et c'est fini!
+
+Maintenant vous pouvez compiler et exécuter, tout marche, tout est accessible.
 
 ___________________________
 Utilisation

@@ -12,9 +12,9 @@ using namespace cv;
 // CODE POUR LES SLIDERS
 void update(int, void*);
 Mat src, src_gray, output;
-int gaussianSize = 1;
-int cannySize = 3;
-int cannyThreshold = 1;
+int gaussianSize = 11;
+int cannySize = 5;
+int cannyThreshold = 89;
 
 // Le main
 int main(int argc, char* argv[])
