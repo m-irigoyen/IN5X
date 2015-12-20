@@ -25,7 +25,8 @@ OpenCV : C:/opencv/build
 Sources : C:/IN5X/Project
 Build (là où le projet sera créé) : C:/IN5X/Build
 
-Vous pouvez bien sûr mettre ça où vous voulez, du moment que vous remplacez correctement les chemins pour la suite de ce tuto
+Vous pouvez bien sûr mettre ça où vous voulez, du moment que vous remplacez correctement les chemins pour la suite de ce tuto.
+PRECISION : il faut que les sources et le build soient adjacents! Dans le code, on accèdera aux fichiers du git par des chemins du type "../Project/mesTrucs", donc n'oubliez pas de mettre ces deux fichiers au même endroit.
 
 _______________________
 Création du projet : 
