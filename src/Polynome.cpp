@@ -8,7 +8,7 @@ Polynome::Polynome(int degr, std::vector<float> coeffs)
 	degree = degr;
 	coefficients = coeffs;
 	// We verify if the list actually matches the degree of the polynomial
-	assert(coefficients.size == degree + 1);
+	assert(coefficients.size() == degree + 1);
 }
 
 Polynome* Polynome::derivative()
