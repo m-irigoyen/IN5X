@@ -3,18 +3,23 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <list>
+#include <vector>
 #include <assert.h>
 
 class Polynome {
 public:
-	Polynome(int, std::list<float>);
+	Polynome(int, std::vector<float>);
 	Polynome* derivative();
+	Polynome* product(Polynome);
+	int getDegree();
+	std::vector<float> getCoefficients();
+	void setCoefficients(std::vector<float>);
+	Polynome* Polynome::pol_lagrange(std::vector<std::pair<float,float>>, int);
 
 
 private:
 	int degree;
-	std::list<float> coefficients;
+	std::vector<float> coefficients;
 };
 
 #endif // !DEF_POLYNOME
