@@ -10,12 +10,16 @@ class Polynome {
 public:
 	Polynome(int, std::vector<float>);
 	Polynome* derivative();
-	Polynome* product(Polynome);
+	Polynome* product(Polynome*);
 	int getDegree();
 	std::vector<float> getCoefficients();
 	void setCoefficients(std::vector<float>);
-	Polynome* Polynome::pol_lagrange(std::vector<std::pair<float,float>>, int);
-
+	Polynome* pol_lagrange(std::vector<std::pair<float,float>>, int);
+	Polynome interp_lagrange(std::vector<std::pair<float,float>>);
+	void operator+=(Polynome);
+	Polynome find_tangente(int);
+	float value_y(float x);
+	float angle(Polynome p);
 
 private:
 	int degree;
