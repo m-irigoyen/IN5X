@@ -1,7 +1,4 @@
-#include "Polynome.hpp"
 #include "tangent_descriptor.hpp"
-#include <stdio.h>
-#include <stdlib.h>
 
 tangent_descriptor::tangent_descriptor(vector<pair<float, float>> points, int x) {
 	assert(x*2 < points.size());
