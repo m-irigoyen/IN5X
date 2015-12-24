@@ -5,7 +5,6 @@
 
 #include "filePaths.hpp"
 #include "exampleCodes.h"
-#include "Polynome.hpp"
 #include "tangent_descriptor.hpp"
 #include <vector>
 using namespace cv;
@@ -29,14 +28,24 @@ int thresh = 127;
 int main(int argc, char* argv[])
 {
 	// DESCRIPTEUR
-	vector<pair<float, float>> points = *new vector<pair<float, float>>(5, *new pair<float, float>(0, 0));
+	/*vector<pair<float, float>> points = *new vector<pair<float, float>>(5, *new pair<float, float>(0, 0));
 	points.at(0) = (*new pair<float, float>(0, 0));
 	points.at(1) = (*new pair<float, float>(3, 4));
 	points.at(2) = (*new pair<float, float>(5, 20));
 	points.at(3) = (*new pair<float, float>(35, 40));
 	points.at(4) = (*new pair<float, float>(-5, 0));
 
-	tangent_descriptor descript = *new tangent_descriptor(points, 1);
+	tangent_descriptor descript = *new tangent_descriptor(points, 1);*/
+
+	// fix des fuites de mémoire par rapport au code ci-dessus
+	vector<pair<float, float>> points;
+	points.push_back(pair<float, float>(0, 0));
+	points.push_back(pair<float, float>(3, 4));
+	points.push_back(pair<float, float>(5, 20));
+	points.push_back(pair<float, float>(35, 40));
+	points.push_back(pair<float, float>(-5, 0));
+
+	//tangent_descriptor descript(points, 1);
 
 
 	// TEST TRAITEMENT IMAGE

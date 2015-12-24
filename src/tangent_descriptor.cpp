@@ -1,6 +1,7 @@
 #include "tangent_descriptor.hpp"
 
-tangent_descriptor::tangent_descriptor(vector<pair<float, float>> points, int x) {
+tangent_descriptor::tangent_descriptor(vector<pair<float, float>> points, int x) 
+{
 	assert(x*2 < points.size());
 	vector<pair<float, float>> list_points_interp = *new vector<pair<float, float>>(int(x*2+1),*new pair<float,float> (0,0));
 	interp = *new vector<Polynome>(points.size(),*new Polynome());
