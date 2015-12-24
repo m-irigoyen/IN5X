@@ -6,6 +6,7 @@
 #include "filePaths.hpp"
 #include "exampleCodes.h"
 #include "Polynome.hpp"
+#include "tangent_descriptor.hpp"
 #include <vector>
 using namespace cv;
 
@@ -27,54 +28,14 @@ int thresh = 127;
 // Le main
 int main(int argc, char* argv[])
 {
-	std::vector<float>* vec = new std::vector<float>();
-	vec->push_back(1);
-	vec->push_back(2);
-	vec->push_back(3);
-	Polynome* pol = new Polynome(2, *(vec));
-	std::vector<float>* vec2 = new std::vector<float>();
-	vec2->push_back(3);
-	vec2->push_back(2);
-	vec2->push_back(1);
-	Polynome* pol2 = new Polynome(2, *(vec2));
-	cout << pol->getCoefficients().at(0)  << endl;
-	cout << pol->getCoefficients().at(1) << endl;
-	cout << pol->getCoefficients().at(2) << endl;
-	cout << pol->getDegree()<< endl;
-	cout << pol2->getCoefficients().at(0) << endl;
-	cout << pol2->getCoefficients().at(1) << endl;
-	cout << pol2->getCoefficients().at(2) << endl;
-	cout << pol2->getDegree() << endl;
+	vector<pair<float, float>> points = *new vector<pair<float, float>>(5, *new pair<float, float>(0, 0));
+	points.at(0) = (*new pair<float, float>(0, 0));
+	points.at(1) = (*new pair<float, float>(3, 4));
+	points.at(2) = (*new pair<float, float>(5, 20));
+	points.at(3) = (*new pair<float, float>(35, 40));
+	points.at(4) = (*new pair<float, float>(-5, 0));
 
-	pol->product(pol2);
-	cout << pol->getCoefficients().at(0) << endl;
-	cout << pol->getCoefficients().at(1) << endl;
-	cout << pol->getCoefficients().at(2) << endl;
-	cout << pol->getCoefficients().at(3) << endl;
-	cout << pol->getCoefficients().at(4) << endl;
-	cout << pol->getDegree() << endl;
-	std::vector<std::pair<float, float>>* vec3 = new std::vector<std::pair<float, float>>();
-	std::pair<float, float> p1 = *(new std::pair<float, float>(-1,0));
-	std::pair<float, float> p2 = *(new std::pair<float, float>(0, 0));
-	std::pair<float, float> p3 = *(new std::pair<float, float>(1, 0));
-	vec3->push_back(p1);
-	vec3->push_back(p2);
-	vec3->push_back(p3);
-	Polynome pol_interp1 = pol->interp_lagrange(*vec3);
-	Polynome tangente1 = pol_interp1.find_tangente(0);
-	vec3 = new std::vector<std::pair<float, float>>();
-	p1 = *(new std::pair<float, float>(0, -1));
-	p2 = *(new std::pair<float, float>(0, 0));
-	p3 = *(new std::pair<float, float>(0, 1));
-
-	vec3->push_back(p1);
-	vec3->push_back(p2);
-	vec3->push_back(p3);
-	Polynome pol_interp2 = pol->interp_lagrange(*vec3);
-	Polynome tangente2 = pol_interp2.find_tangente(0);
-
-	float angle = tangente1.angle(tangente2);
-
+	tangent_descriptor descript = *new tangent_descriptor(points, 1);
 	////videoTest();	// Lance la caméra avec une détection de contours 
 	//
 	//// Test des sliders

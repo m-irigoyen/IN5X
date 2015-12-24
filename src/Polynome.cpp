@@ -5,12 +5,15 @@
 #include <algorithm>
 #include <math.h>
 
-using namespace std;
-
 int degree;
-std::vector<float> coefficients;
+vector<float> coefficients;
 
-Polynome::Polynome(int degr, std::vector<float> coeffs)
+Polynome::Polynome() {
+	degree = 0;
+	coefficients = *new vector<float>(1, 0);
+}
+
+Polynome::Polynome(int degr, vector<float> coeffs)
 {
 	degree = degr;
 	coefficients = coeffs;
@@ -22,10 +25,10 @@ Polynome* Polynome::derivative()
 {
 	if(degree > 0){
 		int newDegree = degree - 1;
-		std::vector<float>* newCoeffs = new std::vector<float>();
+		vector<float>* newCoeffs = new vector<float>();
 
 		
-		std::vector<float>::iterator il = coefficients.begin();
+		vector<float>::iterator il = coefficients.begin();
 		for (int currentDegree = degree; currentDegree > 0; --currentDegree) {
 			//We fill each coefficient for the new polynome by iterating on the previous one
 			newCoeffs->push_back(*il * currentDegree);
@@ -34,13 +37,13 @@ Polynome* Polynome::derivative()
 		return new Polynome(newDegree, *newCoeffs);
 	}
 	
-	return new Polynome(0,*(new std::vector<float>(0)));
+	return new Polynome(0,*(new vector<float>(0)));
 }
 
 Polynome* Polynome::product(Polynome* pol)
 {
 	int newDegree = degree + pol->getDegree();
-	std::vector<float>* newCoeffs = new std::vector<float>(newDegree+1,0);
+	vector<float>* newCoeffs = new vector<float>(newDegree+1,0);
 	for (int i = 0; i<=degree; ++i){
 		for (int j = 0; j<=pol->getDegree(); ++j){
 			newCoeffs->at(i+j) += coefficients.at(i)*pol->getCoefficients().at(j);
@@ -51,10 +54,10 @@ Polynome* Polynome::product(Polynome* pol)
 	return this;
 }
 
-Polynome* Polynome::pol_lagrange(std::vector<std::pair<float,float>> points, int i){
-	std::vector<float> vec = *(new std::vector<float>(2,0));
+Polynome* Polynome::pol_lagrange(vector<pair<float,float>> points, int i){
+	vector<float> vec = *(new vector<float>(2,0));
 	Polynome* pol = new Polynome(1,vec);
-	std::vector<float>* newCoeffs = new std::vector<float>(2, 0);
+	vector<float>* newCoeffs = new vector<float>(2, 0);
 	this->setCoefficients(*newCoeffs);
 	degree = 1;
 	for (int j = 0; j<points.size(); ++j){
@@ -75,43 +78,44 @@ Polynome* Polynome::pol_lagrange(std::vector<std::pair<float,float>> points, int
 	return this;
 }
 
-Polynome Polynome::interp_lagrange(std::vector<pair<float, float>> points) {
-	Polynome pol_interp = *new Polynome(1, *new std::vector<float>(2, 0));
-	Polynome pol_l = *new Polynome(1, *new std::vector<float>(2, 0));
+void Polynome::interp_lagrange(vector<pair<float, float>> points) {
+	Polynome pol_interp = *new Polynome(1, *new vector<float>(2, 0));
+	Polynome pol_l = *new Polynome(1, *new vector<float>(2, 0));
 	for (int i = 0; i < points.size(); ++i) {
-		pol_interp += *(*pol_l.pol_lagrange(points, i)).product(new Polynome(0, *new std::vector<float>(1, points.at(i).second)));
+		pol_interp += *(*pol_l.pol_lagrange(points, i)).product(new Polynome(0, *new vector<float>(1, points.at(i).second)));
 	}
 
-	return pol_interp;
+	degree = pol_interp.getDegree();
+	coefficients = pol_interp.getCoefficients();
 }
 
 void Polynome::operator+=(Polynome p) {
-	std::vector<float> vec = *new std::vector<float>(std::max(degree, p.getDegree()) + 1, 0);
+	vector<float> vec = *new vector<float>(max(degree, p.getDegree()) + 1, 0);
 	if (p.getDegree() > degree) {
 		vec = p.getCoefficients();
 	}
 	else {
 		vec = coefficients;
 	}
-	for (int i = std::max(degree, p.getDegree())- std::min(degree, p.getDegree()); i < std::max(degree, p.getDegree()); ++i) {
+	for (int i = max(degree, p.getDegree())- min(degree, p.getDegree()); i < max(degree, p.getDegree()); ++i) {
 		if (p.getDegree() > degree) {
-			vec.at(i)+= coefficients.at(i- std::min(degree, p.getDegree()));
+			vec.at(i)+= coefficients.at(i- min(degree, p.getDegree()));
 		}
 		else if (p.getDegree() < degree) {
-			vec.at(i) += p.getCoefficients().at(i - std::min(degree, p.getDegree()));
+			vec.at(i) += p.getCoefficients().at(i - min(degree, p.getDegree()));
 		}
 		else {
 			vec.at(i) += p.getCoefficients().at(i);
 		}
 	}
-	degree = std::max(degree, p.getDegree());
+	degree = max(degree, p.getDegree());
 	this->setCoefficients(vec);
 }
 
 Polynome Polynome::find_tangente(int x) {
-	Polynome tangente = *new Polynome(1, *new std::vector<float>(2, 0));
+	Polynome tangente = *new Polynome(1, *new vector<float>(2, 0));
 	Polynome deriv = *this->derivative();
-	std::vector<float> coeff_tan = *new std::vector<float>();
+	vector<float> coeff_tan = *new vector<float>();
 	float dfx = deriv.value_y(x);
 	float fx = this->value_y(x);
 	coeff_tan.push_back(dfx);
@@ -142,6 +146,6 @@ float Polynome::angle(Polynome p) {
 }
 int Polynome::getDegree(){ return degree; }
 
-std::vector<float> Polynome::getCoefficients() { return coefficients;}
+vector<float> Polynome::getCoefficients() { return coefficients;}
 
-void Polynome::setCoefficients(std::vector<float> newCoeff) { coefficients = newCoeff;}
+void Polynome::setCoefficients(vector<float> newCoeff) { coefficients = newCoeff;}

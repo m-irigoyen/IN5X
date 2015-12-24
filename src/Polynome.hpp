@@ -6,16 +6,19 @@
 #include <vector>
 #include <assert.h>
 
+using namespace std;
+
 class Polynome {
 public:
-	Polynome(int, std::vector<float>);
+	Polynome();
+	Polynome(int, vector<float>);
 	Polynome* derivative();
 	Polynome* product(Polynome*);
 	int getDegree();
-	std::vector<float> getCoefficients();
-	void setCoefficients(std::vector<float>);
-	Polynome* pol_lagrange(std::vector<std::pair<float,float>>, int);
-	Polynome interp_lagrange(std::vector<std::pair<float,float>>);
+	vector<float> getCoefficients();
+	void setCoefficients(vector<float>);
+	Polynome* pol_lagrange(vector<pair<float,float>>, int);
+	void interp_lagrange(vector<pair<float,float>>);
 	void operator+=(Polynome);
 	Polynome find_tangente(int);
 	float value_y(float x);
@@ -23,7 +26,7 @@ public:
 
 private:
 	int degree;
-	std::vector<float> coefficients;
+	vector<float> coefficients;
 };
 
 #endif // !DEF_POLYNOME
