@@ -45,7 +45,7 @@ int main(int argc, char* argv[])
 	points.push_back(pair<float, float>(35, 40));
 	points.push_back(pair<float, float>(-5, 0));
 
-	//tangent_descriptor descript(points, 1);
+	tangent_descriptor descript(points, 1);
 
 
 	// TEST TRAITEMENT IMAGE

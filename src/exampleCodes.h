@@ -48,6 +48,7 @@ int imageExample(int argc, char* argv[])
 
 	/* Libération de la mémoire */
 	cvReleaseImage(&img);
+	return EXIT_SUCCESS;
 }
 
 

@@ -10,7 +10,7 @@ using namespace std;
 
 class tangent_descriptor {
 public:
-	tangent_descriptor(vector<pair<float, float>> points,int);
+	tangent_descriptor(vector<pair<float, float>> points, int x);
 
 private:
 	vector<pair<float,float>> points;
