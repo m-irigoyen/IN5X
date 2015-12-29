@@ -31,8 +31,8 @@ public:
 		Mat& output,
 		int gaussianKernelSize = GaussianBlurHandler::GB_KERNEL_SIZE::GBK_OPTIMAL,
 		int cannyKernelSize = CannyOperatorHandler::KERNEL_SIZE::CK_OPTIMAL,
-		int cannyThreshold = CannyOperatorHandler::THRESHOLD_SIZE::CT_OPTIMAL,
-		int threshold = TresholdingHandler::THRESHOLD::T_OPTIMAL);*/
+		/*int cannyThreshold = CannyOperatorHandler::THRESHOLD_SIZE::CT_OPTIMAL,
+		/*int threshold = TresholdingHandler::THRESHOLD::T_OPTIMAL);*/
 };
 
 #endif

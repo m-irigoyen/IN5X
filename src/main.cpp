@@ -45,13 +45,11 @@ int main(int argc, char* argv[])
 	ImageHandler handler;
 	Mat image,contour;
 
-	if (!ImageHandler::loadImage(PATHS::DATABASE2 + "n_roi_face (1).JPG", image))
+	if (!ImageHandler::loadImage(PATHS::DATABASE2 + "n_pion_face (13).jpg", image))
 	{
 		cout << "ERREUR : probleme de chargement de l'image." << endl;
 		return EXIT_FAILURE;
 	}
-
-
 	handler.prepareImage_canny(image, contour);
 	Box b(contour);
 	waitKey(0);
