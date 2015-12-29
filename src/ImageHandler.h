@@ -2,10 +2,13 @@
 #define DEF_IMAGEHANDLER
 
 #include "opencv2/opencv.hpp"
+#include <string>
 
 #include "cannyOperatorHandler.hpp"
 #include "ThresholdingHandler.h"
 #include "gaussianBlurHandler.hpp"
+
+using namespace std;
 
 class ImageHandler
 {
@@ -20,6 +23,8 @@ public:
 		int cannyKernelSize = CannyOperatorHandler::KERNEL_SIZE::CK_OPTIMAL, 
 		int cannyThreshold = CannyOperatorHandler::THRESHOLD_SIZE::CT_OPTIMAL, 
 		int threshold = TresholdingHandler::THRESHOLD::T_OPTIMAL);
+
+	static bool loadImage(std::string path, Mat& output);
 
 	// Prepares the image for recognition : gaussianBlur -> cannyOperator -> thresholding
 	/*static void prepareImage_canny(Mat src,

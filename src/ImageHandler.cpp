@@ -11,3 +11,19 @@ void ImageHandler::prepareImage_canny(Mat src, Mat & output, int gaussianKernelS
 	CannyOperatorHandler::basic(output, output, cannyKernelSize, cannyThreshold);
 	TresholdingHandler::basic(output, output, threshold);
 }
+
+bool ImageHandler::loadImage(std::string path, Mat & output)
+{
+	Mat image = imread(path, CV_LOAD_IMAGE_COLOR);
+	if (!image.data)                              // Check for invalid input
+	{
+		cout << "ImageHandler::loadImage : Erreur! L'image " << path << " n'a pas pu etre chargee" << std::endl;
+		return false;
+	}
+	else
+	{
+		output = image;
+		return true;
+	}
+	
+}

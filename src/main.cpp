@@ -44,7 +44,14 @@ int main(int argc, char* argv[])
 
 	ImageHandler handler;
 	Mat image,contour;
-	image = imread("C:\IN5X\res\database2\n_roi_face (1).jpg", CV_LOAD_IMAGE_COLOR);
+
+	if (!ImageHandler::loadImage(PATHS::DATABASE2 + "n_roi_face (1).JPG", image))
+	{
+		cout << "ERREUR : probleme de chargement de l'image." << endl;
+		return EXIT_FAILURE;
+	}
+
+
 	handler.prepareImage_canny(image, contour);
 	Box b(contour);
 	waitKey(0);
