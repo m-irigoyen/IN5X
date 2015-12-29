@@ -36,7 +36,6 @@ int main(int argc, char* argv[])
 	points.push_back(pair<float, float>(-5, 0));
 
 	tangent_descriptor descript(points, 1);
-
 	
 	// TEST TRAITEMENT IMAGE
 	ImageTester tester;
@@ -51,9 +50,14 @@ int main(int argc, char* argv[])
 		return EXIT_FAILURE;
 	}
 
-
 	handler.prepareImage_canny(image, contour);
-	Box b(contour);
+	if (image.at<int>(0, 0) == 255)
+	{
+		cout << "ouais ouais" << endl;
+	}
+	else
+		cout << "eh ben?" << endl;
+	//Box b(contour);
 	waitKey(0);
 	return EXIT_SUCCESS;
 
