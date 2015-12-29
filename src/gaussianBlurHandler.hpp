@@ -6,6 +6,7 @@ Fonctions d'aide qui simplifient l'utilisation du flou gaussien
 */
 
 #include "opencv2/opencv.hpp"
+#include <iostream>
 
 using namespace cv;
 
@@ -13,17 +14,18 @@ class GaussianBlurHandler
 {
 public:
 	// La taille du kernel utilisé pour le flou gaussien
-	enum KERNEL_SIZE
+	enum GB_KERNEL_SIZE
 	{
-		SMALL = 15,
-		MEDIUM = 31,
-		HIGH = 63,
+		GBK_SMALL = 3,
+		GBK_MEDIUM = 17,
+		GBK_HIGH = 33,
 		//TODO: a implémenter une fois qu'on aura trouvé les valeurs optimales
-		//OPTIMAL		
+		GBK_OPTIMAL = 9
 	};
 
 	// Applique un flou gaussien sur l'image passée en paramètre. 
-	void static basic(Mat src, Mat& output, KERNEL_SIZE size = MEDIUM);
+	void static basic(Mat src, Mat& output, int size = (int)GB_KERNEL_SIZE::GBK_OPTIMAL);
+	//void static basic(Mat src, Mat& output, GB_KERNEL_SIZE size = GB_KERNEL_SIZE::GBK_OPTIMAL);
 };
 
 

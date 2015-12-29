@@ -18,7 +18,8 @@ class PATHS
 public : 
 	static const string PROJECT;	// Chemin du dossier global
 	static const string RES;		// Chemin vers le dossier res
-	static const string DATABASE;	// Chemin vers la base de données de photos
+	static const string DATABASE;	// Chemin vers la base de données de photos avec quadrillage
+	static const string DATABASE2;	// Chemin vers la base de données de photos sans quadrillage
 };
 
 

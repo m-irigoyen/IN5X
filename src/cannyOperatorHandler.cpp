@@ -2,29 +2,20 @@
 
 const float CannyOperatorHandler::ratio = 3;
 
-// Applique un opérateur de canny sur l'image (déjà floutée) passée en paramètre. 
-void CannyOperatorHandler::basic(Mat src, Mat& output, KERNEL_SIZE kernelSize)
+// Applique un opérateur de canny sur l'image passée en paramètre. 
+void CannyOperatorHandler::basic(Mat src, Mat& output, int kernelSize, int threshold)
 {
-	// Converting source to gray
-	Mat src_gray;
-	cvtColor(src, src_gray, CV_BGR2GRAY);
+	if (kernelSize < 3 || kernelSize % 2 != 1 || kernelSize >= 7)
+	{
+		std::cout << "CannyOperatorHandler : ERROR : kernel size must be odd (impaire)" << std::endl;
+		return;
+	}
 
-	//TODO: déterminer la traille du treshold
-	Mat edges;
-	edges.copySize(src_gray);
-	Canny(src_gray, edges, 50, 50 * CannyOperatorHandler::ratio, static_cast<int>(kernelSize));
-
-	output = Scalar::all(0);
+	output.copySize(src);
+	Canny(src, output, threshold, threshold * CannyOperatorHandler::ratio, static_cast<int>(kernelSize));
 }
 
-// Applique un flou gaussien puis opérateur de canny sur l'image passée en paramètre. 
-void CannyOperatorHandler::complete(Mat src, Mat & output, KERNEL_SIZE kernelSize)
-{
-	// Applying gaussian blur
-	Mat blurred;
-	//TODO: determiner la kernelSize du flou gaussien en fonction de la valeur précision voulue pour le canny.
-	GaussianBlurHandler::basic(src, blurred, GaussianBlurHandler::KERNEL_SIZE::MEDIUM);
-
-	// Doing edge detection
-	CannyOperatorHandler::basic(blurred, output, kernelSize);
-}
+//void CannyOperatorHandler::basic(Mat src, Mat & output, KERNEL_SIZE kernelSize, THRESHOLD_SIZE thresholdSize)
+//{
+//	CannyOperatorHandler::basic(src, output, (int)kernelSize, (int)thresholdSize);
+//}
