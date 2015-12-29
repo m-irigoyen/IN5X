@@ -8,9 +8,9 @@
 #include "filePaths.hpp"
 #include "exampleCodes.h"
 #include "tangent_descriptor.hpp"
-
+#include "box.hpp"
 #include "ImageTester.h"
-
+#include "ImageHandler.h"
 using namespace cv;
 
 
@@ -42,6 +42,11 @@ int main(int argc, char* argv[])
 	ImageTester tester;
 	tester.testImage_cannyMethod("n_roi_face (1).jpg");
 
+	ImageHandler handler;
+	Mat image,contour;
+	image = imread("C:\IN5X\res\database2\n_roi_face (1).jpg", CV_LOAD_IMAGE_COLOR);
+	handler.prepareImage_canny(image, contour);
+	Box b(contour);
 	waitKey(0);
 	return EXIT_SUCCESS;
 
