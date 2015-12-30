@@ -66,7 +66,7 @@ int main(int argc, char* argv[])
 	ImageHandler handler;
 	Mat image,contour;
 
-	if (!ImageHandler::loadImage(PATHS::DATABASE2 + "n_cavalier_face (8).jpg", image))
+	if (!ImageHandler::loadImage(PATHS::DATABASE2 + "n_cavalier_face (1).jpg", image))
 	{
 		cout << "erreur : probleme de chargement de l'image." << endl;
 		return EXIT_FAILURE;
@@ -78,7 +78,7 @@ int main(int argc, char* argv[])
 	rectangle(contour, Point(tpiece.box.points_box.at(0).first, tpiece.box.points_box.at(0).second), Point(tpiece.box.points_box.at(2).first, tpiece.box.points_box.at(2).second), Scalar(255, 255, 255));
 	imshow("Image1", contour);
 	waitKey(0);
-	tpiece.findDirection();
+ 	tpiece.findDirection();
 	vector<pair<int, int>> path = tpiece.findPathcontour();
 	waitKey(0);
  	return EXIT_SUCCESS;

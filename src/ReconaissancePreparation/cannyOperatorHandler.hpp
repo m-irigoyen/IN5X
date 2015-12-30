@@ -18,8 +18,7 @@ public :
 		CT_LOW = 3,
 		CT_MED = 50,
 		CT_HIGH = 99,
-		//TODO: a implémenter une fois qu'on aura trouvé les valeurs optimales
-		CT_OPTIMAL
+		CT_OPTIMAL = 80
 	};
 
 	// La taille du kernel utilisée par l'opérateur de canny
@@ -28,7 +27,6 @@ public :
 		CK_SMALL = 3,		// garde peu de contours
 		CK_MEDIUM = 7,		// garde les contours en moyenne
 		CK_BIG = 15,		// garde beaucoup de contours
-		//TODO: a implémenter une fois qu'on aura trouvé les valeurs optimales
 		CK_OPTIMAL = 3
 	};
 
