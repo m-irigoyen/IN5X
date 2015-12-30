@@ -17,10 +17,11 @@ public:
 	void findDirection();
 	vector <pair<int, int>> findPathcontour();
 	void MAJimg();
+	Box box;
 private:
 	Mat img;
 	vector<pair<int, int>> piece;
-	Box box;
+	
 };
 
 #endif //!DEF_ROTATEPIECE

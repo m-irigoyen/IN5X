@@ -75,13 +75,18 @@ vector<pair<int,int>> TransformPiece::findPathcontour() {
 	vector<pair<int, int>> path = vector<pair<int, int>>();
 	bool test = true;
  	int i = img.rows - 1;
-	
+
+	int x = box.points_box.at(0).first;
 	while (test) {
-		if (img.at<uchar>(i, box.points_box.at(0).first) == 255) {
-			path.push_back(pair<float, float>(i, box.points_box.at(0).first));
+		if (img.at<uchar>(i, x) == 255) {
+			path.push_back(pair<float, float>(i, x));
 			test = false;
 		}
 		--i;
+		if (i == -1) {
+			i = img.rows - 1;
+			x++;
+		}
 	}
 	int j = 0;
 	bool testclose = true;

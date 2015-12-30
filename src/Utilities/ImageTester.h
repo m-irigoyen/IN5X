@@ -4,8 +4,8 @@
 #include <string>
 
 #include "opencv2/opencv.hpp"
-#include "Utilities/filePaths.hpp"
-#include "ReconaissancePreparation/ImageHandler.h"
+#include "../Utilities/filePaths.hpp"
+#include "../ReconaissancePreparation/ImageHandler.h"
 
 using namespace std;
 using namespace cv;
@@ -28,9 +28,4 @@ public :
 private:
 	
 };
-
-
-
-
-
 #endif

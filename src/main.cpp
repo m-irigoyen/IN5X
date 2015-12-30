@@ -32,7 +32,7 @@ int main(int argc, char* argv[])
 
 
 
-	DatabaseHandler db;
+	/*DatabaseHandler db;
 	db.buildDatabase(false, PIECE_TYPE::CAVALIER, PIECE_ANGLE::COTE, PIECE_COLOR::NOIR);
 
 	namedWindow("test");
@@ -44,7 +44,7 @@ int main(int argc, char* argv[])
 		cout << "Color : " << dbi.descriptor.color << endl;
 		imshow("test", dbi.mat);
 		waitKey(0);
-	}
+	}*/
 
 	//UNCOMMENT THAT
 
@@ -60,23 +60,28 @@ int main(int argc, char* argv[])
 
 	//
 	//// TEST TRAITEMENT IMAGE
-	//ImageTester tester;
-	//tester.testImage_cannyMethod("n_roi_face (1).jpg");
+	ImageTester tester;
+	tester.testImage_cannyMethod("n_roi_face (1).jpg");
 
-	//ImageHandler handler;
-	//Mat image,contour;
+	ImageHandler handler;
+	Mat image,contour;
 
-	//if (!ImageHandler::loadImage(PATHS::DATABASE2 + "n_cavalier_cote (1).jpg", image))
-	//{
-	//	cout << "ERREUR : probleme de chargement de l'image." << endl;
-	//	return EXIT_FAILURE;
-	//}
-	//handler.prepareImage_canny(image, contour);
-	//TransformPiece tpiece = TransformPiece(contour);
-	//tpiece.findDirection();
-	//vector<pair<int, int>> path = tpiece.findPathcontour();
-	//waitKey(0);
- //	return EXIT_SUCCESS;
+	if (!ImageHandler::loadImage(PATHS::DATABASE2 + "n_cavalier_face (8).jpg", image))
+	{
+		cout << "erreur : probleme de chargement de l'image." << endl;
+		return EXIT_FAILURE;
+	}
+	handler.prepareImage_canny(image, contour);
+	imshow("Image1", contour);
+	waitKey(0);
+	TransformPiece tpiece = TransformPiece(contour);
+	rectangle(contour, Point(tpiece.box.points_box.at(0).first, tpiece.box.points_box.at(0).second), Point(tpiece.box.points_box.at(2).first, tpiece.box.points_box.at(2).second), Scalar(255, 255, 255));
+	imshow("Image1", contour);
+	waitKey(0);
+	tpiece.findDirection();
+	vector<pair<int, int>> path = tpiece.findPathcontour();
+	waitKey(0);
+ 	return EXIT_SUCCESS;
 
 	//videoTest();	// Lance la caméra avec une détection de contours 
-}
+}  

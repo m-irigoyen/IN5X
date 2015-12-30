@@ -4,7 +4,7 @@
 #include "opencv2/opencv.hpp"
 
 #include "ImageHandler.h"
-#include "Utilities/databaseHandler.hpp"
+#include "../Utilities/databaseHandler.hpp"
 
 using namespace cv;
 
