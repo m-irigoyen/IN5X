@@ -36,10 +36,10 @@ int main(int argc, char* argv[])
 	
 	// TEST TRAITEMENT IMAGE
 	ImageTester tester;
-	tester.testImage_cannyMethod("n_roi_face (1).jpg");
+	tester.testImage_cannyMethod("n_cavalier_face (1).jpg");
 
-	ImageHandler handler;
 	Mat image,contour;
+	ImageHandler handler;
 
 	if (!ImageHandler::loadImage(PATHS::DATABASE2 + "n_cavalier_cote (1).jpg", image))
 	{
