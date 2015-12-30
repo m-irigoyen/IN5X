@@ -9,15 +9,9 @@ void DatabaseHandler::buildDatabase(bool isLearningDatabase, vector<PIECE_TYPE> 
 {
 	this->images.clear();
 
-	for (PIECE_TYPE type : types)
+	for (int i = 0; i < types.size(); ++i)
 	{
-		for (PIECE_ANGLE angle : angles)
-		{
-			for (PIECE_COLOR color : colors)
-			{
-				this->getAllImagesFromType(isLearningDatabase, type, angle, color, this->images);
-			}
-		}
+		this->getAllImagesFromType(isLearningDatabase, types.at(i), angles.at(i), colors.at(i), this->images);
 	}
 }
 
@@ -84,7 +78,6 @@ void DatabaseHandler::getAllImagesFromType(bool learning, PIECE_TYPE t, PIECE_AN
 {
 
 	int start, finish;
-	//TODO: finish that
 	if (learning)
 	{
 		start = 1;

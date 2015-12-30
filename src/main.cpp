@@ -31,20 +31,11 @@ int main(int argc, char* argv[])
 	tangent_descriptor descript = *new tangent_descriptor(points, 1);*/
 
 
-
+	// construction de la base de données
 	DatabaseHandler db;
 	db.buildDatabase(false, PIECE_TYPE::CAVALIER, PIECE_ANGLE::COTE, PIECE_COLOR::NOIR);
 
-	namedWindow("test");
-	vector<DatabaseImage>& images = db.getImages();
-	for (DatabaseImage dbi : images)
-	{
-		cout << "Type : " << dbi.descriptor.type << endl;
-		cout << "Angle : " << dbi.descriptor.angle << endl;
-		cout << "Color : " << dbi.descriptor.color << endl;
-		imshow("test", dbi.mat);
-		waitKey(0);
-	}
+	
 
 	//UNCOMMENT THAT
 

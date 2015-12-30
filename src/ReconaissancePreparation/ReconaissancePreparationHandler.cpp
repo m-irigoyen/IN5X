@@ -16,7 +16,7 @@ void ReconnaissancePreparationHandler::learning(DatabaseHandler & database, vect
 	vector<DatabaseImage>& images = database.getImages();
 	for (DatabaseImage i : images)
 	{
-		//TODO: implémenter l'apprentissage des classes
+		//TODO implémenter l'apprentissage des classes
 		//classes = 
 	}
 }
