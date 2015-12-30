@@ -55,7 +55,7 @@ int main(int argc, char* argv[])
 	TransformPiece tpiece = TransformPiece(contour);
 	tpiece.findDirection();
 	waitKey(0);
-	return EXIT_SUCCESS;
+ 	return EXIT_SUCCESS;
 
 	//videoTest();	// Lance la caméra avec une détection de contours 
 }

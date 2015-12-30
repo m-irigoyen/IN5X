@@ -2,6 +2,10 @@
 
 #define PI 3.14159265
 
+Box::Box() {
+	aire = 0;
+	points_box = vector<pair<int, int>>();
+}
 Box::Box(vector<pair<int, int>> piece)
 {
 	int xmin, xmax, ymin, ymax;
@@ -24,10 +28,10 @@ Box::Box(vector<pair<int, int>> piece)
 			ymax = p.first;
 		}
 	}
-	points_box.push_back(pair<int, int>(ymin, xmin));
-	points_box.push_back(pair<int, int>(ymin, xmax));
-	points_box.push_back(pair<int, int>(ymax, xmax));
-	points_box.push_back(pair<int, int>(ymax, xmin));
+	points_box.push_back(pair<int, int>(xmin, ymin));
+	points_box.push_back(pair<int, int>(xmin, ymax));
+	points_box.push_back(pair<int, int>(xmax, ymax));
+	points_box.push_back(pair<int, int>(xmax, ymin));
 	aire = sqrt(pow(points_box.at(0).second - points_box.at(1).second, 2)) * sqrt(pow(points_box.at(1).first - points_box.at(2).first, 2));
 
 }

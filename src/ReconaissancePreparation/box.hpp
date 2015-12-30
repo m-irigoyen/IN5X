@@ -11,6 +11,7 @@ using namespace cv;
 
 class Box {
 public:
+	Box();
 	Box(vector<pair<int,int>>);
 
 	vector<pair<int, int>> points_box;
