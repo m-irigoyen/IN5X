@@ -19,7 +19,7 @@ public :
 		CT_MED = 50,
 		CT_HIGH = 99,
 		//TODO: a implémenter une fois qu'on aura trouvé les valeurs optimales
-		CT_OPTIMAL = 80
+		CT_OPTIMAL
 	};
 
 	// La taille du kernel utilisée par l'opérateur de canny

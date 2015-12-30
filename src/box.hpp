@@ -11,10 +11,10 @@ using namespace cv;
 
 class Box {
 public:
-	Box(Mat);
-private:
+	Box(vector<pair<int,int>>);
+
 	vector<pair<int, int>> points_box;
-	int xmin, ymin, xmax, ymax;
+	float aire;
 };
 
 #endif //!DEF_BOX

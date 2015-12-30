@@ -2,9 +2,43 @@
 
 #define PI 3.14159265
 
-Box::Box(Mat img)
+Box::Box(vector<pair<int, int>> piece)
 {
-	vector<pair<int, int>> white;
+	int xmin, xmax, ymin, ymax;
+	xmin = 40000;
+	ymin = 40000;
+	xmax = -1;
+	ymax = -1;
+	for (int i = 0; i < piece.size(); ++i) {
+		pair<int, int> p = piece.at(i);
+		if (p.second < xmin) {
+			xmin = p.second;
+		}
+		if (p.second > xmax) {
+			xmax = p.second;
+		}
+		if (p.first < ymin) {
+			ymin = p.first;
+		}
+		if (p.first > ymax) {
+			ymax = p.first;
+		}
+	}
+	points_box.push_back(pair<int, int>(ymin, xmin));
+	points_box.push_back(pair<int, int>(ymin, xmax));
+	points_box.push_back(pair<int, int>(ymax, xmax));
+	points_box.push_back(pair<int, int>(ymax, xmin));
+	aire = sqrt(pow(points_box.at(0).second - points_box.at(1).second, 2)) * sqrt(pow(points_box.at(1).first - points_box.at(2).first, 2));
+
+}
+
+
+/*Box::Box(Mat img)
+{
+
+	imshow("Imagedepart", img);
+	waitKey(0);
+	int xmin, ymin, xmax, ymax;
 	for (int i = 0; i < img.rows; ++i) {
 		for (int j = 0; j < img.cols; ++j) {
 			if (img.at<uchar>(i, j) == 255) {
@@ -131,7 +165,97 @@ Box::Box(Mat img)
 	for (int i = 0; i < fin_white.size(); ++i) {
 		img.at<uchar>(fin_white.at(i).first, fin_white.at(i).second) = 255;
 	}
+	//imshow("Image1", img);
+	//waitKey(0);
+	white = vector<pair<int, int>>();
+
+	bool test = true;
+	int i = img.rows-1;
+	while (test) {
+		if (img.at<uchar>(i, points_box.at(0).second) == 255) {
+			white.push_back(pair<float, float>(i, points_box.at(0).second));
+			test = false;
+		}
+		--i;
+	}
 	imshow("Image1", img);
 	waitKey(0);
-	white = vector<pair<int, int>>();
-}
+	int j = 0;
+	bool testclose = true;
+	while(testclose){
+		pair<int, int> p = white.at(j);
+		bool test_neighboor = true;
+		if (j > 469) {
+			i = 0;
+		}
+		int z = 1;
+		while (test_neighboor) {
+			vector<pair<int, int>> neighboors = vector<pair<int, int>>();
+			for (int x = p.second - z; x <= p.second + z; ++x) {
+				for (int y = p.first - z; y <= p.first + z; ++y) {
+					if (x != p.second || y != p.first) {
+						if (img.at<uchar>(y, x) == 255) {
+							neighboors.push_back(pair<int, int>(y, x));
+						}
+					}
+				}
+			}
+			if (j == 1) {
+				for (int x = 0; x < neighboors.size(); ++x) {
+					if (neighboors.at(x).first + 1 == p.first) {
+						white.push_back(neighboors.at(x));
+						test_neighboor = false;
+					}
+				}
+			}
+			else {
+				for (int x = 0; x < neighboors.size(); ++x) {
+					if (std::find(white.begin(), white.end(), neighboors.at(x)) != white.end()) {
+						neighboors.erase(neighboors.begin() + x);
+						--x;
+					}
+					if (j > 50 && std::find(neighboors.begin(), neighboors.end(), white.at(0)) != neighboors.end()) {
+						test_neighboor = false;
+						testclose = false;
+					}
+				}
+				if (neighboors.size() == 1) {
+					white.push_back(neighboors.at(0));
+					test_neighboor = false;
+				}
+				else if(neighboors.size()>1){
+					for (int x = 0; x < neighboors.size(); ++x) {
+						if ((p.first == neighboors.at(x).first || p.second == neighboors.at(x).second)&& test_neighboor==false) {
+							white.push_back(neighboors.at(x));
+							test_neighboor = false;
+						}
+					}
+					if (test_neighboor == true) {
+						float dist_mini = 40000,dist;
+						int index_dist_mini;
+						for (int x = 0; x < neighboors.size(); ++x) {
+							dist = sqrt(pow(p.first - neighboors.at(x).first, 2) + pow(p.second - neighboors.at(x).second, 2));
+							if (dist < dist_mini) {
+								index_dist_mini = x;
+								dist_mini = dist;
+							}
+						}
+						white.push_back(neighboors.at(index_dist_mini));
+						test_neighboor = false;
+
+					}
+				}
+				else {
+					++z;
+				}
+			}
+		}		
+		++j;
+	}
+	Mat img2 = img * 0;
+	for (int i = 0; i < white.size(); ++i) {
+		img2.at<uchar>(white.at(i).first, white.at(i).second) = 255;
+	}
+	imshow("testtamère", img2);
+	waitKey(0);
+}*/
