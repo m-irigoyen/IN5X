@@ -46,7 +46,7 @@ int main(int argc, char* argv[])
 	ImageHandler handler;
 	Mat image,contour;
 
-	if (!ImageHandler::loadImage(PATHS::DATABASE2 + "n_roi_face (1).jpg", image))
+	if (!ImageHandler::loadImage(PATHS::DATABASE2 + "n_cavalier_cote (1).jpg", image))
 	{
 		cout << "ERREUR : probleme de chargement de l'image." << endl;
 		return EXIT_FAILURE;
@@ -54,6 +54,7 @@ int main(int argc, char* argv[])
 	handler.prepareImage_canny(image, contour);
 	TransformPiece tpiece = TransformPiece(contour);
 	tpiece.findDirection();
+	vector<pair<int, int>> path = tpiece.findPathcontour();
 	waitKey(0);
  	return EXIT_SUCCESS;
 
