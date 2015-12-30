@@ -12,9 +12,9 @@ using namespace cv;
 
 class TransformPiece {
 public:
-	transformPiece(Mat);
+	TransformPiece(Mat);
 	vector <pair<int,int>> rotation(float angle);
-	vector <pair<int, int>> findDirection();
+	void findDirection();
 private:
 	Mat img;
 	vector<pair<int, int>> piece;

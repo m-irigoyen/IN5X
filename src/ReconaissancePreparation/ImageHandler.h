@@ -5,6 +5,7 @@
 #include <string>
 
 #include "cannyOperatorHandler.hpp"
+#include "cannyOperatorHandler.hpp"
 #include "ThresholdingHandler.h"
 #include "gaussianBlurHandler.hpp"
 
