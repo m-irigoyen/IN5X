@@ -60,8 +60,30 @@ int main(int argc, char* argv[])
 
 	//
 	//// TEST TRAITEMENT IMAGE
+	/*namedWindow("sisimagueule");
 	ImageTester tester;
-	tester.testImage_cannyMethod("n_roi_face (1).jpg");
+	tester.testImage_cannyMethod("n_cavalier_face (1).jpg");
+	waitKey(0);
+
+	tester.setImage("n_roi_face (1).jpg");
+	tester.testImageCallback_cannyMethod(0, &tester);
+	waitKey(0);
+
+	tester.setImage("n_cavalier_cote (1).jpg");
+	tester.testImageCallback_cannyMethod(0, &tester);
+	waitKey(0);
+
+	tester.setImage("n_fou_face (1).jpg");
+	tester.testImageCallback_cannyMethod(0, &tester);
+	waitKey(0);
+
+	tester.setImage("n_fou_cote (1).jpg");
+	tester.testImageCallback_cannyMethod(0, &tester);
+	waitKey(0);
+
+	tester.setImage("n_reine_face (1).jpg");
+	tester.testImageCallback_cannyMethod(0, &tester);
+	waitKey(0);*/
 
 	ImageHandler handler;
 	Mat image,contour;

@@ -8,7 +8,7 @@ ImageTester::ImageTester()
 	this->threshold = TresholdingHandler::T_OPTIMAL;
 }
 
-void ImageTester::testImage_cannyMethod(string imageName)
+void ImageTester::setImage(string imageName)
 {
 	Mat image;
 	image = imread(PATHS::DATABASE2 + imageName, CV_LOAD_IMAGE_COLOR);   // Read the file
@@ -17,14 +17,16 @@ void ImageTester::testImage_cannyMethod(string imageName)
 		cout << "ERROR : couldn't load image" << endl;
 		return;
 	}
+	this->src = image;
+}
 
-	// Resizing image, and converting to grayscale
-	resize(image, src, Size(), 0.4, 0.4);		
-	//resize(image, src, image.size(), 0, 0);	// L'image en taille totale
-	ImageHandler::convert_colorToGray(src, src_gray);
+void ImageTester::testImage_cannyMethod(string imageName)
+{
+	
 
 	// Ouvre une fenêtre
 	namedWindow("test");
+	this->setImage(imageName);
 
 	// Les trackbars sont des sliders modifiables par l'utilisateur.
 	// Modifier les chiffres ici augmente les valeurs max des sliders
@@ -43,11 +45,7 @@ void ImageTester::testImageCallback_cannyMethod(int, void * object)
 	if (t == NULL)
 		return;
 
-	// La kernelSize doit être impaire et plus grande que 0. Sinon, ça plante.
-	if (t->gaussianSize % 2 != 1 || t->cannySize < 3 || t->cannySize % 2 != 1 || t->cannySize >= 7)
-		return;
-
-	ImageHandler::prepareImage_canny(t->src_gray, t->output, t->gaussianSize, t->cannySize, t->cannyThreshold, t->threshold);
+	ImageHandler::prepareImage_canny(t->src, t->output, t->gaussianSize, t->cannySize, t->cannyThreshold, t->threshold);
 
 	imshow("test", t->output);
 

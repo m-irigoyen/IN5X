@@ -16,6 +16,7 @@ public :
 	ImageTester();
 
 	// Ouvre une fenêtre de test sur l'image donnée pour tester la méthode de canny
+	void setImage(string imageName);
 	void testImage_cannyMethod(string imageName);
 	static void testImageCallback_cannyMethod(int, void*);
 
