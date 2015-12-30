@@ -19,7 +19,6 @@ public:
 		GBK_SMALL = 3,
 		GBK_MEDIUM = 17,
 		GBK_HIGH = 33,
-		//TODO: a implémenter une fois qu'on aura trouvé les valeurs optimales
 		GBK_OPTIMAL = 9
 	};
 
