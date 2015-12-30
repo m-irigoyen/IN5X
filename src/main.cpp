@@ -5,12 +5,13 @@
 #include <vector>
 
 
-#include "Utilities\filePaths.hpp""
-#include "ReconaissancePreparation\tangent_descriptor.hpp"
-#include "ReconaissancePreparation\box.hpp"
-#include "Utilities\ImageTester.h"
-#include "ReconaissancePreparation\ImageHandler.h"
-#include "ReconaissancePreparation\transformPiece.hpp"
+#include "Utilities/filePaths.hpp"
+#include "Utilities/exampleCodes.h"
+#include "ReconaissancePreparation/tangent_descriptor.hpp"
+#include "ReconaissancePreparation/box.hpp"
+#include "Utilities/ImageTester.h"
+#include "ReconaissancePreparation/ImageHandler.h"
+#include "ReconaissancePreparation/transformPiece.hpp"
 using namespace cv;
 
 
