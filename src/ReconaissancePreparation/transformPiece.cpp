@@ -1,5 +1,4 @@
 #include "transformPiece.hpp"
-#include "box.hpp"
 #define PI 3.14159265
 
 TransformPiece::transformPiece(Mat img)
@@ -33,7 +32,7 @@ vector<pair<int, int>> TransformPiece::findDirection() {
 		pieceTmp = rotation(i);
 		Box boxtmp = Box(pieceTmp);
 		if (box.aire > boxtmp.aire) {
-			box.points_Box = boxtmp.points_box;
+			box.points_box = boxtmp.points_box;
 			box.aire = boxtmp.aire;
 			finalPiece = pieceTmp;
 		}

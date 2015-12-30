@@ -3,6 +3,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include "box.hpp"
 #include "opencv2/opencv.hpp"
 #include <vector>
 
