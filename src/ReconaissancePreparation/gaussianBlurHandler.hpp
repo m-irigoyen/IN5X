@@ -16,10 +16,8 @@ public:
 	// La taille du kernel utilisé pour le flou gaussien
 	enum GB_KERNEL_SIZE
 	{
-		GBK_SMALL = 3,
-		GBK_MEDIUM = 17,
-		GBK_HIGH = 33,
-		GBK_OPTIMAL = 9
+		GBK_OPTIMAL = 9,
+		GBK_OPTIMAL2 = 11
 	};
 
 	// Applique un flou gaussien sur l'image passée en paramètre. 
