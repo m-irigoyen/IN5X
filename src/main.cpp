@@ -67,11 +67,13 @@ int main(int argc, char* argv[])
 	Mat image,contour;
 
 	if (!ImageHandler::loadImage(PATHS::DATABASE2 + "n_cavalier_face (1).jpg", image))
+
 	{
 		cout << "erreur : probleme de chargement de l'image." << endl;
 		return EXIT_FAILURE;
 	}
 	handler.prepareImage_canny(image, contour);
+
 	imshow("Image1", contour);
 	waitKey(0);
 	TransformPiece tpiece = TransformPiece(contour);
