@@ -9,25 +9,24 @@ FILE (GLOB_RECURSE sourceFiles src/*)
 INCLUDE_DIRECTORIES( ${CMAKE_CURRENT_SOURCE_DIR}/include )
 
 FILE(GLOB_RECURSE SRCS_RECON
-	${IA54_SOURCE_DIR}
-	${IA54_SOURCE_DIR}/src/Reconnaissance/*.cpp 
-	${IA54_SOURCE_DIR}/src/Reconnaissance/*.h)
+	${IN5X_SOURCE_DIR}
+	${IN5X_SOURCE_DIR}/src/Reconaissance/*.cpp 
+	${IN5X_SOURCE_DIR}/src/Reconaissance/*.h)
 	FILE(GLOB_RECURSE SRCS_RECONPREP
-	${IA54_SOURCE_DIR}
-	${IA54_SOURCE_DIR}/src/ReconnaissancePreparation/*.cpp 
-	${IA54_SOURCE_DIR}/src/ReconnaissancePreparation/*.h)
+	${IN5X_SOURCE_DIR}
+	${IN5X_SOURCE_DIR}/src/ReconaissancePreparation/*.cpp 
+	${IN5X_SOURCE_DIR}/src/ReconaissancePreparation/*.h)
 	FILE(GLOB_RECURSE SRCS_UTILITIES
-	${IA54_SOURCE_DIR}
-	${IA54_SOURCE_DIR}/src/Utilities/*.cpp 
-	${IA54_SOURCE_DIR}/src/Utilities/*.h)
-	FILE(GLOB_RECURSE SRCS_MAIN
-	${IA54_SOURCE_DIR}
-	${IA54_SOURCE_DIR}/src/main.cpp 
-	${IA54_SOURCE_DIR}/src/exampleCode.h)
+	${IN5X_SOURCE_DIR}
+	${IN5X_SOURCE_DIR}/src/Utilities/*.cpp 
+	${IN5X_SOURCE_DIR}/src/Utilities/*.h)
+	FILE(GLOB_RECURSE SRCS_MAIN 
+	${IN5X_SOURCE_DIR}/src 
+	main.cpp)
 	
 	
-source_group(Reconnaissance FILES ${SRCS_RECON})
-source_group(ReconnaissancePreparation FILES ${SRCS_RECONPREP})
+source_group(Reconaissance FILES ${SRCS_RECON})
+source_group(ReconaissancePreparation FILES ${SRCS_RECONPREP})
 source_group(Utilities FILES ${SRCS_UTILITIES})
 
 link_directories( ${CMAKE_BINARY_DIR}/bin)
