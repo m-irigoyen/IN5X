@@ -25,7 +25,6 @@ public :
 	int gaussianSize;
 	int cannySize;
 	int cannyThreshold;
-	int threshold;
 private:
 	
 };
