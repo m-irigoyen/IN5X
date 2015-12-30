@@ -15,6 +15,8 @@ public:
 	TransformPiece(Mat);
 	vector <pair<int,int>> rotation(float angle);
 	void findDirection();
+	vector <pair<int, int>> findPathcontour();
+	void MAJimg();
 private:
 	Mat img;
 	vector<pair<int, int>> piece;
