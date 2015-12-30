@@ -40,7 +40,15 @@ int main(int argc, char* argv[])
 	
 	// TEST TRAITEMENT IMAGE
 	ImageTester tester;
-	tester.testImage_cannyMethod("n_roi_face (1).jpg");
+	//tester.testImage_cannyMethod("n_pion_face (13).JPG");
+	//tester.testImage_cannyMethod("n_pion_face (3).JPG");
+	//tester.testImage_cannyMethod("n_fou_face (3).JPG");
+	//tester.testImage_cannyMethod("n_fou_cote (3).JPG");
+	//tester.testImage_cannyMethod("n_reine_face (3).JPG");
+	//tester.testImage_cannyMethod("n_roi_face (3).JPG");
+	//tester.testImage_cannyMethod("n_cavalier_face (3).JPG");
+	//tester.testImage_cannyMethod("n_cavalier_cote (3).JPG");
+	//tester.testImage_cannyMethod("n_tour_face (3).JPG");
 
 	ImageHandler handler;
 	Mat image,contour;
@@ -52,6 +60,7 @@ int main(int argc, char* argv[])
 	}
 	handler.prepareImage_canny(image, contour);
 	Box b(contour);
+
 	waitKey(0);
 	return EXIT_SUCCESS;
 

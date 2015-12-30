@@ -2,9 +2,10 @@
 
 ImageTester::ImageTester()
 {
-	this->gaussianSize = 9;
-	this->cannySize = 3;
-	this->cannyThreshold = 87;
+	this->gaussianSize = GaussianBlurHandler::GB_KERNEL_SIZE::GBK_OPTIMAL;
+	this->cannySize = CannyOperatorHandler::KERNEL_SIZE::CK_OPTIMAL;
+	this->cannyThreshold = CannyOperatorHandler::THRESHOLD_SIZE::CT_OPTIMAL;
+	this->threshold = TresholdingHandler::THRESHOLD::T_OPTIMAL;
 }
 
 void ImageTester::testImage_cannyMethod(string imageName)
@@ -30,8 +31,9 @@ void ImageTester::testImage_cannyMethod(string imageName)
 	createTrackbar("G Size:", "test", &gaussianSize, 63, &testImageCallback_cannyMethod,this);		// La taille du kernel du filtre gaussien
 	createTrackbar("C Size:", "test", &cannySize, 5, &testImageCallback_cannyMethod, this);			// La taille du kernel de l'opérateur de canny
 	createTrackbar("C Thresh:", "test", &cannyThreshold, 127, &testImageCallback_cannyMethod, this);	// La limite basse de l'opérateur de canny
+	createTrackbar("T Thresh:", "test", &threshold, 255, &testImageCallback_cannyMethod, this);	// La limite basse de l'opérateur de canny
 
-	this->testImageCallback_cannyMethod(0,0);
+	this->testImageCallback_cannyMethod(0,this);
 }
 
 void ImageTester::testImageCallback_cannyMethod(int, void * object)
@@ -45,7 +47,7 @@ void ImageTester::testImageCallback_cannyMethod(int, void * object)
 	if (t->gaussianSize % 2 != 1 || t->cannySize < 3 || t->cannySize % 2 != 1 || t->cannySize >= 7)
 		return;
 
-	ImageHandler::prepareImage_canny(t->src_gray, t->output, t->gaussianSize, t->cannySize, t->cannyThreshold);
+	ImageHandler::prepareImage_canny(t->src_gray, t->output, t->gaussianSize, t->cannySize, t->cannyThreshold, t->threshold);
 
 	imshow("test", t->output);
 
