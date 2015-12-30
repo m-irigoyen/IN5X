@@ -32,21 +32,27 @@ vector<pair<int,int>> TransformPiece::rotation(float angle) {
 void TransformPiece::findDirection() {
 	vector<pair<int, int>> pieceTmp, finalPiece;
 	finalPiece = piece;
+	Box box_final = box;
 	for (int i = 0; i < 360; ++i) {
 		pieceTmp = rotation(i);
 		Box boxtmp = Box(pieceTmp);
-		if (box.aire > boxtmp.aire) {
-			box.points_box = boxtmp.points_box;
-			box.aire = boxtmp.aire;
+		if (box_final.aire > boxtmp.aire) {
+			box_final.points_box = boxtmp.points_box;
+			box_final.aire = boxtmp.aire;
 			finalPiece = pieceTmp;
 		}
 	}
+	box.points_box = box_final.points_box;
+	box.aire = box_final.aire;
+	piece = finalPiece;
 	if (box.points_box.at(2).first - box.points_box.at(0).first > box.points_box.at(1).second - box.points_box.at(0).second) {
 		piece = rotation(90);
 		box = Box(finalPiece);
 	}
 
 	MAJimg();
+	imshow("bite", img);
+	waitKey(0);
 	int count_up = 0, count_down = 0;
 	for (int i = box.points_box.at(0).first; i <= box.points_box.at(2).first; ++i) {
 		if (img.at<uchar>(box.points_box.at(0).second, i) == 255) {
