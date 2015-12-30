@@ -35,18 +35,21 @@ int main(int argc, char* argv[])
 
 	
 	// TEST TRAITEMENT IMAGE
-	ImageTester tester;
-	tester.testImage_cannyMethod("n_cavalier_face (1).jpg");
+	//ImageTester tester;
+	//tester.testImage_cannyMethod("n_cavalier_face (1).jpg");
 
 	Mat image,contour;
 	ImageHandler handler;
 
-	if (!ImageHandler::loadImage(PATHS::DATABASE2 + "n_cavalier_cote (1).jpg", image))
+	if (!ImageHandler::loadImage(PATHS::DATABASE2 + "n_cavalier_cote (2).jpg", image))
 	{
 		cout << "ERREUR : probleme de chargement de l'image." << endl;
 		return EXIT_FAILURE;
 	}
 	handler.prepareImage_canny(image, contour);
+	/*namedWindow("test");
+	imshow("test", contour);*/
+
 	TransformPiece tpiece = TransformPiece(contour);
 	tpiece.findDirection();
 	vector<pair<int, int>> path = tpiece.findPathcontour();
