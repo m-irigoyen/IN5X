@@ -24,8 +24,7 @@ FILE(GLOB_RECURSE SRCS_RECON
 	${IN5X_SOURCE_DIR}/src/Utilities/*.cpp 
 	${IN5X_SOURCE_DIR}/src/Utilities/*.h)
 	FILE(GLOB_RECURSE SRCS_MAIN 
-	${IN5X_SOURCE_DIR}/src 
-	main.cpp)
+	${IN5X_SOURCE_DIR}/src/main.cpp)
 	
 	
 source_group(Reconaissance FILES ${SRCS_RECON})
