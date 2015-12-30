@@ -6,6 +6,8 @@
 #include <vector>
 #include <map>
 
+#include "filePaths.hpp"
+#include "ReconaissancePreparation/ImageHandler.h"
 
 #define DATABASE_LEARNINGRATIO 60.0f
 
@@ -21,6 +23,7 @@ public:
 
 	// Construit une base de donnée contenant les types et angles passés en paramètre
 	void buildDatabase(bool isLearningDatabase, vector<PIECE_TYPE> types, vector<PIECE_ANGLE> angles, vector<PIECE_COLOR> colors);
+	void buildDatabase(bool isLearningDatabase, PIECE_TYPE type, PIECE_ANGLE angle, PIECE_COLOR color);
 
 	vector<DatabaseImage>& getImages();
 
@@ -28,26 +31,9 @@ private:
 	vector<DatabaseImage> images;
 
 	// map qui stocke pour chaque type de pièce le nombre d'images qu'on en a
-	//map< pair<pair<PIECE_TYPE, PIECE_ANGLE>, PIECE_COLOR> , int>
+	// pair<pair<type,angle>, color>, nombre>
+	map< pair<pair<PIECE_TYPE, PIECE_ANGLE>, PIECE_COLOR>, int> numberOfImages;
 	// Nombre d'images
-	int n_roi_face;
-	int n_roi_dessus;
-	int n_roi_cote;
-	int n_reine_face;
-	int n_reine_dessus;
-	int n_reine_cote;
-	int n_fou_face;
-	int n_fou_dessus;
-	int n_fou_cote;
-	int n_cavalier_face;
-	int n_cavalier_dessus;
-	int n_cavalier_cote;
-	int n_tour_face;
-	int n_tour_dessus;
-	int n_tour_cote;
-	int n_pion_face;
-	int n_pion_dessus;
-	int n_pion_cote;
 
 	// Fonctions
 	void computeNumberOfImages();
@@ -59,6 +45,9 @@ private:
 	string getExtension();
 	int getNumberOfImagesFromType(DatabaseImageDescriptor d);
 	int getNumberOfImagesFromType(PIECE_TYPE t, PIECE_ANGLE a, PIECE_COLOR c);
+	void loadImageFromType(DatabaseImageDescriptor d, int number, Mat& image);
+	void loadImageFromType(PIECE_TYPE t, PIECE_ANGLE a, PIECE_COLOR c, int number, Mat& image);
+	string buildPath(DatabaseImageDescriptor d, int number);
 };
 
 #endif // !DEF_GAUSSIANBLURHANDLER
