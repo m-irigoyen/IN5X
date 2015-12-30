@@ -14,7 +14,7 @@ public:
 	Box(Mat);
 private:
 	vector<pair<int, int>> points_box;
-	int xmin, ymin, xmax, ymax, angle;
+	int xmin, ymin, xmax, ymax;
 };
 
 #endif //!DEF_BOX
