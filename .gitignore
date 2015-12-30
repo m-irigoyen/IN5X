@@ -1,1 +1,5 @@
 /res/database
+/src/Reconaissance/ReconnaissanceHandler.h
+/src/Reconaissance/ReconnaissanceHandler.cpp
+/src/ReconaissancePreparation/ReconnaissancePreparationHandler.h
+/src/ReconaissancePreparation/ReconnaissancePreparationHandler.cpp

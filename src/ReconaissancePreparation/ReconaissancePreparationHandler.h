@@ -1,0 +1,9 @@
+#ifndef DEF_RECONNAISSANCEPREPARATIONHANDLER
+#define DEF_RECONNAISSANCEPREPARATIONHANDLER
+
+class ReconnaissancePreparationHandler
+{
+
+};
+
+#endif 
