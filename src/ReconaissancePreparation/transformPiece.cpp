@@ -23,7 +23,7 @@ vector<pair<int,int>> TransformPiece::rotation(float angle) {
 	pair<int, int> center = pair<int, int>((box.points_box.at(0).second + box.points_box.at(2).second) / 2, (box.points_box.at(0).first + box.points_box.at(2).first) / 2);
 	for (int j = 0; j < piece.size(); ++j) {
 		rotate_piece.at(j).first = ((piece.at(j).first - center.first) * cos(angle) + (piece.at(j).second - center.second) * sin(angle)) + center.first;
-		rotate_piece.at(j).second = - ((piece.at(j).first - center.first)* sin(angle) + (piece.at(j).second - center.second)* cos(angle)) + center.second;
+		rotate_piece.at(j).second =  (-(piece.at(j).first - center.first)* sin(angle) + (piece.at(j).second - center.second)* cos(angle)) + center.second;
 	}
 
 	return rotate_piece;
@@ -62,8 +62,8 @@ void TransformPiece::findDirection() {
 			count_down++;
 		}
 	}
-
-	if (count_up > count_down) {
+		
+   	if (count_up > count_down) {
 		piece = rotation(180);
 		box = Box(piece);
 	}
