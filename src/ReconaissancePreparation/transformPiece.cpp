@@ -47,23 +47,30 @@ void TransformPiece::findDirection() {
 	piece = finalPiece;
 	if (box.points_box.at(2).first - box.points_box.at(0).first > box.points_box.at(1).second - box.points_box.at(0).second) {
 		piece = rotation(90);
-		box = Box(finalPiece);
+		box = Box(piece);
 	}
-
+	img = img * 0;
 	MAJimg();
 	imshow("bite", img);
 	waitKey(0);
 	int count_up = 0, count_down = 0;
+	int first_up = -1, first_down = -1, last_up, last_down;
 	for (int i = box.points_box.at(0).first; i <= box.points_box.at(2).first; ++i) {
-		if (img.at<uchar>(box.points_box.at(0).second, i) == 255) {
-			count_up++;
+		if (img.at<uchar>(box.points_box.at(0).second+4, i) == 255) {
+			if (first_up == -1) {
+				first_up = i;
+			}
+			last_up = i;
 		}
-		if (img.at<uchar>(box.points_box.at(2).second, i) == 255) {
-			count_down++;
+		if (img.at<uchar>(box.points_box.at(2).second-4, i) == 255) {
+			if (first_down == -1) {
+				first_down = i;
+			}
+			last_down = i;
 		}
 	}
 		
-   	if (count_up > count_down) {
+   	if (last_up-first_up > last_down-first_down) {
 		piece = rotation(180);
 		box = Box(piece);
 	}
