@@ -53,7 +53,6 @@ void TransformPiece::findDirection() {
 	MAJimg();
 	imshow("bite", img);
 	waitKey(0);
-	int count_up = 0, count_down = 0;
 	int first_up = -1, first_down = -1, last_up, last_down;
 	for (int i = box.points_box.at(0).first; i <= box.points_box.at(2).first; ++i) {
 		if (img.at<uchar>(box.points_box.at(0).second+4, i) == 255) {
