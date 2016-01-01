@@ -22,7 +22,7 @@ void ReconnaissancePreparationHandler::learning(DatabaseHandler & database, PCA&
 		buildCaracteristicVector(i.mat, caracteristicVector);
 		// ajouté le vecteur a la matrice caracteristicVectors
 		for (int r = 0; r < caracteristicVector.size; ++r) {
-			caracteristicVectors.at<float>(r, c);
+			caracteristicVectors.at<float>(r, c) = caracteristicVector[r];
 		}
 		++c;
 	}
