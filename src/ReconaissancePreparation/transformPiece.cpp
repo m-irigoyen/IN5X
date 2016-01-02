@@ -51,8 +51,6 @@ void TransformPiece::findDirection() {
 	}
 	img = img * 0;
 	MAJimg();
-	imshow("bite", img);
-	waitKey(0);
 	int first_up = -1, first_down = -1, last_up, last_down;
 	for (int i = box.points_box.at(0).first; i <= box.points_box.at(2).first; ++i) {
 		if (img.at<uchar>(box.points_box.at(0).second+4, i) == 255) {
@@ -73,14 +71,9 @@ void TransformPiece::findDirection() {
 		piece = rotation(180);
 		box = Box(piece);
 	}
-	/*img = img * 0;
-	for (int i = 0; i < piece.size(); ++i) {
-		img.at<uchar>(piece.at(i).first, piece.at(i).second) = 255;
-	}*/
+
 	img = img * 0;
 	MAJimg();
-	imshow("Test3", img);
-	waitKey(0);
 }
 
 vector<pair<int,int>> TransformPiece::findPathcontour() {
@@ -177,7 +170,5 @@ vector<pair<int,int>> TransformPiece::findPathcontour() {
 	for (int i = 0; i < path.size(); ++i) {
 		img2.at<uchar>(path.at(i).first, path.at(i).second) = 255;
 	}
-	imshow("testtamère", img2);
-	waitKey(0);
 	return path;
 }
