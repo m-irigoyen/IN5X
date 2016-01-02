@@ -1,14 +1,6 @@
 #include "ReconaissancePreparationHandler.h"
 
 
-void ReconnaissancePreparationHandler::prepareImage_method1(string imageName, Mat & output)
-{
-	Mat src, src_prepared;
-	ImageHandler::loadImage(imageName, src);
-	ImageHandler::prepareImage_canny(src, src_prepared);
-
-}
-
 void ReconnaissancePreparationHandler::buildCaracteristicVector(Mat image, vector<float>& caracteristicVector, int n, int x)
 {
 	Mat edges;
@@ -36,6 +28,7 @@ void ReconnaissancePreparationHandler::learning(DatabaseHandler & database, PCA&
 	int c = 0;
 	for (DatabaseImage i : images)
 	{
+		//TODO: mais comment tu sais quel vecteur est quoi là? Dans la base de données, ya genre N images de pions, M images de Rois, etc. Comment tu tries ça là?
 		vector<float> caracteristicVector;
 		buildCaracteristicVector(i.mat, caracteristicVector);
 		// ajouté le vecteur a la matrice caracteristicVectors
@@ -52,7 +45,7 @@ void ReconnaissancePreparationHandler::learning(DatabaseHandler & database, PCA&
 
 }
 
-vector<float> ReconnaissancePreparationHandler:: meanVectorClass(vector<vector<float>> vectorsClass) {
+vector<float> ReconnaissancePreparationHandler::meanVectorClass(vector<vector<float>> vectorsClass) {
 	vector<float> mean;
 	for (int i = 0; i < vectorsClass.size(); ++i) {
 		vector<float> caracPiece = vectorsClass.at(i);
@@ -71,6 +64,31 @@ vector<float> ReconnaissancePreparationHandler:: meanVectorClass(vector<vector<f
 			}
 		}
 	}
-
 	return mean;
+}
+
+void ReconnaissancePreparationHandler::learning(DatabaseHandler & database, vector<vector<float>>& classes)
+{
+	vector<DatabaseImage>& images = database.getImages();
+	
+	vector<vector<vector<float>>> fullClasses;
+
+	// Initialisation des classes
+	for (int i = 0; i < 6; ++i)
+		fullClasses.push_back(vector<vector<float>>());
+
+	for (DatabaseImage i : images)
+	{
+		vector<float> caracteristicVector;
+		buildCaracteristicVector(i.mat, caracteristicVector);
+		fullClasses.at((int)i.descriptor.type).push_back(caracteristicVector);
+	}
+
+	// Donc là, fullClasses contient pour chaque classe TOUS les vecteurs caractéristiques de cette classe. Maintenant, on en fait la moyenne
+	//TODO: faire la moyenne
+	for (int i = 0; i < 6; ++i)
+	{
+		classes.at(i) = ReconnaissancePreparationHandler::meanVectorClass(fullClasses.at(i));
+	}
+>>>>>>> 051bd6c84219a23c69966d7ccbc35126d250894e
 }

@@ -16,11 +16,12 @@ using namespace std;
 class ReconnaissanceHandler
 {
 private:
-	//TODO: stocker les classes ici pour éviter les calculs inutiles
+	vector<vector<float>> classes;
 
 public:
+	void setClasses(vector<vector<float>>& classes);
 	
-	PIECE_TYPE completeReconaissance(string imageName, vector<vector<float>>& classes);
+	PIECE_TYPE completeReconaissance(string imageName);
 
 	// Pour le vecteur caractéristique et les classes données, retourne les probabilités d'appartenance à chaque pièce (méthode sans PCA)
 	vector<float> recognise(vector<float>& caracteristicVector, vector<vector<float>>& classes);
