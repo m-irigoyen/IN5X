@@ -5,9 +5,6 @@
 #include <algorithm>
 #include <math.h>
 
-// TODO : ? C'est quoi ça?
-//int degree;
-//vector<float> coefficients;
 
 Polynome::Polynome() {
 	degree = 0;

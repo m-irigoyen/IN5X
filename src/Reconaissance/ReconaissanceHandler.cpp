@@ -11,8 +11,6 @@ vector<float> ReconnaissanceHandler::recognise(vector<float>& caracteristicVecto
 
 PIECE_TYPE ReconnaissanceHandler::getTypeFromProbabilities(vector<float> probabilities)
 {
-	//TODO : trouver le type en fonction des probas
-
 	int smallest = 0;
 	for (int i = 1; i < probabilities.size(); ++i)
 	{
