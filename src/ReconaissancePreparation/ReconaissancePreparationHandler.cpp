@@ -71,4 +71,6 @@ vector<float> ReconnaissancePreparationHandler:: meanVectorClass(vector<vector<f
 			}
 		}
 	}
+
+	return mean;
 }

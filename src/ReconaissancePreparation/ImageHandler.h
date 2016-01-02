@@ -8,7 +8,8 @@
 #include "ThresholdingHandler.h"
 #include "gaussianBlurHandler.hpp"
 #include "transformPiece.hpp"
-#include "Utilities/filePaths.hpp"
+//#include "Utilities/filePaths.hpp"
+#include "../Utilities/filePaths.hpp"
 
 using namespace std;
 
