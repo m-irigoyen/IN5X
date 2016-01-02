@@ -13,10 +13,9 @@ void ReconnaissancePreparationHandler::buildCaracteristicVector(Mat image, vecto
 		normalized_contour.push_back(contour.at(round(i*gap)));
 	}
 	int x = 6; //x is the number of points take before and after actual point in lagrange interpolation
-	tangent_descriptor descriptor = tangent_descriptor(normalized_contour, x);
+	tangent_descriptor descriptor(normalized_contour, x);
 
-	//TODO : amarre réparer le caca de Pès
-	caracteristicVector = descriptor.angle();
+	caracteristicVector = descriptor.angle;
 
 }
 
@@ -37,7 +36,6 @@ void ReconnaissancePreparationHandler::learning(DatabaseHandler & database, PCA&
 	}
 
 	//TODO implémenter l'apprentissage des classes : ici c'est avec le pca, c'est pas vraiment de l'aprentissage mais bon..
-	
 	pca = PCA(caracteristicVectors, Mat(), CV_PCA_DATA_AS_COL);
 	reducedLearnDB = pca.project(caracteristicVectors);
 

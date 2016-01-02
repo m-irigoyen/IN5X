@@ -8,3 +8,9 @@ vector<float> ReconnaissanceHandler::recognise(vector<float>& caracteristicVecto
 	//TODO: implémenter les probabilités d'appartenance P(v|c) = nbVecteur appatenant a c / nbVecteur dans KNN
 	return vector<float>();
 }
+
+vector<float> ReconnaissanceHandler::recognise(vector<float>& caracteristicVector)
+{
+	//TODO: méthode de reconnaissance sans PCA
+	return vector<float>();
+}

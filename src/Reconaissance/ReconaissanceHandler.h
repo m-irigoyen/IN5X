@@ -15,7 +15,9 @@ class ReconnaissanceHandler
 public:
 	
 
-	// Pour le vecteur caractéristique et les classes données, retourne les probabilités d'appartenance à chaque pièce
+	// Pour le vecteur caractéristique et les classes données, retourne les probabilités d'appartenance à chaque pièce (méthode sans PCA)
+	vector<float> recognise(vector<float>& caracteristicVector);
+	// Pour le vecteur caractéristique et les classes données, retourne les probabilités d'appartenance à chaque pièce (méthode PCA)
 	vector<float> recognise(vector<float>& caracteristicVector, PCA pca, Mat reducedLearnDB);
 };
 
