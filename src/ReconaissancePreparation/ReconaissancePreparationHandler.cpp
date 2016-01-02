@@ -36,6 +36,7 @@ void ReconnaissancePreparationHandler::learning(DatabaseHandler & database, PCA&
 	int c = 0;
 	for (DatabaseImage i : images)
 	{
+		//TODO: mais comment tu sais quel vecteur est quoi là? Dans la base de données, ya genre N images de pions, M images de Rois, etc. Comment tu tries ça là?
 		vector<float> caracteristicVector;
 		buildCaracteristicVector(i.mat, caracteristicVector);
 		// ajouté le vecteur a la matrice caracteristicVectors
@@ -50,4 +51,25 @@ void ReconnaissancePreparationHandler::learning(DatabaseHandler & database, PCA&
 	pca = PCA(caracteristicVectors, Mat(), CV_PCA_DATA_AS_COL);
 	reducedLearnDB = pca.project(caracteristicVectors);
 
+}
+
+void ReconnaissancePreparationHandler::learning(DatabaseHandler & database, vector<vector<float>>& classes)
+{
+	vector<DatabaseImage>& images = database.getImages();
+	
+	vector<vector<vector<float>>> fullClasses;
+
+	// Initialisation des classes
+	for (int i = 0; i < 6; ++i)
+		fullClasses.push_back(vector<vector<float>>());
+
+	for (DatabaseImage i : images)
+	{
+		vector<float> caracteristicVector;
+		buildCaracteristicVector(i.mat, caracteristicVector);
+		fullClasses.at((int)i.descriptor.type).push_back(caracteristicVector);
+	}
+
+	// Donc là, fullClasses contient pour chaque classe TOUS les vecteurs caractéristiques de cette classe. Maintenant, on en fait la moyenne
+	//TODO: faire la moyenne
 }
