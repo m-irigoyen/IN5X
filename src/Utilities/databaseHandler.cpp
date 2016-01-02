@@ -18,10 +18,13 @@ void DatabaseHandler::buildDatabase(bool isLearningDatabase, vector<PIECE_TYPE> 
 void DatabaseHandler::buildDatabase(bool isLearningDatabase, vector<PIECE_TYPE> types, PIECE_ANGLE angle, PIECE_COLOR color)
 {
 	vector<PIECE_ANGLE> angles;
-	angles.push_back(angle);
-
 	vector<PIECE_COLOR> colors;
-	colors.push_back(color);
+
+	for (int i = 0; i < types.size(); ++i)
+	{
+		colors.push_back(color);
+		angles.push_back(angle);
+	}
 
 	this->buildDatabase(isLearningDatabase, types, angles, colors);
 }
