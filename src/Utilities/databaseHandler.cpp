@@ -118,6 +118,7 @@ void DatabaseHandler::getAllImagesFromType(bool learning, PIECE_TYPE t, PIECE_AN
 			d.type = t;
 			d.color = c;
 			d.angle = a;
+			d.number = i;
 
 			DatabaseImage imgFinal;
 			imgFinal.descriptor = d;

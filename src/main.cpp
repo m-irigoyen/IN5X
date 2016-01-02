@@ -21,7 +21,7 @@ int main(int argc, char* argv[])
 	types.push_back(PIECE_TYPE::ROI);
 	types.push_back(PIECE_TYPE::TOUR);
 
-	db.buildDatabase(false, types, PIECE_ANGLE::FACE, PIECE_COLOR::NOIR);
+	db.buildDatabase(true, types, PIECE_ANGLE::FACE, PIECE_COLOR::NOIR);
 
 
 	// Construction des classes

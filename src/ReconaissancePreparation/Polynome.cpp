@@ -5,9 +5,6 @@
 #include <algorithm>
 #include <math.h>
 
-// TODO : ? C'est quoi ça?
-//int degree;
-//vector<float> coefficients;
 
 Polynome::Polynome() {
 	degree = 0;
@@ -58,7 +55,6 @@ Polynome Polynome::product(Polynome* pol)
 Polynome Polynome::pol_lagrange(vector<pair<int,int>> points, int i){
 	vector<float> vec = vector<float>(2,0);
 
-	//TODO : là je suis pas sûr de qu'est ce que c'est les histoires avec ce new là
 	Polynome pol = Polynome(1,vec);
 	vector<float> newCoeffs = vector<float>(2, 0);
 	this->setCoefficients(newCoeffs);
@@ -85,7 +81,6 @@ void Polynome::interp_lagrange(vector<pair<int,int>> points) {
 	Polynome pol_interp = Polynome(1, vector<float>(2, 0));
 	Polynome pol_l = Polynome(1, vector<float>(2, 0));
 	for (int i = 0; i < points.size(); ++i) {
-		//TODO: pareil, là je bite pas tout
 		pol_interp += pol_l.pol_lagrange(points, i).product(&Polynome(0, vector<float>(1, points.at(i).second)));
 	}
 

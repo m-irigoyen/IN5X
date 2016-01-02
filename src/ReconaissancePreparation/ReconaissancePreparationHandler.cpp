@@ -28,7 +28,6 @@ void ReconnaissancePreparationHandler::learning(DatabaseHandler & database, PCA&
 	int c = 0;
 	for (DatabaseImage i : images)
 	{
-		//TODO: mais comment tu sais quel vecteur est quoi là? Dans la base de données, ya genre N images de pions, M images de Rois, etc. Comment tu tries ça là?
 		vector<float> caracteristicVector;
 		buildCaracteristicVector(i.mat, caracteristicVector);
 		// ajouté le vecteur a la matrice caracteristicVectors
@@ -85,7 +84,6 @@ void ReconnaissancePreparationHandler::learning(DatabaseHandler & database, vect
 	}
 
 	// Donc là, fullClasses contient pour chaque classe TOUS les vecteurs caractéristiques de cette classe. Maintenant, on en fait la moyenne
-	//TODO: faire la moyenne
 	for (int i = 0; i < 6; ++i)
 	{
 		classes.at(i) = ReconnaissancePreparationHandler::meanVectorClass(fullClasses.at(i));

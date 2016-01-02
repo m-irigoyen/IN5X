@@ -32,6 +32,7 @@ struct DatabaseImageDescriptor
 	PIECE_TYPE type;
 	PIECE_ANGLE angle;
 	PIECE_COLOR color;
+	int number;
 };
 
 struct DatabaseImage
