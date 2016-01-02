@@ -11,7 +11,7 @@ Polynome::Polynome() {
 	coefficients = vector<float>(1, 0);
 }
 
-Polynome::Polynome(int degr, vector<float> coeffs)
+Polynome::Polynome(int degr, vector<float>& coeffs)
 {
 	degree = degr;
 	coefficients = coeffs;
@@ -44,7 +44,7 @@ Polynome Polynome::product(Polynome* pol)
 	vector<float> newCoeffs = vector<float>(newDegree+1,0);
 	for (int i = 0; i<=degree; ++i){
 		for (int j = 0; j<=pol->getDegree(); ++j){
-			newCoeffs.at(i+j) += coefficients.at(i)*pol->getCoefficients().at(j);
+			newCoeffs.at(i+j) += coefficients.at(i)*pol->getCoefficientsAt(j);
 		}
 	}
 	degree = newDegree;
@@ -52,7 +52,7 @@ Polynome Polynome::product(Polynome* pol)
 	return *this;
 }
 
-Polynome Polynome::pol_lagrange(vector<pair<int,int>> points, int i){
+Polynome Polynome::pol_lagrange(vector<pair<int,int>>& points, int i){
 	vector<float> vec = vector<float>(2,0);
 
 	Polynome pol = Polynome(1,vec);
@@ -84,26 +84,26 @@ Polynome Polynome::pol_lagrange(vector<pair<int,int>> points, int i){
 				this->product(&pol);
 			}
 		}
-		
 	}
 	return *this;
 }
 
-void Polynome::interp_lagrange(vector<pair<int,int>> points) {
+void Polynome::interp_lagrange(vector<pair<int,int>>& points) {
 	Polynome pol_interp = Polynome(1, vector<float>(2, 0));
 	Polynome pol_l = Polynome(1, vector<float>(2, 0));
 	for (int i = 0; i < points.size(); ++i) {
+		//TODO: reste de l'opti a faire ici probablement
 		pol_interp += pol_l.pol_lagrange(points, i).product(&Polynome(0, vector<float>(1, points.at(i).second)));
 	}
 
 	degree = pol_interp.getDegree();
-	coefficients = pol_interp.getCoefficients();
+	pol_interp.getCoefficients(this->coefficients);
 }
 
-void Polynome::operator+=(Polynome p) {
+void Polynome::operator+=(Polynome& p) {
 	vector<float> vec = vector<float>(max(degree, p.getDegree()) + 1, 0);
 	if (p.getDegree() > degree) {
-		vec = p.getCoefficients();
+		p.getCoefficients(vec);
 	}
 	else {
 		vec = coefficients;
@@ -113,10 +113,10 @@ void Polynome::operator+=(Polynome p) {
 			vec.at(i)+= coefficients.at(i - p.getDegree() + degree);
 		}
 		else if (p.getDegree() < degree) {
-			vec.at(i) += p.getCoefficients().at(i - degree + p.getDegree());
+			vec.at(i) += p.getCoefficientsAt((i - degree + p.getDegree()));
 		}
 		else {
-			vec.at(i) += p.getCoefficients().at(i);
+			vec.at(i) += p.getCoefficientsAt(i);
 		}
 	}
 	degree = max(degree, p.getDegree());
@@ -146,12 +146,15 @@ float Polynome::value_y(float x) {
 }
 
 float Polynome::angle(Polynome p) {
-	float angle = atan((p.getCoefficients().at(0) - coefficients.at(0) / (1 + p.getCoefficients().at(0) * coefficients.at(0))));
-	if (p.getCoefficients().at(0) != p.getCoefficients().at(0)) {
-		angle = atan(coefficients.at(0)) - atan(1)*2;
+	vector<float> coeff;
+	p.getCoefficients(coeff);
+
+	float angle = atan((coeff.at(0) - this->coefficients.at(0) / (1 + coeff.at(0) * this->coefficients.at(0))));
+	if (coeff.at(0) != coeff.at(0)) {
+		angle = atan(this->coefficients.at(0)) - atan(1)*2;
 	}
-	if (coefficients.at(0) != coefficients.at(0)) {
-		angle = atan(p.getCoefficients().at(0)) - atan(1)*2;
+	if (this->coefficients.at(0) != this->coefficients.at(0)) {
+		angle = atan(coeff.at(0)) - atan(1)*2;
 	}
 	return angle;
 }
@@ -159,4 +162,14 @@ int Polynome::getDegree(){ return degree; }
 
 vector<float> Polynome::getCoefficients() { return coefficients;}
 
-void Polynome::setCoefficients(vector<float> newCoeff) { coefficients = newCoeff;}
+void Polynome::getCoefficients(vector<float>& coeff)
+{
+	coeff = coefficients;
+}
+
+float Polynome::getCoefficientsAt(int i)
+{
+	return this->coefficients.at(i);
+}
+
+void Polynome::setCoefficients(vector<float>& newCoeff) { coefficients = newCoeff;}

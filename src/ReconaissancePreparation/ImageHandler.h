@@ -34,7 +34,7 @@ public:
 	
 	static bool loadImage(std::string name, Mat& output);
 
-	static vector<pair<int, int>> findContour(Mat contour);
+	static void findContour(Mat& contour, vector<pair<int, int>>& result);
 
 	// Prepares the image for recognition : gaussianBlur -> cannyOperator -> thresholding
 	/*static void prepareImage_canny(Mat src,

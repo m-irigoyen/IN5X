@@ -5,7 +5,8 @@ void ReconnaissancePreparationHandler::buildCaracteristicVector(Mat image, vecto
 {
 	Mat edges;
 	ImageHandler::prepareImage_canny(image, edges);
-	vector<pair<int, int>> contour = ImageHandler::findContour(edges);
+	vector<pair<int, int>> contour;
+	ImageHandler::findContour(edges, contour);
 	float gap = contour.size() / n;
 	if (gap < 1) {
 		cout << "ReconnaissancePreparationHandler::buildCaracteristicVector : Erreur! La pièce est trop petite" << std::endl;

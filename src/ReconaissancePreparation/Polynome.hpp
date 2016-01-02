@@ -11,15 +11,17 @@ using namespace std;
 class Polynome {
 public:
 	Polynome();
-	Polynome(int, vector<float>);
+	Polynome(int, vector<float>&);
 	Polynome derivative();
 	Polynome product(Polynome*);
 	int getDegree();
 	vector<float> getCoefficients();
-	void setCoefficients(vector<float>);
-	Polynome pol_lagrange(vector<pair<int,int>>, int);
-	void interp_lagrange(vector<pair<int,int>>);
-	void operator+=(Polynome);
+	void getCoefficients(vector<float>&);
+	float getCoefficientsAt(int i);
+	void setCoefficients(vector<float>&);
+	Polynome pol_lagrange(vector<pair<int,int>>&, int);
+	void interp_lagrange(vector<pair<int,int>>&);
+	void operator+=(Polynome&);
 	Polynome find_tangente(int);
 	float value_y(float x);
 	float angle(Polynome p);

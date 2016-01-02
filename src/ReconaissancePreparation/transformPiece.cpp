@@ -1,7 +1,7 @@
 #include "transformPiece.hpp"
 #define PI 3.14159265
 
-TransformPiece::TransformPiece(Mat i){
+TransformPiece::TransformPiece(Mat& i){
 	img = i;
 	for (int i = 0; i < img.rows; ++i) {
 		for (int j = 0; j < img.cols; ++j) {
@@ -17,16 +17,14 @@ void TransformPiece::MAJimg() {
 		img.at<uchar>(piece.at(i).first, piece.at(i).second) = 255;
 	}
 }
-vector<pair<int,int>> TransformPiece::rotation(float angle) {
-	vector<pair<int, int>> rotate_piece = piece;
+void TransformPiece::rotation(float angle, vector <pair<int, int>>& result) {
+	result = piece;
 	angle = angle * PI / 180;
 	pair<int, int> center = pair<int, int>((box.points_box.at(0).second + box.points_box.at(2).second) / 2, (box.points_box.at(0).first + box.points_box.at(2).first) / 2);
 	for (int j = 0; j < piece.size(); ++j) {
-		rotate_piece.at(j).first = ((piece.at(j).first - center.first) * cos(angle) + (piece.at(j).second - center.second) * sin(angle)) + center.first;
-		rotate_piece.at(j).second =  (-(piece.at(j).first - center.first)* sin(angle) + (piece.at(j).second - center.second)* cos(angle)) + center.second;
+		result.at(j).first = ((piece.at(j).first - center.first) * cos(angle) + (piece.at(j).second - center.second) * sin(angle)) + center.first;
+		result.at(j).second =  (-(piece.at(j).first - center.first)* sin(angle) + (piece.at(j).second - center.second)* cos(angle)) + center.second;
 	}
-
-	return rotate_piece;
 }
 
 void TransformPiece::findDirection() {
@@ -34,7 +32,7 @@ void TransformPiece::findDirection() {
 	finalPiece = piece;
 	Box box_final = box;
 	for (int i = 0; i < 360; ++i) {
-		pieceTmp = rotation(i);
+		rotation(i, pieceTmp);
 		Box boxtmp = Box(pieceTmp);
 		if (box_final.aire > boxtmp.aire) {
 			box_final.points_box = boxtmp.points_box;
@@ -46,7 +44,7 @@ void TransformPiece::findDirection() {
 	box.aire = box_final.aire;
 	piece = finalPiece;
 	if (box.points_box.at(2).first - box.points_box.at(0).first > box.points_box.at(1).second - box.points_box.at(0).second) {
-		piece = rotation(90);
+		rotation(90, piece);
 		box = Box(piece);
 	}
 	img = img * 0;
@@ -68,7 +66,7 @@ void TransformPiece::findDirection() {
 	}
 		
    	if (last_up-first_up > last_down-first_down) {
-		piece = rotation(180);
+		rotation(180,piece);
 		box = Box(piece);
 	}
 
@@ -76,15 +74,16 @@ void TransformPiece::findDirection() {
 	MAJimg();
 }
 
-vector<pair<int,int>> TransformPiece::findPathcontour() {
-	vector<pair<int, int>> path = vector<pair<int, int>>();
+void TransformPiece::findPathcontour(vector<pair<int, int>>& result) {
+	result.clear()
+		;
 	bool test = true;
  	int i = img.rows - 1;
 
 	int x = box.points_box.at(0).first;
 	while (test) {
 		if (img.at<uchar>(i, x) == 255) {
-			path.push_back(pair<float, float>(i, x));
+			result.push_back(pair<float, float>(i, x));
 			test = false;
 		}
 		--i;
@@ -98,7 +97,7 @@ vector<pair<int,int>> TransformPiece::findPathcontour() {
 
 
 	while (testclose) {
-		pair<int, int> p = path.at(j);
+		pair<int, int> p = result.at(j);
 		bool test_neighboor = true;
 		int z = 1;
 
@@ -117,30 +116,30 @@ vector<pair<int,int>> TransformPiece::findPathcontour() {
 			if (j == 0) {
 				for (int x = 0; x < neighboors.size(); ++x) {
 					if (neighboors.at(x).first + 1 == p.first) {
-						path.push_back(neighboors.at(x));
+						result.push_back(neighboors.at(x));
 						test_neighboor = false;
 					}
 				}
 			}
 			else {
 				for (int x = 0; x < neighboors.size(); ++x) {
-					if (j > 50 && std::find(neighboors.begin(), neighboors.end(), path.at(0)) != neighboors.end()) {
+					if (j > 50 && std::find(neighboors.begin(), neighboors.end(), result.at(0)) != neighboors.end()) {
 						test_neighboor = false;
 						testclose = false;
 					}
-					if (std::find(path.begin(), path.end(), neighboors.at(x)) != path.end()) {
+					if (std::find(result.begin(), result.end(), neighboors.at(x)) != result.end()) {
 						neighboors.erase(neighboors.begin() + x);
 						--x;
 					}
 				}
 				if (neighboors.size() == 1) {
-					path.push_back(neighboors.at(0));
+					result.push_back(neighboors.at(0));
 					test_neighboor = false;
 				}
 				else if (neighboors.size()>1) {
 					for (int x = 0; x < neighboors.size(); ++x) {
 						if ((p.first == neighboors.at(x).first || p.second == neighboors.at(x).second) && test_neighboor == false) {
-							path.push_back(neighboors.at(x));
+							result.push_back(neighboors.at(x));
 							test_neighboor = false;
 						}
 					}
@@ -154,7 +153,7 @@ vector<pair<int,int>> TransformPiece::findPathcontour() {
 								dist_mini = dist;
 							}
 						}
-						path.push_back(neighboors.at(index_dist_mini));
+						result.push_back(neighboors.at(index_dist_mini));
 						test_neighboor = false;
 
 					}
@@ -167,8 +166,7 @@ vector<pair<int,int>> TransformPiece::findPathcontour() {
 		++j;
 	}
 	Mat img2 = img * 0;
-	for (int i = 0; i < path.size(); ++i) {
-		img2.at<uchar>(path.at(i).first, path.at(i).second) = 255;
+	for (int i = 0; i < result.size(); ++i) {
+		img2.at<uchar>(result.at(i).first, result.at(i).second) = 255;
 	}
-	return path;
 }

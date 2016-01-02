@@ -12,10 +12,10 @@ using namespace cv;
 
 class TransformPiece {
 public:
-	TransformPiece(Mat);
-	vector <pair<int,int>> rotation(float angle);
+	TransformPiece(Mat&);
+	void rotation(float angle, vector <pair<int, int>>& result);
 	void findDirection();
-	vector <pair<int, int>> findPathcontour();
+	void findPathcontour(vector<pair<int, int>>& result);
 	void MAJimg();
 	Box box;
 private:

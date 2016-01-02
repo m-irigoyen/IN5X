@@ -44,9 +44,9 @@ bool ImageHandler::loadImage(std::string name, Mat & output)
 	return ImageHandler::loadImage_path(PATHS::DATABASE2 + name + ImageHandler::getImageExtension(), output);
 }
 
-vector<pair<int, int>> ImageHandler::findContour(Mat contour) {
-	TransformPiece piece = TransformPiece(contour);
+void ImageHandler::findContour(Mat& contour, vector<pair<int, int>>& result) {
+	TransformPiece piece(contour);
 	piece.findDirection();
 
-	return piece.findPathcontour();
+	piece.findPathcontour(result);
 }

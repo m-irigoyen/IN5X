@@ -1,6 +1,6 @@
 #include "tangent_descriptor.hpp"
 
-tangent_descriptor::tangent_descriptor(vector<pair<int, int>> points, int x) 
+tangent_descriptor::tangent_descriptor(vector<pair<int, int>>& points, int x) 
 {
 
 	assert(x*2 < points.size());
