@@ -53,7 +53,8 @@ void DatabaseHandler::computeNumberOfImages()
 	// ET BIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIM L'insertion du swag
 
 	//roi
-	this->numberOfImages.insert(pair<pair<pair<PIECE_TYPE, PIECE_ANGLE>, PIECE_COLOR>, int>(pair<pair<PIECE_TYPE, PIECE_ANGLE>, PIECE_COLOR>(pair<PIECE_TYPE, PIECE_ANGLE>(ROI, FACE), NOIR), 10)); 
+	//TODO : le 8 est temporaire, remettre à 10 après
+	this->numberOfImages.insert(pair<pair<pair<PIECE_TYPE, PIECE_ANGLE>, PIECE_COLOR>, int>(pair<pair<PIECE_TYPE, PIECE_ANGLE>, PIECE_COLOR>(pair<PIECE_TYPE, PIECE_ANGLE>(ROI, FACE), NOIR), 8)); 
 	this->numberOfImages.insert(pair<pair<pair<PIECE_TYPE, PIECE_ANGLE>, PIECE_COLOR>, int>(pair<pair<PIECE_TYPE, PIECE_ANGLE>, PIECE_COLOR>(pair<PIECE_TYPE, PIECE_ANGLE>(ROI, HAUT), NOIR), 0));
 	this->numberOfImages.insert(pair<pair<pair<PIECE_TYPE, PIECE_ANGLE>, PIECE_COLOR>, int>(pair<pair<PIECE_TYPE, PIECE_ANGLE>, PIECE_COLOR>(pair<PIECE_TYPE, PIECE_ANGLE>(ROI, COTE), NOIR), 0));
 
@@ -73,7 +74,8 @@ void DatabaseHandler::computeNumberOfImages()
 	this->numberOfImages.insert(pair<pair<pair<PIECE_TYPE, PIECE_ANGLE>, PIECE_COLOR>, int>(pair<pair<PIECE_TYPE, PIECE_ANGLE>, PIECE_COLOR>(pair<PIECE_TYPE, PIECE_ANGLE>(FOU, COTE), NOIR), 10));
 
 	//pion
-	this->numberOfImages.insert(pair<pair<pair<PIECE_TYPE, PIECE_ANGLE>, PIECE_COLOR>, int>(pair<pair<PIECE_TYPE, PIECE_ANGLE>, PIECE_COLOR>(pair<PIECE_TYPE, PIECE_ANGLE>(PION, FACE), NOIR), 13));
+	//TODO : le 12 est temporaire, remettre à 13 après
+	this->numberOfImages.insert(pair<pair<pair<PIECE_TYPE, PIECE_ANGLE>, PIECE_COLOR>, int>(pair<pair<PIECE_TYPE, PIECE_ANGLE>, PIECE_COLOR>(pair<PIECE_TYPE, PIECE_ANGLE>(PION, FACE), NOIR), 12));
 	this->numberOfImages.insert(pair<pair<pair<PIECE_TYPE, PIECE_ANGLE>, PIECE_COLOR>, int>(pair<pair<PIECE_TYPE, PIECE_ANGLE>, PIECE_COLOR>(pair<PIECE_TYPE, PIECE_ANGLE>(PION, HAUT), NOIR), 0));
 	this->numberOfImages.insert(pair<pair<pair<PIECE_TYPE, PIECE_ANGLE>, PIECE_COLOR>, int>(pair<pair<PIECE_TYPE, PIECE_ANGLE>, PIECE_COLOR>(pair<PIECE_TYPE, PIECE_ANGLE>(PION, COTE), NOIR), 0));
 

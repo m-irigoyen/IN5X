@@ -32,6 +32,35 @@ void ReconnaissanceHandler::analyseResults(vector<pair<DatabaseImageDescriptor, 
 	}
 	cout << endl;
 	cout << "RESULTAT FINAL : " << correct << "/" << results.size() << endl;
+	cout << "_______ Reconnus | Total" << endl;
+	cout << "Cavaliers : " << this->getNumberOfRecognised(PIECE_TYPE::CAVALIER, results) << " / " << this->getNumberOf(PIECE_TYPE::CAVALIER, results) << endl;
+	cout << "Fous	   : " << this->getNumberOfRecognised(PIECE_TYPE::FOU, results) << " / " << this->getNumberOf(PIECE_TYPE::FOU, results) << endl;
+	cout << "Pions	   : " << this->getNumberOfRecognised(PIECE_TYPE::PION, results) << " / " << this->getNumberOf(PIECE_TYPE::PION, results) << endl;
+	cout << "Reine	   : " << this->getNumberOfRecognised(PIECE_TYPE::REINE, results) << " / " << this->getNumberOf(PIECE_TYPE::REINE, results) << endl;
+	cout << "Rois	   : " << this->getNumberOfRecognised(PIECE_TYPE::ROI, results) << " / " << this->getNumberOf(PIECE_TYPE::ROI, results) << endl;
+	cout << "Tours	   : " << this->getNumberOfRecognised(PIECE_TYPE::TOUR, results) << " / " << this->getNumberOf(PIECE_TYPE::TOUR, results) << endl;
+}
+
+int ReconnaissanceHandler::getNumberOf(PIECE_TYPE type, vector<pair<DatabaseImageDescriptor, PIECE_TYPE>>& db)
+{
+	int nb = 0;
+	for (pair<DatabaseImageDescriptor, PIECE_TYPE> p : db)
+	{
+		if (p.first.type == type)
+			++nb;
+	}
+	return nb;
+}
+
+int ReconnaissanceHandler::getNumberOfRecognised(PIECE_TYPE type, vector<pair<DatabaseImageDescriptor, PIECE_TYPE>>& db)
+{
+	int nb = 0;
+	for (pair<DatabaseImageDescriptor, PIECE_TYPE> p : db)
+	{
+		if (p.second == type)
+			++nb;
+	}
+	return nb;
 }
 
 void ReconnaissanceHandler::setClasses(vector<vector<float>>& classes)
