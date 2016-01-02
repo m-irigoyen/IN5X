@@ -1,14 +1,6 @@
 #include "ReconaissancePreparationHandler.h"
 
 
-void ReconnaissancePreparationHandler::prepareImage_method1(string imageName, Mat & output)
-{
-	Mat src, src_prepared;
-	ImageHandler::loadImage(imageName, src);
-	ImageHandler::prepareImage_canny(src, src_prepared);
-
-}
-
 void ReconnaissancePreparationHandler::buildCaracteristicVector(Mat image, vector<float>& caracteristicVector, int n, int x)
 {
 	Mat edges;
@@ -53,7 +45,7 @@ void ReconnaissancePreparationHandler::learning(DatabaseHandler & database, PCA&
 
 }
 
-vector<float> ReconnaissancePreparationHandler:: meanVectorClass(vector<vector<float>> vectorsClass) {
+vector<float> ReconnaissancePreparationHandler::meanVectorClass(vector<vector<float>> vectorsClass) {
 	vector<float> mean;
 	for (int i = 0; i < vectorsClass.size(); ++i) {
 		vector<float> caracPiece = vectorsClass.at(i);
@@ -72,6 +64,7 @@ vector<float> ReconnaissancePreparationHandler:: meanVectorClass(vector<vector<f
 			}
 		}
 	}
+	return mean;
 }
 
 void ReconnaissancePreparationHandler::learning(DatabaseHandler & database, vector<vector<float>>& classes)
@@ -93,4 +86,8 @@ void ReconnaissancePreparationHandler::learning(DatabaseHandler & database, vect
 
 	// Donc là, fullClasses contient pour chaque classe TOUS les vecteurs caractéristiques de cette classe. Maintenant, on en fait la moyenne
 	//TODO: faire la moyenne
+	for (int i = 0; i < 6; ++i)
+	{
+		classes.at(i) = ReconnaissancePreparationHandler::meanVectorClass(fullClasses.at(i));
+	}
 }

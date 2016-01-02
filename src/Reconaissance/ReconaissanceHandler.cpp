@@ -23,18 +23,23 @@ PIECE_TYPE ReconnaissanceHandler::getTypeFromProbabilities(vector<float> probabi
 	return (PIECE_TYPE)smallest;
 }
 
-PIECE_TYPE ReconnaissanceHandler::completeReconaissance(string imageName, vector<vector<float>>& classes)
+void ReconnaissanceHandler::setClasses(vector<vector<float>>& classes)
+{
+	this->classes = classes;
+}
+
+PIECE_TYPE ReconnaissanceHandler::completeReconaissance(string imageName)
 {
 	// Pré traitement de l'image
 	Mat src;
-	ReconnaissancePreparationHandler::prepareImage_method1(imageName,src);
+	ImageHandler::loadImage(imageName, src);
 
 	// Construction du vecteur caractéristique
 	vector<float> caracteristicVector;
 	ReconnaissancePreparationHandler::buildCaracteristicVector(src, caracteristicVector);
 
 	// Calcul des probabilités d'appartenance
-	vector<float> probabilities = this->recognise(caracteristicVector, classes);
+	vector<float> probabilities = this->recognise(caracteristicVector, this->classes);
 
 	// Déduction du type de pièce
 	return this->getTypeFromProbabilities(probabilities);
