@@ -23,7 +23,7 @@ public:
 	DatabaseHandler();
 
 	// Construit une base de donnée contenant les types et angles passés en paramètre
-	void buildDatabase(bool isLearningDatabase, vector<PIECE_TYPE> types, vector<PIECE_ANGLE> angles, vector<PIECE_COLOR> colors);
+	
 	void buildDatabase(bool isLearningDatabase, vector<PIECE_TYPE> types, PIECE_ANGLE angle, PIECE_COLOR color);
 	void buildDatabase(bool isLearningDatabase, PIECE_TYPE type, PIECE_ANGLE angle, PIECE_COLOR color);
 
@@ -49,6 +49,8 @@ private:
 	void loadImageFromType(DatabaseImageDescriptor d, int number, Mat& image);
 	void loadImageFromType(PIECE_TYPE t, PIECE_ANGLE a, PIECE_COLOR c, int number, Mat& image);
 	string buildName(DatabaseImageDescriptor d, int number);
+
+	void buildDatabase(bool isLearningDatabase, vector<PIECE_TYPE> types, vector<PIECE_ANGLE> angles, vector<PIECE_COLOR> colors);
 };
 
 #endif // !DEF_GAUSSIANBLURHANDLER
