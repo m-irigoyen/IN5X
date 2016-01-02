@@ -7,17 +7,21 @@ void ReconnaissancePreparationHandler::buildCaracteristicVector(Mat image, vecto
 	vector<pair<int, int>> contour = ImageHandler::findContour(edges);
 	// TODO: implémenter la normalisation du nombre de points dans le contour
 	float gap = contour.size() / 500;
-	vector<pair<int, int>> normalized_contour;
-	//TODO: implémenter la construction du vecteur caractéristique
-	for (int i = 0; i < 500; ++i) {
-		normalized_contour.push_back(contour.at(round(i*gap)));
+	if (gap < 1) {
+		cout << "ReconnaissancePreparationHandler::buildCaracteristicVector : Erreur! La pièce est trop petite" << std::endl;
 	}
-	int x = 6; //x is the number of points take before and after actual point in lagrange interpolation
-	tangent_descriptor descriptor = tangent_descriptor(normalized_contour, x);
+	else {
+		vector<pair<int, int>> normalized_contour;
+		//TODO: implémenter la construction du vecteur caractéristique
+		for (int i = 0; i < 500; ++i) {
+			normalized_contour.push_back(contour.at(round(i*gap)));
+		}
+		int x = 6; //x is the number of points take before and after actual point in lagrange interpolation
+		tangent_descriptor descriptor(normalized_contour, x);
 
-	//TODO : amarre réparer le caca de Pès
-	caracteristicVector = descriptor.angle();
-
+		caracteristicVector = descriptor.angle;
+	}
+	
 }
 
 void ReconnaissancePreparationHandler::learning(DatabaseHandler & database, PCA& pca, Mat& reducedLearnDB)
