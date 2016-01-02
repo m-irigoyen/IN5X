@@ -20,11 +20,20 @@ vector<float> ReconnaissanceHandler::completeReconaissance(string imageName)
 vector<float> ReconnaissanceHandler::recognise(vector<float>& caracteristicVector, vector<vector<float>>& classes)
 {
 	vector<float> dist;
+	float norme;
+	float dist_dim;
 	for (int i = 0; i < classes.size(); ++i)
 	{
 		/*vector<float> vector_Piece = classes.at(i);
 		dist.push_back(distanceVector(caracteristicVector, vector_Piece));*/
-		dist.push_back(distanceVector(caracteristicVector, classes.at(i)));	// Petite optimisation par rapport au code ci-dessus
+		dist_dim = distanceVector(caracteristicVector, classes.at(i));
+		norme += pow(dist_dim, 2);
+		dist.push_back(dist_dim);
+	}
+	norme = sqrt(norme);
+
+	for (int i = 0; i < classes.size(); ++i) {
+		dist.at(i) = dist.at(i) / norme;
 	}
 	return dist;
 }
