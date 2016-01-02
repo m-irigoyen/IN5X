@@ -42,12 +42,11 @@ private:
 	string getNameFromType(DatabaseImageDescriptor d);
 	string getNameFromType(PIECE_TYPE t, PIECE_ANGLE a, PIECE_COLOR c);
 	string getNumber(int n);
-	string getExtension();
 	int getNumberOfImagesFromType(DatabaseImageDescriptor d);
 	int getNumberOfImagesFromType(PIECE_TYPE t, PIECE_ANGLE a, PIECE_COLOR c);
 	void loadImageFromType(DatabaseImageDescriptor d, int number, Mat& image);
 	void loadImageFromType(PIECE_TYPE t, PIECE_ANGLE a, PIECE_COLOR c, int number, Mat& image);
-	string buildPath(DatabaseImageDescriptor d, int number);
+	string buildName(DatabaseImageDescriptor d, int number);
 };
 
 #endif // !DEF_GAUSSIANBLURHANDLER

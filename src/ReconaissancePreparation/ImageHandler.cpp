@@ -18,7 +18,7 @@ void ImageHandler::prepareImage_canny(Mat src, Mat & output, int gaussianKernelS
 	TresholdingHandler::basic(output, output, threshold);
 }
 
-bool ImageHandler::loadImage(std::string path, Mat & output)
+bool ImageHandler::loadImage_path(std::string path, Mat & output)
 {
 	Mat image = imread(path, CV_LOAD_IMAGE_COLOR);
 	if (!image.data)                              // Check for invalid input
@@ -32,6 +32,16 @@ bool ImageHandler::loadImage(std::string path, Mat & output)
 		return true;
 	}
 	
+}
+
+string ImageHandler::getImageExtension()
+{
+	return string(".jpg");
+}
+
+bool ImageHandler::loadImage(std::string name, Mat & output)
+{
+	return ImageHandler::loadImage_path(PATHS::DATABASE2 + name + ImageHandler::getImageExtension(), output);
 }
 
 vector<pair<int, int>> ImageHandler::findContour(Mat contour) {
