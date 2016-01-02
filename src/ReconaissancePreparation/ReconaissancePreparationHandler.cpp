@@ -5,7 +5,6 @@ void ReconnaissancePreparationHandler::buildCaracteristicVector(Mat image, vecto
 	Mat edges;
 	ImageHandler::prepareImage_canny(image, edges);
 	vector<pair<int, int>> contour = ImageHandler::findContour(edges);
-	// TODO: implémenter la normalisation du nombre de points dans le contour
 	int n = 500; //number of points keep
 	float gap = contour.size() / n;
 	if (gap < 1) {
@@ -13,7 +12,6 @@ void ReconnaissancePreparationHandler::buildCaracteristicVector(Mat image, vecto
 	}
 	else {
 		vector<pair<int, int>> normalized_contour;
-		//TODO: implémenter la construction du vecteur caractéristique
 		for (int i = 0; i < n; ++i) {
 			normalized_contour.push_back(contour.at(round(i*gap)));
 		}

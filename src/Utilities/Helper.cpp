@@ -19,10 +19,9 @@ float distance(vector<float>& v1, vector<float>& v2) {
 	}
 	else{
 		for (int i = 0; i < v1.size(); ++i) {
-			dist = pow(v1.at(i) - v2.at(i), 2);
+			dist += pow(v1.at(i) - v2.at(i), 2);
 		}
 		dist = sqrt(dist);
 	}
-	
 	return dist;
 }
