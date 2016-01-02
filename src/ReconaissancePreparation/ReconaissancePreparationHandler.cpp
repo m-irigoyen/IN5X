@@ -90,5 +90,4 @@ void ReconnaissancePreparationHandler::learning(DatabaseHandler & database, vect
 	{
 		classes.at(i) = ReconnaissancePreparationHandler::meanVectorClass(fullClasses.at(i));
 	}
->>>>>>> 051bd6c84219a23c69966d7ccbc35126d250894e
 }

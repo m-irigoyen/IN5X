@@ -1,14 +1,14 @@
 #ifndef DEF_DATABASEHANDLER
 #define DEF_DATABASEHANDLER
 
-#include "Utilities/enums.h"
+#include "../Utilities/enums.h"
 
 #include <vector>
 #include <map>
 
 #include "filePaths.hpp"
 #include "Helper.h"
-#include "ReconaissancePreparation/ImageHandler.h"
+#include "../ReconaissancePreparation/ImageHandler.h"
 
 #define DATABASE_LEARNINGRATIO 60.0f
 

@@ -101,12 +101,12 @@ void Polynome::operator+=(Polynome p) {
 	else {
 		vec = coefficients;
 	}
-	for (int i = max(degree, p.getDegree())- min(degree, p.getDegree()); i < max(degree, p.getDegree()); ++i) {
+	for (int i = max(degree, p.getDegree())- min(degree, p.getDegree()); i < max(degree, p.getDegree()) + 1; ++i) {
 		if (p.getDegree() > degree) {
-			vec.at(i)+= coefficients.at(i- min(degree, p.getDegree()));
+			vec.at(i)+= coefficients.at(i - p.getDegree() + degree);
 		}
 		else if (p.getDegree() < degree) {
-			vec.at(i) += p.getCoefficients().at(i - min(degree, p.getDegree()));
+			vec.at(i) += p.getCoefficients().at(i - degree + p.getDegree());
 		}
 		else {
 			vec.at(i) += p.getCoefficients().at(i);
