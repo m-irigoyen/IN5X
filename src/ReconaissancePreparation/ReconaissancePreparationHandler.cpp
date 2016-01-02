@@ -1,6 +1,6 @@
 #include "ReconaissancePreparationHandler.h"
 
-void ReconnaissancePreparationHandler::buildCaracteristicVector(Mat image, vector<float>& caracteristicVector, int n, int x)
+
 void ReconnaissancePreparationHandler::prepareImage_method1(string imageName, Mat & output)
 {
 	Mat src, src_prepared;
@@ -9,7 +9,7 @@ void ReconnaissancePreparationHandler::prepareImage_method1(string imageName, Ma
 
 }
 
-void ReconnaissancePreparationHandler::buildCaracteristicVector(Mat image, vector<float>& caracteristicVector)
+void ReconnaissancePreparationHandler::buildCaracteristicVector(Mat image, vector<float>& caracteristicVector, int n, int x)
 {
 	Mat edges;
 	ImageHandler::prepareImage_canny(image, edges);
