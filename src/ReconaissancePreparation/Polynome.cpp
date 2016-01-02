@@ -54,7 +54,7 @@ Polynome* Polynome::product(Polynome* pol)
 	return this;
 }
 
-Polynome* Polynome::pol_lagrange(vector<pair<float,float>> points, int i){
+Polynome* Polynome::pol_lagrange(vector<pair<int,int>> points, int i){
 	vector<float> vec = *(new vector<float>(2,0));
 	Polynome* pol = new Polynome(1,vec);
 	vector<float>* newCoeffs = new vector<float>(2, 0);
@@ -78,7 +78,7 @@ Polynome* Polynome::pol_lagrange(vector<pair<float,float>> points, int i){
 	return this;
 }
 
-void Polynome::interp_lagrange(vector<pair<float, float>> points) {
+void Polynome::interp_lagrange(vector<pair<int,int>> points) {
 	Polynome pol_interp = *new Polynome(1, *new vector<float>(2, 0));
 	Polynome pol_l = *new Polynome(1, *new vector<float>(2, 0));
 	for (int i = 0; i < points.size(); ++i) {

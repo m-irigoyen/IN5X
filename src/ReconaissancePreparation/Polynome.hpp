@@ -17,8 +17,8 @@ public:
 	int getDegree();
 	vector<float> getCoefficients();
 	void setCoefficients(vector<float>);
-	Polynome* pol_lagrange(vector<pair<float,float>>, int);
-	void interp_lagrange(vector<pair<float,float>>);
+	Polynome* pol_lagrange(vector<pair<int,int>>, int);
+	void interp_lagrange(vector<pair<int,int>>);
 	void operator+=(Polynome);
 	Polynome find_tangente(int);
 	float value_y(float x);

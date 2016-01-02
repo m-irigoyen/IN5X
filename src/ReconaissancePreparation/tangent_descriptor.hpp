@@ -10,10 +10,9 @@ using namespace std;
 
 class tangent_descriptor {
 public:
-	tangent_descriptor(vector<pair<float, float>> points, int x);
-
-private:
-	vector<pair<float,float>> points;
+	tangent_descriptor(vector<pair<int, int>> points, int x);
+	
+	vector<pair<float, float>> points;
 	vector<float> angle;
 	vector<Polynome> interp;
 	vector<Polynome> tangent;

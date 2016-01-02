@@ -1,9 +1,11 @@
 #include "tangent_descriptor.hpp"
 
-tangent_descriptor::tangent_descriptor(vector<pair<float, float>> points, int x) 
+tangent_descriptor::tangent_descriptor(vector<pair<int, int>> points, int x) 
 {
+
+	//TODO : Amarre clean
 	assert(x*2 < points.size());
-	vector<pair<float, float>> list_points_interp = *new vector<pair<float, float>>(int(x*2+1),*new pair<float,float> (0,0));
+	vector<pair<int, int>> list_points_interp = *new vector<pair<int, int>>(int(x*2+1),*new pair<int, int>(0,0));
 	interp = *new vector<Polynome>(points.size(),*new Polynome());
 	tangent = *new vector<Polynome>(points.size(), *new Polynome());
 	angle = *new vector<float>(points.size(), 0);
@@ -28,6 +30,5 @@ tangent_descriptor::tangent_descriptor(vector<pair<float, float>> points, int x)
 		if (i == points.size() - 1) {
 			angle.at(i) = interp.at(0).angle(interp.at(points.size()-1));
 		}
-		
 	}
 }

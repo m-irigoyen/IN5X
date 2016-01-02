@@ -33,3 +33,10 @@ bool ImageHandler::loadImage(std::string path, Mat & output)
 	}
 	
 }
+
+vector<pair<int, int>> ImageHandler::findContour(Mat contour) {
+	TransformPiece piece = TransformPiece(contour);
+	piece.findDirection();
+
+	return piece.findPathcontour();
+}

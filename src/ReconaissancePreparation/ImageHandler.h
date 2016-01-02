@@ -7,7 +7,7 @@
 #include "cannyOperatorHandler.hpp"
 #include "ThresholdingHandler.h"
 #include "gaussianBlurHandler.hpp"
-
+#include "transformPiece.hpp"
 using namespace std;
 
 class ImageHandler
@@ -25,6 +25,8 @@ public:
 		int threshold = TresholdingHandler::THRESHOLD::T_OPTIMAL);
 
 	static bool loadImage(std::string path, Mat& output);
+
+	static vector<pair<int, int>> findContour(Mat contour);
 
 	// Prepares the image for recognition : gaussianBlur -> cannyOperator -> thresholding
 	/*static void prepareImage_canny(Mat src,

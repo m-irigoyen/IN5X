@@ -5,6 +5,7 @@
 #include "opencv2/opencv.hpp"
 #include "ImageHandler.h"
 #include "../Utilities/databaseHandler.hpp"
+#include "tangent_descriptor.hpp"
 
 using namespace cv;
 
