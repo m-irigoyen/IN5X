@@ -25,3 +25,30 @@ float distanceVector(vector<float>& v1, vector<float>& v2) {
 	}
 	return dist;
 }
+
+string convert_pieceTypeToName(PIECE_TYPE t)
+{
+	string name;
+	switch (t)
+	{
+	case PIECE_TYPE::CAVALIER:
+		name += "cavalier";
+		break;
+	case PIECE_TYPE::FOU:
+		name += "fou";
+		break;
+	case PIECE_TYPE::PION:
+		name += "pion";
+		break;
+	case PIECE_TYPE::REINE:
+		name += "reine";
+		break;
+	case PIECE_TYPE::ROI:
+		name += "roi";
+		break;
+	case PIECE_TYPE::TOUR:
+		name += "tour";
+		break;
+	}
+	return name;
+}

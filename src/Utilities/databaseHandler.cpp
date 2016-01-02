@@ -15,6 +15,17 @@ void DatabaseHandler::buildDatabase(bool isLearningDatabase, vector<PIECE_TYPE> 
 	}
 }
 
+void DatabaseHandler::buildDatabase(bool isLearningDatabase, vector<PIECE_TYPE> types, PIECE_ANGLE angle, PIECE_COLOR color)
+{
+	vector<PIECE_ANGLE> angles;
+	angles.push_back(angle);
+
+	vector<PIECE_COLOR> colors;
+	colors.push_back(color);
+
+	this->buildDatabase(isLearningDatabase, types, angles, colors);
+}
+
 void DatabaseHandler::buildDatabase(bool isLearningDatabase, PIECE_TYPE type, PIECE_ANGLE angle, PIECE_COLOR color)
 {
 	vector<PIECE_TYPE> types;
@@ -134,27 +145,7 @@ string DatabaseHandler::getNameFromType(PIECE_TYPE t, PIECE_ANGLE a, PIECE_COLOR
 	}
 	name += separator;
 
-	switch (t)
-	{
-	case PIECE_TYPE::CAVALIER :
-		name += "cavalier";
-		break;
-	case PIECE_TYPE::FOU:
-		name += "fou";
-		break;
-	case PIECE_TYPE::PION :
-		name += "pion";
-		break;
-	case PIECE_TYPE::REINE:
-		name += "reine";
-		break;
-	case PIECE_TYPE::ROI:
-		name += "roi";
-		break;
-	case PIECE_TYPE::TOUR:
-		name += "tour";
-		break;
-	}
+	name += convert_pieceTypeToName(t);
 	name += separator;
 
 	switch (a)

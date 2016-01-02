@@ -28,6 +28,11 @@ void ReconnaissanceHandler::setClasses(vector<vector<float>>& classes)
 	this->classes = classes;
 }
 
+void ReconnaissanceHandler::buildClasses(DatabaseHandler & db)
+{
+	ReconnaissancePreparationHandler::learning(db, this->classes);
+}
+
 PIECE_TYPE ReconnaissanceHandler::completeReconaissance(string imageName)
 {
 	// Pré traitement de l'image
