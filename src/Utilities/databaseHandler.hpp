@@ -1,13 +1,14 @@
 #ifndef DEF_DATABASEHANDLER
 #define DEF_DATABASEHANDLER
 
-#include "../Utilities/enums.h"
+#include "Utilities/enums.h"
 
 #include <vector>
 #include <map>
 
 #include "filePaths.hpp"
-#include "../ReconaissancePreparation/ImageHandler.h"
+#include "Helper.h"
+#include "ReconaissancePreparation/ImageHandler.h"
 
 #define DATABASE_LEARNINGRATIO 60.0f
 
@@ -23,6 +24,7 @@ public:
 
 	// Construit une base de donnée contenant les types et angles passés en paramètre
 	void buildDatabase(bool isLearningDatabase, vector<PIECE_TYPE> types, vector<PIECE_ANGLE> angles, vector<PIECE_COLOR> colors);
+	void buildDatabase(bool isLearningDatabase, vector<PIECE_TYPE> types, PIECE_ANGLE angle, PIECE_COLOR color);
 	void buildDatabase(bool isLearningDatabase, PIECE_TYPE type, PIECE_ANGLE angle, PIECE_COLOR color);
 
 	vector<DatabaseImage>& getImages();

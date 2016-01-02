@@ -19,7 +19,11 @@ private:
 	vector<vector<float>> classes;
 
 public:
+	// Set les classes
 	void setClasses(vector<vector<float>>& classes);
+	
+	// Construit les classes à partir des images fournies
+	void buildClasses(DatabaseHandler& db);
 	
 	PIECE_TYPE completeReconaissance(string imageName);
 
