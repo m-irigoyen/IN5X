@@ -53,6 +53,27 @@ void ReconnaissancePreparationHandler::learning(DatabaseHandler & database, PCA&
 
 }
 
+vector<float> ReconnaissancePreparationHandler:: meanVectorClass(vector<vector<float>> vectorsClass) {
+	vector<float> mean;
+	for (int i = 0; i < vectorsClass.size(); ++i) {
+		vector<float> caracPiece = vectorsClass.at(i);
+		if (i == 0) {
+			mean = caracPiece;
+		}
+		else if (i<vectorsClass.size()-1){
+			for (int j = 0; j < caracPiece.size(); ++j) {
+				mean.at(j) += caracPiece.at(j);
+			}
+		}
+		else {
+			for (int j = 0; j < caracPiece.size(); ++j) {
+				mean.at(j) += caracPiece.at(j);
+				mean.at(j) = mean.at(j) / vectorsClass.size();
+			}
+		}
+	}
+}
+
 void ReconnaissancePreparationHandler::learning(DatabaseHandler & database, vector<vector<float>>& classes)
 {
 	vector<DatabaseImage>& images = database.getImages();

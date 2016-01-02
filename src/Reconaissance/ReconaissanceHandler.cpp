@@ -47,8 +47,6 @@ vector<float> ReconnaissanceHandler::recognise(vector<float>& caracteristicVecto
 	float dist_dim;
 	for (int i = 0; i < classes.size(); ++i)
 	{
-		/*vector<float> vector_Piece = classes.at(i);
-		dist.push_back(distanceVector(caracteristicVector, vector_Piece));*/
 		dist_dim = distanceVector(caracteristicVector, classes.at(i));
 		norme += pow(dist_dim, 2);
 		dist.push_back(dist_dim);

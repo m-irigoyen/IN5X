@@ -24,7 +24,7 @@ public:
 	// Effectue l'apprentissage des classes depuis la base de données d'image
 	static void learning(DatabaseHandler& database, vector<vector<float>>& classes);
 
-
+	static vector<float> meanVectorClass(vector<vector<float>> vectorsClass);
 };
 
 #endif 
