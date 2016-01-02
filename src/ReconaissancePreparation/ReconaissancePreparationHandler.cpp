@@ -69,13 +69,20 @@ vector<float> ReconnaissancePreparationHandler::meanVectorClass(vector<vector<fl
 
 void ReconnaissancePreparationHandler::learning(DatabaseHandler & database, vector<vector<float>>& classes)
 {
+	// Nettoyage et préparation des classes
+	classes.clear();
+
 	vector<DatabaseImage>& images = database.getImages();
 	
 	vector<vector<vector<float>>> fullClasses;
 
 	// Initialisation des classes
 	for (int i = 0; i < 6; ++i)
+	{
 		fullClasses.push_back(vector<vector<float>>());
+		classes.push_back(vector<float>());
+	}
+		
 
 	for (DatabaseImage i : images)
 	{

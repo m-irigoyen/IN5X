@@ -11,6 +11,8 @@ using namespace cv;
 // Le main
 int main(int argc, char* argv[])
 {
+	cout << "THIS IS A TESTS" << endl;
+
 	// Création de la base de données
 	DatabaseHandler dbLearning, dbTest;
 	vector<PIECE_TYPE> types;
