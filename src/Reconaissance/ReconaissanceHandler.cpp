@@ -75,18 +75,9 @@ PIECE_TYPE ReconnaissanceHandler::completeReconaissance_one(Mat image)
 vector<float> ReconnaissanceHandler::recognise(vector<float>& caracteristicVector, vector<vector<float>>& classes)
 {
 	vector<float> dist;
-	float norme;
-	float dist_dim;
 	for (int i = 0; i < classes.size(); ++i)
 	{
-		dist_dim = distanceVector(caracteristicVector, classes.at(i));
-		norme += pow(dist_dim, 2);
-		dist.push_back(dist_dim);
-	}
-	norme = sqrt(norme);
-
-	for (int i = 0; i < classes.size(); ++i) {
-		dist.at(i) = dist.at(i) / norme;
+		dist.push_back(distanceVector(caracteristicVector, classes.at(i)));
 	}
 	return dist;
 }

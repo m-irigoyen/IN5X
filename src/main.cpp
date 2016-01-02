@@ -26,18 +26,18 @@ int main(int argc, char* argv[])
 	dbLearning.buildDatabase(true, types, PIECE_ANGLE::FACE, PIECE_COLOR::NOIR);
 	dbTest.buildDatabase(false, types, PIECE_ANGLE::FACE, PIECE_COLOR::NOIR);
 
+
 	// Construction des classes
 	ReconnaissanceHandler reconnaissance;
 	reconnaissance.buildClasses(dbLearning);
 
 	// Test pour une seule pièce
-	PIECE_TYPE resultat =  reconnaissance.completeReconaissance_one("n_roi_face (10)");
-	cout << "Ah ça, c'est un " << convert_pieceTypeToName(resultat) << endl;
-
+	/*PIECE_TYPE resultat =  reconnaissance.completeReconaissance_one("n_reine_face (8)");
+	cout << "Ah ça, c'est un " << convert_pieceTypeToName(resultat) << endl;*/
 	// Test pour une db complète
-	/*vector<pair<DatabaseImageDescriptor, PIECE_TYPE>> results;
+	vector<pair<DatabaseImageDescriptor, PIECE_TYPE>> results;
 	reconnaissance.completeReconnaissance_db(dbTest, results);
-	reconnaissance.analyseResults(results);*/
+	reconnaissance.analyseResults(results);
 		
 	waitKey(0);
  	return EXIT_SUCCESS;
