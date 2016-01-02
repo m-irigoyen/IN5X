@@ -12,7 +12,7 @@ vector<float> convertCaracteristicVector(Mat caracteristicVector)
 	return vector<float>();
 }
 
-float distance(vector<float>& v1, vector<float>& v2) {
+float distanceVector(vector<float>& v1, vector<float>& v2) {
 	float dist = 0;
 	if (v1.size() != v2.size()) {
 		cout << "Helper::distance : Erreur! v1 et v2 de taille différentes" << std::endl;

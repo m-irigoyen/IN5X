@@ -9,8 +9,13 @@ vector<float> ReconnaissanceHandler::recognise(vector<float>& caracteristicVecto
 	return vector<float>();
 }
 
-vector<float> ReconnaissanceHandler::recognise(vector<float>& caracteristicVector)
+vector<float> ReconnaissanceHandler::recognise(vector<float>& caracteristicVector, vector<vector<float>>& classes)
 {
-	//TODO: méthode de reconnaissance sans PCA
-	return vector<float>();
+	vector<float> dist;
+	for (int i = 0; i < classes.size(); ++i)
+	{
+		vector<float> vector_Piece = classes.at(i);
+		dist.push_back(distanceVector(caracteristicVector, vector_Piece));
+	}
+	return dist;
 }
