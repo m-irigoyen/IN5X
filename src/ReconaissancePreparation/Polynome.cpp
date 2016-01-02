@@ -61,13 +61,25 @@ Polynome Polynome::pol_lagrange(vector<pair<int,int>> points, int i){
 	degree = 1;
 	for (int j = 0; j<points.size(); ++j){
 		if ((j == 0 && i!=0) || (j==1 && i==0)){
-			coefficients.at(1) = -points.at(j).first / (points.at(i).first - points.at(j).first);
-			coefficients.at(0) = 1 / (points.at(i).first - points.at(j).first);
+			if (points.at(i).first == points.at(j).first) {
+				coefficients.at(0) = 1 / (points.at(i).first - points.at(j).first + 0.000001);
+				coefficients.at(1) = -points.at(j).first / (points.at(i).first - points.at(j).first + 0.000001);
+			}
+			else {
+				coefficients.at(1) = -points.at(j).first / (points.at(i).first - points.at(j).first);
+				coefficients.at(0) = 1 / (points.at(i).first - points.at(j).first);
+			}
 		}
 		else {
 			if (i != j) {
-				vec.at(0) = 1 / (points.at(i).first - points.at(j).first);
-				vec.at(1) = - points.at(j).first / (points.at(i).first - points.at(j).first);
+				if (points.at(i).first == points.at(j).first) {
+					vec.at(0) = 1 / (points.at(i).first - points.at(j).first + 0.000001);
+					vec.at(1) = -points.at(j).first / (points.at(i).first - points.at(j).first + 0.000001);
+				}
+				else {
+					vec.at(0) = 1 / (points.at(i).first - points.at(j).first);
+					vec.at(1) = -points.at(j).first / (points.at(i).first - points.at(j).first);
+				}
 				pol = Polynome(1, vec);
 				this->product(&pol);
 			}
@@ -96,12 +108,12 @@ void Polynome::operator+=(Polynome p) {
 	else {
 		vec = coefficients;
 	}
-	for (int i = max(degree, p.getDegree())- min(degree, p.getDegree()); i < max(degree, p.getDegree()); ++i) {
+	for (int i = max(degree, p.getDegree())- min(degree, p.getDegree()); i < max(degree, p.getDegree()) + 1; ++i) {
 		if (p.getDegree() > degree) {
-			vec.at(i)+= coefficients.at(i- min(degree, p.getDegree()));
+			vec.at(i)+= coefficients.at(i - p.getDegree() + degree);
 		}
 		else if (p.getDegree() < degree) {
-			vec.at(i) += p.getCoefficients().at(i - min(degree, p.getDegree()));
+			vec.at(i) += p.getCoefficients().at(i - degree + p.getDegree());
 		}
 		else {
 			vec.at(i) += p.getCoefficients().at(i);
