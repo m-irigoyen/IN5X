@@ -1,5 +1,6 @@
 #include "ReconaissancePreparationHandler.h"
 
+void ReconnaissancePreparationHandler::buildCaracteristicVector(Mat image, vector<float>& caracteristicVector, int n, int x)
 void ReconnaissancePreparationHandler::prepareImage_method1(string imageName, Mat & output)
 {
 	Mat src, src_prepared;
@@ -13,7 +14,6 @@ void ReconnaissancePreparationHandler::buildCaracteristicVector(Mat image, vecto
 	Mat edges;
 	ImageHandler::prepareImage_canny(image, edges);
 	vector<pair<int, int>> contour = ImageHandler::findContour(edges);
-	int n = 500; //number of points keep
 	float gap = contour.size() / n;
 	if (gap < 1) {
 		cout << "ReconnaissancePreparationHandler::buildCaracteristicVector : Erreur! La pièce est trop petite" << std::endl;
@@ -23,7 +23,6 @@ void ReconnaissancePreparationHandler::buildCaracteristicVector(Mat image, vecto
 		for (int i = 0; i < n; ++i) {
 			normalized_contour.push_back(contour.at(round(i*gap)));
 		}
-		int x = 6; //x is the number of points take before and after actual point in lagrange interpolation
 		tangent_descriptor descriptor(normalized_contour, x);
 
 		caracteristicVector = descriptor.angle;

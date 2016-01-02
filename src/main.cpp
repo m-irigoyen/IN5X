@@ -95,13 +95,7 @@ int main(int argc, char* argv[])
 		return EXIT_FAILURE;
 	}
 	handler.prepareImage_canny(image, contour);
-
-	imshow("Image1", contour);
-	waitKey(0);
 	TransformPiece tpiece = TransformPiece(contour);
-	rectangle(contour, Point(tpiece.box.points_box.at(0).first, tpiece.box.points_box.at(0).second), Point(tpiece.box.points_box.at(2).first, tpiece.box.points_box.at(2).second), Scalar(255, 255, 255));
-	imshow("Image1", contour);
-	waitKey(0);
  	tpiece.findDirection();
 	vector<pair<int, int>> path = tpiece.findPathcontour();
 	waitKey(0);
