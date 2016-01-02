@@ -81,8 +81,7 @@ void TransformPiece::findDirection() {
 }
 
 void TransformPiece::findPathcontour(vector<pair<int, int>>& result) {
-	result.clear()
-		;
+	result.clear();
 	bool test = true;
  	int i = img.rows - 1;
 

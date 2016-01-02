@@ -11,8 +11,6 @@ using namespace cv;
 // Le main
 int main(int argc, char* argv[])
 {
-	cout << "THIS IS A TESTS" << endl;
-
 	// Création de la base de données
 	DatabaseHandler dbLearning, dbTest;
 	vector<PIECE_TYPE> types;
@@ -27,7 +25,7 @@ int main(int argc, char* argv[])
 	dbTest.buildDatabase(false, types, PIECE_ANGLE::FACE, PIECE_COLOR::NOIR);
 
 	for (int i = 50; i < 600; i = i + 50) {
-		for (int j = 1; j < 8; ++j) {
+		for (int j = 1; j < 3; ++j) {
 			// Construction des classes
 			ReconnaissanceHandler reconnaissance;
 			reconnaissance.buildClasses(dbLearning, i, j);

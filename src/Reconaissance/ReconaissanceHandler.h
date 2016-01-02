@@ -24,6 +24,9 @@ private:
 public:
 
 	void analyseResults(vector<pair<DatabaseImageDescriptor, PIECE_TYPE>>& results, int n = 350, int x = 1);
+
+	int getNumberOf(PIECE_TYPE type, vector<pair<DatabaseImageDescriptor, PIECE_TYPE>>& db);
+	int getNumberOfRecognised(PIECE_TYPE type, vector<pair<DatabaseImageDescriptor, PIECE_TYPE>>& db);
 	// Set les classes
 	void setClasses(vector<vector<float>>& classes);
 	

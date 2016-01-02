@@ -34,7 +34,36 @@ void ReconnaissanceHandler::analyseResults(vector<pair<DatabaseImageDescriptor, 
 			++correct;
 	}
 	ofs << endl;
-	ofs << "RESULTAT FINAL : avec "<< n << " pixels sur le contour et " << 2*x+1 <<" points d'interpolation : " << correct << "/" << results.size() << endl;
+	ofs << "RESULTAT FINAL : " << correct << "/" << results.size() << endl;
+	ofs << "_______ Reconnus | Total" << endl;
+	ofs << "Cavaliers : " << this->getNumberOfRecognised(PIECE_TYPE::CAVALIER, results) << " / " << this->getNumberOf(PIECE_TYPE::CAVALIER, results) << endl;
+	ofs << "Fous	   : " << this->getNumberOfRecognised(PIECE_TYPE::FOU, results) << " / " << this->getNumberOf(PIECE_TYPE::FOU, results) << endl;
+	ofs << "Pions	   : " << this->getNumberOfRecognised(PIECE_TYPE::PION, results) << " / " << this->getNumberOf(PIECE_TYPE::PION, results) << endl;
+	ofs << "Reine	   : " << this->getNumberOfRecognised(PIECE_TYPE::REINE, results) << " / " << this->getNumberOf(PIECE_TYPE::REINE, results) << endl;
+	ofs << "Rois	   : " << this->getNumberOfRecognised(PIECE_TYPE::ROI, results) << " / " << this->getNumberOf(PIECE_TYPE::ROI, results) << endl;
+	ofs << "Tours	   : " << this->getNumberOfRecognised(PIECE_TYPE::TOUR, results) << " / " << this->getNumberOf(PIECE_TYPE::TOUR, results) << endl;
+}
+
+int ReconnaissanceHandler::getNumberOf(PIECE_TYPE type, vector<pair<DatabaseImageDescriptor, PIECE_TYPE>>& db)
+{
+	int nb = 0;
+	for (pair<DatabaseImageDescriptor, PIECE_TYPE> p : db)
+	{
+		if (p.first.type == type)
+			++nb;
+	}
+	return nb;
+}
+
+int ReconnaissanceHandler::getNumberOfRecognised(PIECE_TYPE type, vector<pair<DatabaseImageDescriptor, PIECE_TYPE>>& db)
+{
+	int nb = 0;
+	for (pair<DatabaseImageDescriptor, PIECE_TYPE> p : db)
+	{
+		if (p.second == type)
+			++nb;
+	}
+	return nb;
 }
 
 void ReconnaissanceHandler::setClasses(vector<vector<float>>& classes)
