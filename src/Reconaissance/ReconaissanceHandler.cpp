@@ -9,12 +9,35 @@ vector<float> ReconnaissanceHandler::recognise(vector<float>& caracteristicVecto
 	return vector<float>();
 }
 
-vector<float> ReconnaissanceHandler::completeReconaissance(string imageName)
+PIECE_TYPE ReconnaissanceHandler::getTypeFromProbabilities(vector<float> probabilities)
 {
-	//TODO: prepareimage
-	//TODO: build classes (or use premade ones)
-	//TODO: 
-	return vector<float>();
+	//TODO : trouver le type en fonction des probas
+
+	int smallest = 0;
+	for (int i = 1; i < probabilities.size(); ++i)
+	{
+		if (probabilities.at(i) < probabilities.at(smallest))
+			smallest = i;
+	}
+
+	return (PIECE_TYPE)smallest;
+}
+
+PIECE_TYPE ReconnaissanceHandler::completeReconaissance(string imageName, vector<vector<float>>& classes)
+{
+	// Pré traitement de l'image
+	Mat src;
+	ReconnaissancePreparationHandler::prepareImage_method1(imageName,src);
+
+	// Construction du vecteur caractéristique
+	vector<float> caracteristicVector;
+	ReconnaissancePreparationHandler::buildCaracteristicVector(src, caracteristicVector);
+
+	// Calcul des probabilités d'appartenance
+	vector<float> probabilities = this->recognise(caracteristicVector, classes);
+
+	// Déduction du type de pièce
+	return this->getTypeFromProbabilities(probabilities);
 }
 
 vector<float> ReconnaissanceHandler::recognise(vector<float>& caracteristicVector, vector<vector<float>>& classes)

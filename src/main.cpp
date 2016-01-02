@@ -85,19 +85,19 @@ int main(int argc, char* argv[])
 	tester.testImageCallback_cannyMethod(0, &tester);
 	waitKey(0);*/
 
-	ImageHandler handler;
 	Mat image,contour;
 
-	if (!ImageHandler::loadImage(PATHS::DATABASE2 + "n_roi_face (10).jpg", image))
+	if (!ImageHandler::loadImage("n_roi_face (10)", image))
 
 	{
 		cout << "erreur : probleme de chargement de l'image." << endl;
 		return EXIT_FAILURE;
 	}
-	handler.prepareImage_canny(image, contour);
+	ImageHandler::prepareImage_canny(image, contour);
 	TransformPiece tpiece = TransformPiece(contour);
  	tpiece.findDirection();
 	vector<pair<int, int>> path = tpiece.findPathcontour();
+
 	waitKey(0);
  	return EXIT_SUCCESS;
 

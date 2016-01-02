@@ -4,7 +4,7 @@
 
 #include "opencv2/opencv.hpp"
 #include "ImageHandler.h"
-#include "../Utilities/databaseHandler.hpp"
+#include "Utilities/databaseHandler.hpp"
 #include "tangent_descriptor.hpp"
 
 using namespace cv;
@@ -12,6 +12,8 @@ using namespace cv;
 class ReconnaissancePreparationHandler
 {
 public:
+
+	static void prepareImage_method1(string imageName, Mat& output);
 
 	// Depuis l'image donnée, extrait son vecteur caractéristique
 	static void buildCaracteristicVector(Mat image, vector<float>& caracteristicVector, int n = 500, int x = 6);

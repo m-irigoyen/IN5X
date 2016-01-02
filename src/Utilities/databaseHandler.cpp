@@ -180,11 +180,6 @@ string DatabaseHandler::getNumber(int n)
 	return s;
 }
 
-string DatabaseHandler::getExtension()
-{
-	return string(".jpg");
-}
-
 int DatabaseHandler::getNumberOfImagesFromType(DatabaseImageDescriptor d)
 {
 	return this->getNumberOfImagesFromType(d.type, d.angle, d.color);
@@ -200,7 +195,7 @@ int DatabaseHandler::getNumberOfImagesFromType(PIECE_TYPE t, PIECE_ANGLE a, PIEC
 void DatabaseHandler::loadImageFromType(DatabaseImageDescriptor d, int number, Mat& image)
 {
 	if (number <= this->getNumberOfImagesFromType(d))
-		ImageHandler::loadImage(this->buildPath(d, number), image);
+		ImageHandler::loadImage(this->buildName(d, number), image);
 	else
 		cout << "ERREUR : numéro d'image incorrect" << endl;
 }
@@ -214,15 +209,13 @@ void DatabaseHandler::loadImageFromType(PIECE_TYPE t, PIECE_ANGLE a, PIECE_COLOR
 	this->loadImageFromType(d, number, image);
 }
 
-string DatabaseHandler::buildPath(DatabaseImageDescriptor d, int number)
+string DatabaseHandler::buildName(DatabaseImageDescriptor d, int number)
 {
 	if (number <= this->getNumberOfImagesFromType(d))
 	{
-		string path = PATHS::DATABASE2;
-		path += this->getNameFromType(d);
-		path += this->getNumber(number);
-		path += this->getExtension();
-		return path;
+		string name = this->getNameFromType(d);
+		name += this->getNumber(number);
+		return name;
 	}
 	else
 		cout << "ERREUR : numéro d'image incorrect" << endl;

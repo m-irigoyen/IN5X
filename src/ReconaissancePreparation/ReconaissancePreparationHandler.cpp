@@ -1,5 +1,14 @@
 #include "ReconaissancePreparationHandler.h"
 
+
+void ReconnaissancePreparationHandler::prepareImage_method1(string imageName, Mat & output)
+{
+	Mat src, src_prepared;
+	ImageHandler::loadImage(imageName, src);
+	ImageHandler::prepareImage_canny(src, src_prepared);
+
+}
+
 void ReconnaissancePreparationHandler::buildCaracteristicVector(Mat image, vector<float>& caracteristicVector, int n, int x)
 {
 	Mat edges;
@@ -18,7 +27,6 @@ void ReconnaissancePreparationHandler::buildCaracteristicVector(Mat image, vecto
 
 		caracteristicVector = descriptor.angle;
 	}
-	
 }
 
 void ReconnaissancePreparationHandler::learning(DatabaseHandler & database, PCA& pca, Mat& reducedLearnDB)
