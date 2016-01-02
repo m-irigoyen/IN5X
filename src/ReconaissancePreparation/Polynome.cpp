@@ -93,7 +93,9 @@ void Polynome::interp_lagrange(vector<pair<int,int>>& points) {
 	Polynome pol_l = Polynome(1, vector<float>(2, 0));
 	for (int i = 0; i < points.size(); ++i) {
 		//TODO: reste de l'opti a faire ici probablement
-		pol_interp += pol_l.pol_lagrange(points, i).product(&Polynome(0, vector<float>(1, points.at(i).second)));
+		if (points.at(i).second != 0) {
+			pol_interp += pol_l.pol_lagrange(points, i).product(&Polynome(0, vector<float>(1, points.at(i).second)));
+		}
 	}
 
 	degree = pol_interp.getDegree();

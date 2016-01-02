@@ -15,13 +15,13 @@ class ReconnaissancePreparationHandler
 public:
 
 	// Depuis l'image donnée, extrait son vecteur caractéristique
-	static void buildCaracteristicVector(Mat image, vector<float>& caracteristicVector, int n = 250, int x = 2);
+	static void buildCaracteristicVector(Mat image, vector<float>& caracteristicVector, int n = 350, int x = 1);
 
 	// Effectue l'apprentissage des classes depuis la base de données d'image (PCA)
 	static void learning(DatabaseHandler& database, PCA& pca,Mat& reducedLearnDB);
 	
 	// Effectue l'apprentissage des classes depuis la base de données d'image
-	static void learning(DatabaseHandler& database, vector<vector<float>>& classes);
+	static void learning(DatabaseHandler& database, vector<vector<float>>& classes, int n = 350, int x = 1);
 
 	static vector<float> meanVectorClass(vector<vector<float>> vectorsClass);
 };

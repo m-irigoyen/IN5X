@@ -47,6 +47,5 @@ bool ImageHandler::loadImage(std::string name, Mat & output)
 void ImageHandler::findContour(Mat& contour, vector<pair<int, int>>& result) {
 	TransformPiece piece(contour);
 	piece.findDirection();
-
 	piece.findPathcontour(result);
 }

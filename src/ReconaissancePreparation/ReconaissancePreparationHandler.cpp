@@ -67,7 +67,7 @@ vector<float> ReconnaissancePreparationHandler::meanVectorClass(vector<vector<fl
 	return mean;
 }
 
-void ReconnaissancePreparationHandler::learning(DatabaseHandler & database, vector<vector<float>>& classes)
+void ReconnaissancePreparationHandler::learning(DatabaseHandler & database, vector<vector<float>>& classes, int n, int x)
 {
 	// Nettoyage et préparation des classes
 	classes.clear();
@@ -87,7 +87,7 @@ void ReconnaissancePreparationHandler::learning(DatabaseHandler & database, vect
 	for (DatabaseImage i : images)
 	{
 		vector<float> caracteristicVector;
-		buildCaracteristicVector(i.mat, caracteristicVector);
+		buildCaracteristicVector(i.mat, caracteristicVector, n , x);
 		fullClasses.at((int)i.descriptor.type).push_back(caracteristicVector);
 	}
 

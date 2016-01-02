@@ -17,7 +17,7 @@ void TransformPiece::MAJimg() {
 		img.at<uchar>(piece.at(i).first, piece.at(i).second) = 255;
 	}
 }
-void TransformPiece::rotation(float angle, vector <pair<int, int>>& result) {
+vector<pair<int,int>> TransformPiece::rotation(float angle, vector <pair<int, int>> result) {
 	result = piece;
 	angle = angle * PI / 180;
 	pair<int, int> center = pair<int, int>((box.points_box.at(0).second + box.points_box.at(2).second) / 2, (box.points_box.at(0).first + box.points_box.at(2).first) / 2);
@@ -25,6 +25,8 @@ void TransformPiece::rotation(float angle, vector <pair<int, int>>& result) {
 		result.at(j).first = ((piece.at(j).first - center.first) * cos(angle) + (piece.at(j).second - center.second) * sin(angle)) + center.first;
 		result.at(j).second =  (-(piece.at(j).first - center.first)* sin(angle) + (piece.at(j).second - center.second)* cos(angle)) + center.second;
 	}
+
+	return result;
 }
 
 void TransformPiece::findDirection() {
@@ -32,7 +34,7 @@ void TransformPiece::findDirection() {
 	finalPiece = piece;
 	Box box_final = box;
 	for (int i = 0; i < 360; ++i) {
-		rotation(i, pieceTmp);
+		pieceTmp = rotation(i, pieceTmp);
 		Box boxtmp = Box(pieceTmp);
 		if (box_final.aire > boxtmp.aire) {
 			box_final.points_box = boxtmp.points_box;
@@ -40,11 +42,14 @@ void TransformPiece::findDirection() {
 			finalPiece = pieceTmp;
 		}
 	}
-	box.points_box = box_final.points_box;
+ 	box.points_box = box_final.points_box;
 	box.aire = box_final.aire;
 	piece = finalPiece;
+	img = img * 0;
+	rectangle(img, Point(box.points_box.at(0).first, box.points_box.at(0).second), Point(box.points_box.at(2).first, box.points_box.at(2).second), Scalar(255, 255, 255));
+	MAJimg();
 	if (box.points_box.at(2).first - box.points_box.at(0).first > box.points_box.at(1).second - box.points_box.at(0).second) {
-		rotation(90, piece);
+		piece = rotation(90, piece);
 		box = Box(piece);
 	}
 	img = img * 0;
@@ -66,12 +71,13 @@ void TransformPiece::findDirection() {
 	}
 		
    	if (last_up-first_up > last_down-first_down) {
-		rotation(180,piece);
+		piece = rotation(180,piece);
 		box = Box(piece);
 	}
 
 	img = img * 0;
 	MAJimg();
+	
 }
 
 void TransformPiece::findPathcontour(vector<pair<int, int>>& result) {
