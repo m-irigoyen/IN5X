@@ -19,7 +19,7 @@ public:
 	// Effectue l'apprentissage des classes depuis la base de données d'image
 	static void learning(DatabaseHandler& database, PCA& pca,Mat& reducedLearnDB);
 
-
+	static vector<float> meanVectorClass(vector<vector<float>> vectorsClass);
 };
 
 #endif 
