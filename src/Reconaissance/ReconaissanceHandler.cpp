@@ -21,6 +21,19 @@ PIECE_TYPE ReconnaissanceHandler::getTypeFromProbabilities(vector<float> probabi
 	return (PIECE_TYPE)smallest;
 }
 
+void ReconnaissanceHandler::analyseResults(vector<pair<DatabaseImageDescriptor, PIECE_TYPE>>& results)
+{
+	int correct = 0;
+	for (pair<DatabaseImageDescriptor, PIECE_TYPE> p : results)
+	{
+		cout << "Type :  " << convert_pieceTypeToName(p.first.type) << " | Result : " << convert_pieceTypeToName(p.second) << endl;
+		if (p.first.type == p.second)
+			++correct;
+	}
+	cout << endl;
+	cout << "RESULTAT FINAL : " << correct << "/" << results.size() << endl;
+}
+
 void ReconnaissanceHandler::setClasses(vector<vector<float>>& classes)
 {
 	this->classes = classes;
@@ -31,15 +44,26 @@ void ReconnaissanceHandler::buildClasses(DatabaseHandler & db)
 	ReconnaissancePreparationHandler::learning(db, this->classes);
 }
 
-PIECE_TYPE ReconnaissanceHandler::completeReconaissance(string imageName)
+void ReconnaissanceHandler::completeReconnaissance_db(DatabaseHandler & testImages, vector<pair<DatabaseImageDescriptor, PIECE_TYPE>>& result)
+{
+	for (DatabaseImage i : testImages.getImages())
+		result.push_back(pair<DatabaseImageDescriptor, PIECE_TYPE>(i.descriptor, this->completeReconaissance_one(i.mat)));
+}
+
+PIECE_TYPE ReconnaissanceHandler::completeReconaissance_one(string imageName)
 {
 	// Pré traitement de l'image
 	Mat src;
 	ImageHandler::loadImage(imageName, src);
 
+	return this->completeReconaissance_one(src);
+}
+
+PIECE_TYPE ReconnaissanceHandler::completeReconaissance_one(Mat image)
+{
 	// Construction du vecteur caractéristique
 	vector<float> caracteristicVector;
-	ReconnaissancePreparationHandler::buildCaracteristicVector(src, caracteristicVector);
+	ReconnaissancePreparationHandler::buildCaracteristicVector(image, caracteristicVector);
 
 	// Calcul des probabilités d'appartenance
 	vector<float> probabilities = this->recognise(caracteristicVector, this->classes);
