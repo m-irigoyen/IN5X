@@ -3,7 +3,7 @@
 
 #include <string>
 #include <vector>
-#include "../Utilities/Helper.h"
+#include "Utilities/Helper.h"
 
 #include "opencv2/opencv.hpp"
 using namespace cv;
@@ -12,9 +12,12 @@ using namespace std;
 
 class ReconnaissanceHandler
 {
+private:
+	//TODO: stocker les classes ici pour éviter les calculs inutiles
 
 public:
 	
+	vector<float> completeReconaissance(string imageName);
 
 	// Pour le vecteur caractéristique et les classes données, retourne les probabilités d'appartenance à chaque pièce (méthode sans PCA)
 	vector<float> recognise(vector<float>& caracteristicVector, vector<vector<float>>& classes);

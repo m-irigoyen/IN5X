@@ -5,12 +5,13 @@
 #include <algorithm>
 #include <math.h>
 
-int degree;
-vector<float> coefficients;
+// TODO : ? C'est quoi ça?
+//int degree;
+//vector<float> coefficients;
 
 Polynome::Polynome() {
 	degree = 0;
-	coefficients = *new vector<float>(1, 0);
+	coefficients = vector<float>(1, 0);
 }
 
 Polynome::Polynome(int degr, vector<float> coeffs)
@@ -21,44 +22,46 @@ Polynome::Polynome(int degr, vector<float> coeffs)
 	assert(coefficients.size() == degree + 1);
 }
 
-Polynome* Polynome::derivative()
+Polynome Polynome::derivative()
 {
 	if(degree > 0){
 		int newDegree = degree - 1;
-		vector<float>* newCoeffs = new vector<float>();
+		vector<float> newCoeffs = vector<float>();
 
 		
 		vector<float>::iterator il = coefficients.begin();
 		for (int currentDegree = degree; currentDegree > 0; --currentDegree) {
 			//We fill each coefficient for the new polynome by iterating on the previous one
-			newCoeffs->push_back(*il * currentDegree);
+			newCoeffs.push_back(*il * currentDegree);
 			il++;
 		}
-		return new Polynome(newDegree, *newCoeffs);
+		return Polynome(newDegree, newCoeffs);
 	}
 	
-	return new Polynome(0,*(new vector<float>(0)));
+	return Polynome(0,vector<float>(0));
 }
 
-Polynome* Polynome::product(Polynome* pol)
+Polynome Polynome::product(Polynome* pol)
 {
 	int newDegree = degree + pol->getDegree();
-	vector<float>* newCoeffs = new vector<float>(newDegree+1,0);
+	vector<float> newCoeffs = vector<float>(newDegree+1,0);
 	for (int i = 0; i<=degree; ++i){
 		for (int j = 0; j<=pol->getDegree(); ++j){
-			newCoeffs->at(i+j) += coefficients.at(i)*pol->getCoefficients().at(j);
+			newCoeffs.at(i+j) += coefficients.at(i)*pol->getCoefficients().at(j);
 		}
 	}
 	degree = newDegree;
-	this->setCoefficients(*newCoeffs);
-	return this;
+	this->setCoefficients(newCoeffs);
+	return *this;
 }
 
-Polynome* Polynome::pol_lagrange(vector<pair<int,int>> points, int i){
-	vector<float> vec = *(new vector<float>(2,0));
-	Polynome* pol = new Polynome(1,vec);
-	vector<float>* newCoeffs = new vector<float>(2, 0);
-	this->setCoefficients(*newCoeffs);
+Polynome Polynome::pol_lagrange(vector<pair<int,int>> points, int i){
+	vector<float> vec = vector<float>(2,0);
+
+	//TODO : là je suis pas sûr de qu'est ce que c'est les histoires avec ce new là
+	Polynome pol = Polynome(1,vec);
+	vector<float> newCoeffs = vector<float>(2, 0);
+	this->setCoefficients(newCoeffs);
 	degree = 1;
 	for (int j = 0; j<points.size(); ++j){
 		if ((j == 0 && i!=0) || (j==1 && i==0)){
@@ -69,20 +72,21 @@ Polynome* Polynome::pol_lagrange(vector<pair<int,int>> points, int i){
 			if (i != j) {
 				vec.at(0) = 1 / (points.at(i).first - points.at(j).first);
 				vec.at(1) = - points.at(j).first / (points.at(i).first - points.at(j).first);
-				pol = new Polynome(1, vec);
-				this->product(pol);
+				pol = Polynome(1, vec);
+				this->product(&pol);
 			}
 		}
 		
 	}
-	return this;
+	return *this;
 }
 
 void Polynome::interp_lagrange(vector<pair<int,int>> points) {
-	Polynome pol_interp = *new Polynome(1, *new vector<float>(2, 0));
-	Polynome pol_l = *new Polynome(1, *new vector<float>(2, 0));
+	Polynome pol_interp = Polynome(1, vector<float>(2, 0));
+	Polynome pol_l = Polynome(1, vector<float>(2, 0));
 	for (int i = 0; i < points.size(); ++i) {
-		pol_interp += *(*pol_l.pol_lagrange(points, i)).product(new Polynome(0, *new vector<float>(1, points.at(i).second)));
+		//TODO: pareil, là je bite pas tout
+		pol_interp += pol_l.pol_lagrange(points, i).product(&Polynome(0, vector<float>(1, points.at(i).second)));
 	}
 
 	degree = pol_interp.getDegree();
@@ -90,7 +94,7 @@ void Polynome::interp_lagrange(vector<pair<int,int>> points) {
 }
 
 void Polynome::operator+=(Polynome p) {
-	vector<float> vec = *new vector<float>(max(degree, p.getDegree()) + 1, 0);
+	vector<float> vec = vector<float>(max(degree, p.getDegree()) + 1, 0);
 	if (p.getDegree() > degree) {
 		vec = p.getCoefficients();
 	}
@@ -113,9 +117,9 @@ void Polynome::operator+=(Polynome p) {
 }
 
 Polynome Polynome::find_tangente(int x) {
-	Polynome tangente = *new Polynome(1, *new vector<float>(2, 0));
-	Polynome deriv = *this->derivative();
-	vector<float> coeff_tan = *new vector<float>();
+	Polynome tangente = Polynome(1, vector<float>(2, 0));
+	Polynome deriv = this->derivative();
+	vector<float> coeff_tan = vector<float>();
 	float dfx = deriv.value_y(x);
 	float fx = this->value_y(x);
 	coeff_tan.push_back(dfx);

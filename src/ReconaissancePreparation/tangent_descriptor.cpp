@@ -3,12 +3,11 @@
 tangent_descriptor::tangent_descriptor(vector<pair<int, int>> points, int x) 
 {
 
-	//TODO : Amarre clean
 	assert(x*2 < points.size());
-	vector<pair<int, int>> list_points_interp = *new vector<pair<int, int>>(int(x*2+1),*new pair<int, int>(0,0));
-	interp = *new vector<Polynome>(points.size(),*new Polynome());
-	tangent = *new vector<Polynome>(points.size(), *new Polynome());
-	angle = *new vector<float>(points.size(), 0);
+	vector<pair<int, int>> list_points_interp = vector<pair<int, int>>(int(x*2+1),pair<int, int>(0,0));
+	interp = vector<Polynome>(points.size(),Polynome());
+	tangent = vector<Polynome>(points.size(), Polynome());
+	angle = vector<float>(points.size(), 0);
 	for (int i = 0; i < points.size(); ++i) {
 		for (int j = i - x; j <= i + x; ++j) {
 			if (j < 0) {

@@ -11,6 +11,6 @@ using namespace cv;
 Mat convertCaracteristicVector(vector<float> caracteristicVector);
 // Convertit un vecteur caractéristique sous format vectoriel
 vector<float> convertCaracteristicVector(Mat caracteristicVector);
-static float distanceVector(vector<float>, vector<float>);
+float distanceVector(vector<float>& v1, vector<float>& v2);
 
 #endif

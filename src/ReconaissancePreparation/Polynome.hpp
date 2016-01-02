@@ -12,12 +12,12 @@ class Polynome {
 public:
 	Polynome();
 	Polynome(int, vector<float>);
-	Polynome* derivative();
-	Polynome* product(Polynome*);
+	Polynome derivative();
+	Polynome product(Polynome*);
 	int getDegree();
 	vector<float> getCoefficients();
 	void setCoefficients(vector<float>);
-	Polynome* pol_lagrange(vector<pair<int,int>>, int);
+	Polynome pol_lagrange(vector<pair<int,int>>, int);
 	void interp_lagrange(vector<pair<int,int>>);
 	void operator+=(Polynome);
 	Polynome find_tangente(int);
