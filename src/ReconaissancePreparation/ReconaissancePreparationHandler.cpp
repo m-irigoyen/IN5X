@@ -5,18 +5,22 @@ void ReconnaissancePreparationHandler::buildCaracteristicVector(Mat image, vecto
 	Mat edges;
 	ImageHandler::prepareImage_canny(image, edges);
 	vector<pair<int, int>> contour = ImageHandler::findContour(edges);
-	// TODO: implémenter la normalisation du nombre de points dans le contour
-	float gap = contour.size() / 500;
-	vector<pair<int, int>> normalized_contour;
-	//TODO: implémenter la construction du vecteur caractéristique
-	for (int i = 0; i < 500; ++i) {
-		normalized_contour.push_back(contour.at(round(i*gap)));
+	int n = 500; //number of points keep
+	float gap = contour.size() / n;
+	if (gap < 1) {
+		cout << "ReconnaissancePreparationHandler::buildCaracteristicVector : Erreur! La pièce est trop petite" << std::endl;
 	}
-	int x = 6; //x is the number of points take before and after actual point in lagrange interpolation
-	tangent_descriptor descriptor(normalized_contour, x);
+	else {
+		vector<pair<int, int>> normalized_contour;
+		for (int i = 0; i < n; ++i) {
+			normalized_contour.push_back(contour.at(round(i*gap)));
+		}
+		int x = 6; //x is the number of points take before and after actual point in lagrange interpolation
+		tangent_descriptor descriptor(normalized_contour, x);
 
-	caracteristicVector = descriptor.angle;
-
+		caracteristicVector = descriptor.angle;
+	}
+	
 }
 
 void ReconnaissancePreparationHandler::learning(DatabaseHandler & database, PCA& pca, Mat& reducedLearnDB)
@@ -36,6 +40,7 @@ void ReconnaissancePreparationHandler::learning(DatabaseHandler & database, PCA&
 	}
 
 	//TODO implémenter l'apprentissage des classes : ici c'est avec le pca, c'est pas vraiment de l'aprentissage mais bon..
+	
 	pca = PCA(caracteristicVectors, Mat(), CV_PCA_DATA_AS_COL);
 	reducedLearnDB = pca.project(caracteristicVectors);
 
