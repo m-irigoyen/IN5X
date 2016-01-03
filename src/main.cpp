@@ -5,24 +5,22 @@
 #include <vector>
 
 #include "Reconaissance/ReconaissanceHandler.h"
+#include "Utilities/ImageTester.h"
 
 using namespace cv;
 
 // Le main
 int main(int argc, char* argv[])
 {
-	// Création de la base de données
-	DatabaseHandler dbLearning, dbTest;
-	vector<PIECE_TYPE> types;
-	types.push_back(PIECE_TYPE::CAVALIER);
-	types.push_back(PIECE_TYPE::FOU);
-	types.push_back(PIECE_TYPE::PION);
-	types.push_back(PIECE_TYPE::REINE);
-	types.push_back(PIECE_TYPE::ROI);
-	types.push_back(PIECE_TYPE::TOUR);
+		// POUR TESTER DES IMAGES C'EST LA
+	/*ImageTester test;
+	test.testImage_cannyMethod("b_cavalier_cote (1)");*/
 
-	dbLearning.buildDatabase(true, types, PIECE_ANGLE::FACE, PIECE_COLOR::NOIR);
-	dbTest.buildDatabase(false, types, PIECE_ANGLE::FACE, PIECE_COLOR::NOIR);
+	// Création de la base de données
+	DatabaseHandler dbLearning, dbTest, dbAll;
+	DatabaseHandler::buildDatabase_allBlackFace(dbLearning, dbTest, dbAll);
+
+	cout << "Database built" << endl;
 
 	for (int i = 50; i < 600; i = i + 50) {
 		for (int j = 1; j < 3; ++j) {
@@ -45,6 +43,4 @@ int main(int argc, char* argv[])
 	
 	waitKey(0);
  	return EXIT_SUCCESS;
-
-	//videoTest();	// Lance la caméra avec une détection de contours 
 }  

@@ -11,7 +11,7 @@ ImageTester::ImageTester()
 void ImageTester::setImage(string imageName)
 {
 	Mat image;
-	image = imread(PATHS::DATABASE2 + imageName, CV_LOAD_IMAGE_COLOR);   // Read the file
+	ImageHandler::loadImage(imageName, image);   // Read the file
 	if (!image.data)
 	{
 		cout << "ERROR : couldn't load image" << endl;
@@ -47,6 +47,7 @@ void ImageTester::testImageCallback_cannyMethod(int, void * object)
 
 	ImageHandler::prepareImage_canny(t->src, t->output, t->gaussianSize, t->cannySize, t->cannyThreshold, t->threshold);
 
+	//resize(t->output, t->output, cv::Size(), 0.6, 0.6);
 	imshow("test", t->output);
 
 	// Code pour utiliser canny comme un masque sur l'image initiale

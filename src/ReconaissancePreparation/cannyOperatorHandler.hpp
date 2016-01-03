@@ -18,7 +18,8 @@ public :
 		CT_LOW = 3,
 		CT_MED = 50,
 		CT_HIGH = 99,
-		CT_OPTIMAL = 70
+		CT_OPTIMAL = 30,
+		CT_OPTIMAL2 = 70,
 	};
 
 	// La taille du kernel utilisée par l'opérateur de canny

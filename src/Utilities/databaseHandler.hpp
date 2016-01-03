@@ -22,15 +22,26 @@ class DatabaseHandler
 public:
 	DatabaseHandler();
 
-	// Construit une base de donnée contenant les types et angles passés en paramètre
-	
-	void buildDatabase(bool isLearningDatabase, vector<PIECE_TYPE> types, PIECE_ANGLE angle, PIECE_COLOR color);
-	void buildDatabase(bool isLearningDatabase, PIECE_TYPE type, PIECE_ANGLE angle, PIECE_COLOR color);
+	enum DATABASE_TYPE
+	{
+		TEST,
+		LEARNING,
+		ALL
+	};
+
+	// Construit une base de donnée
+	static void buildDatabase_allBlackFace(DatabaseHandler& learning, DatabaseHandler& test, DatabaseHandler& all);
+	static void buildDatabase_allWhite(DatabaseHandler& learning, DatabaseHandler& test, DatabaseHandler& all);
+	static void buildDatabase_all(DatabaseHandler& learning, DatabaseHandler& test, DatabaseHandler& all);
 
 	vector<DatabaseImage>& getImages();
 
 private:
 	vector<DatabaseImage> images;
+
+	void buildDatabase(DATABASE_TYPE type, vector<PIECE_TYPE> types, vector<PIECE_ANGLE> angles, vector<PIECE_COLOR> colors);
+	void buildDatabase(DATABASE_TYPE dbType, vector<PIECE_TYPE> types, PIECE_ANGLE angle, PIECE_COLOR color);
+	void buildDatabase(DATABASE_TYPE dbType, PIECE_TYPE type, PIECE_ANGLE angle, PIECE_COLOR color);
 
 	// map qui stocke pour chaque type de pièce le nombre d'images qu'on en a
 	// pair<pair<type,angle>, color>, nombre>
@@ -39,8 +50,8 @@ private:
 
 	// Fonctions
 	void computeNumberOfImages();
-	void getAllImagesFromType(bool learning, DatabaseImageDescriptor d, vector<DatabaseImage>& images);
-	void getAllImagesFromType(bool learning, PIECE_TYPE t, PIECE_ANGLE a, PIECE_COLOR c, vector<DatabaseImage>& images);
+	void getAllImagesFromType(DATABASE_TYPE type, DatabaseImageDescriptor d, vector<DatabaseImage>& images);
+	void getAllImagesFromType(DATABASE_TYPE type, PIECE_TYPE t, PIECE_ANGLE a, PIECE_COLOR c, vector<DatabaseImage>& images);
 	string getNameFromType(DatabaseImageDescriptor d);
 	string getNameFromType(PIECE_TYPE t, PIECE_ANGLE a, PIECE_COLOR c);
 	string getNumber(int n);
