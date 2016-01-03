@@ -1,12 +1,25 @@
 #include "ReconaissanceHandler.h"
 
-vector<float> ReconnaissanceHandler::recognise(vector<float>& caracteristicVector, PCA pca, Mat reducedLearnDB)
+vector<float> ReconnaissanceHandler::recognisePCA(vector<float>& caracteristicVector, PCA pca, vector<vector<float>>& classes)
 {
-	Mat reduceVector = pca.project(caracteristicVector);
+	Mat v(caracteristicVector.size(),1, CV_32F);
+	int i = 0;
+	for (float f : caracteristicVector) {
+		v.at<float>(i, 0);
+	}
+	Mat reduceVector = pca.project(v);
+	
+	vector<float> caractReduced;
+	for (i = 0; i < reduceVector.rows; ++i) {
+		caractReduced.push_back(reduceVector.at<float>(i, 0));
+	}
 
-	// TODO KNN avec reduceVector ReducedLearnDB et surement une troisieme variable qui sait pour chaque vecteur de reduceLearnDB a quelle classe il appartient
-	//TODO: implémenter les probabilités d'appartenance P(v|c) = nbVecteur appatenant a c / nbVecteur dans KNN
-	return vector<float>();
+	vector<float> dist;
+	for (int i = 0; i < classes.size(); ++i)
+	{
+		dist.push_back(distanceVector(caracteristicVector, classes.at(i)));
+	}
+	return dist;
 }
 
 PIECE_TYPE ReconnaissanceHandler::getTypeFromProbabilities(vector<float> probabilities)
@@ -75,11 +88,21 @@ void ReconnaissanceHandler::buildClasses(DatabaseHandler & db, int n, int x)
 {
 	ReconnaissancePreparationHandler::learning(db, this->classes, n, x);
 }
+void ReconnaissanceHandler::buildClassesPCA(DatabaseHandler & db, int n, int x)
+{
+	ReconnaissancePreparationHandler::learningPCA(db, this->pca, this->classes, n, x);
+}
 
 void ReconnaissanceHandler::completeReconnaissance_db(DatabaseHandler & testImages, vector<pair<DatabaseImageDescriptor, PIECE_TYPE>>& result, int n, int x)
 {
 	for (DatabaseImage i : testImages.getImages())
 		result.push_back(pair<DatabaseImageDescriptor, PIECE_TYPE>(i.descriptor, this->completeReconaissance_one(i.mat, n, x)));
+}
+
+void ReconnaissanceHandler::completeReconnaissance_dbPCA(DatabaseHandler & testImages, vector<pair<DatabaseImageDescriptor, PIECE_TYPE>>& result, int n, int x)
+{
+	for (DatabaseImage i : testImages.getImages())
+		result.push_back(pair<DatabaseImageDescriptor, PIECE_TYPE>(i.descriptor, this->completeReconaissance_onePCA(i.mat, n, x)));
 }
 
 PIECE_TYPE ReconnaissanceHandler::completeReconaissance_one(string imageName)
@@ -103,6 +126,20 @@ PIECE_TYPE ReconnaissanceHandler::completeReconaissance_one(Mat image, int n, in
 	// Déduction du type de pièce
 	return this->getTypeFromProbabilities(probabilities);
 }
+
+PIECE_TYPE ReconnaissanceHandler::completeReconaissance_onePCA(Mat image, int n, int x)
+{
+	// Construction du vecteur caractéristique
+	vector<float> caracteristicVector;
+	ReconnaissancePreparationHandler::buildCaracteristicVector(image, caracteristicVector, n, x);
+
+	// Calcul des probabilités d'appartenance
+	vector<float> probabilities = this->recognisePCA(caracteristicVector, this->pca,this->classes);
+
+	// Déduction du type de pièce
+	return this->getTypeFromProbabilities(probabilities);
+}
+
 
 vector<float> ReconnaissanceHandler::recognise(vector<float>& caracteristicVector, vector<vector<float>>& classes)
 {
