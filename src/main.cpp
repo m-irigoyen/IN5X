@@ -5,15 +5,22 @@
 #include <vector>
 
 #include "Reconaissance/ReconaissanceHandler.h"
+#include "Utilities/ImageTester.h"
 
 using namespace cv;
 
 // Le main
 int main(int argc, char* argv[])
 {
+		// POUR TESTER DES IMAGES C'EST LA
+	/*ImageTester test;
+	test.testImage_cannyMethod("b_cavalier_cote (1)");*/
+
 	// Création de la base de données
 	DatabaseHandler dbLearning, dbTest, dbAll;
 	DatabaseHandler::buildDatabase_allBlackFace(dbLearning, dbTest, dbAll);
+
+	cout << "Database built" << endl;
 
 	for (int i = 50; i < 600; i = i + 50) {
 		for (int j = 1; j < 3; ++j) {
