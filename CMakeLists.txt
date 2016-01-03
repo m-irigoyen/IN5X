@@ -14,15 +14,18 @@ include_directories(${IN5X_SOURCE_DIR}/src)
 FILE(GLOB_RECURSE SRCS_RECON
 	${IN5X_SOURCE_DIR}
 	${IN5X_SOURCE_DIR}/src/Reconaissance/*.cpp 
-	${IN5X_SOURCE_DIR}/src/Reconaissance/*.h)
+	${IN5X_SOURCE_DIR}/src/Reconaissance/*.h
+	${IN5X_SOURCE_DIR}/src/Reconaissance/*.hpp)
 	FILE(GLOB_RECURSE SRCS_RECONPREP
 	${IN5X_SOURCE_DIR}
 	${IN5X_SOURCE_DIR}/src/ReconaissancePreparation/*.cpp 
-	${IN5X_SOURCE_DIR}/src/ReconaissancePreparation/*.h)
+	${IN5X_SOURCE_DIR}/src/ReconaissancePreparation/*.h
+	${IN5X_SOURCE_DIR}/src/ReconaissancePreparation/*.hpp)
 	FILE(GLOB_RECURSE SRCS_UTILITIES
 	${IN5X_SOURCE_DIR}
 	${IN5X_SOURCE_DIR}/src/Utilities/*.cpp 
-	${IN5X_SOURCE_DIR}/src/Utilities/*.h)
+	${IN5X_SOURCE_DIR}/src/Utilities/*.h
+	${IN5X_SOURCE_DIR}/src/Utilities/*.hpp)
 	FILE(GLOB_RECURSE SRCS_MAIN 
 	${IN5X_SOURCE_DIR}/src/main.cpp)
 	
