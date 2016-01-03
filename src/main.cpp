@@ -29,16 +29,17 @@ int main(int argc, char* argv[])
 			// Construction des classes
 			ReconnaissanceHandler reconnaissance;
 			reconnaissance.buildClassesPCA(dbLearning, i, j);
-			//reconnaissance.buildClasses(dbLearning, i, j);
+			//reconnaissance.buildClasses(dbLearning, 350, 1);
 
 			// Test pour une seule pièce
 			/*PIECE_TYPE resultat =  reconnaissance.completeReconaissance_one("n_pion_face (13)");
 			cout << "Ah ça, c'est un " << convert_pieceTypeToName(resultat) << endl;*/
 			// Test pour une db complète
 			vector<pair<DatabaseImageDescriptor, PIECE_TYPE>> results;
-			//reconnaissance.completeReconnaissance_db(dbTest, results, i, j);
-			reconnaissance.completeReconnaissance_dbPCA(dbTest, results, i, j);
+			//reconnaissance.completeReconnaissance_db(dbTest, results, 350, 1);
+			reconnaissance.completeReconnaissance_dbPCA(dbTest, results, i,j);
 			reconnaissance.analyseResults(results,i,j);
+			cout << "i = " << i << " j = " << j << endl;
 		}
 	}
 	

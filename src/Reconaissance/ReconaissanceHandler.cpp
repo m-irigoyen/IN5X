@@ -5,7 +5,8 @@ vector<float> ReconnaissanceHandler::recognisePCA(vector<float>& caracteristicVe
 	Mat v(caracteristicVector.size(),1, CV_32F);
 	int i = 0;
 	for (float f : caracteristicVector) {
-		v.at<float>(i, 0);
+		v.at<float>(i, 0) = f;
+		++i;
 	}
 	Mat reduceVector = pca.project(v);
 	
@@ -17,7 +18,7 @@ vector<float> ReconnaissanceHandler::recognisePCA(vector<float>& caracteristicVe
 	vector<float> dist;
 	for (int i = 0; i < classes.size(); ++i)
 	{
-		dist.push_back(distanceVector(caracteristicVector, classes.at(i)));
+		dist.push_back(distanceVector(caractReduced, classes.at(i)));
 	}
 	return dist;
 }

@@ -35,7 +35,7 @@ void ReconnaissancePreparationHandler::learningPCA(DatabaseHandler & database, P
 		buildCaracteristicVector(i.mat, caracteristicVector,n,x);
 		// ajouté le vecteur a la matrice caracteristicVectors
 		for (int r = 0; r < caracteristicVector.size(); ++r) {
-			caracteristicVectors.at<float>(r, c) = caracteristicVector[r];
+			caracteristicVectors.at<float>(r, c) = caracteristicVector.at(r);
 		}
 		++c;
 	}
@@ -53,7 +53,6 @@ void ReconnaissancePreparationHandler::learningPCA(DatabaseHandler & database, P
 		classes.push_back(vector<float>());
 	}
 
-
 	for (int i = 0; i < images.size();++i)
 	{
 		vector<float> v;
@@ -68,6 +67,7 @@ void ReconnaissancePreparationHandler::learningPCA(DatabaseHandler & database, P
 	for (int i = 0; i < 6; ++i)
 	{
 		classes.at(i) = ReconnaissancePreparationHandler::meanVectorClass(fullClasses.at(i));
+
 	}
 
 }
