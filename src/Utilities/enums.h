@@ -24,7 +24,8 @@ enum PIECE_ANGLE
 {
 	FACE = 0,
 	HAUT,
-	COTE
+	COTE,
+	DOS
 };
 
 struct DatabaseImageDescriptor
