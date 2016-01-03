@@ -5,31 +5,33 @@ DatabaseHandler::DatabaseHandler()
 	this->computeNumberOfImages();
 }
 
-void DatabaseHandler::buildDatabase(bool isLearningDatabase, vector<PIECE_TYPE> types, vector<PIECE_ANGLE> angles, vector<PIECE_COLOR> colors)
+void DatabaseHandler::buildDatabase(DATABASE_TYPE type, vector<PIECE_TYPE> types, vector<PIECE_ANGLE> angles, vector<PIECE_COLOR> colors)
 {
 	this->images.clear();
 
 	for (int i = 0; i < types.size(); ++i)
 	{
-		this->getAllImagesFromType(isLearningDatabase, types.at(i), angles.at(i), colors.at(i), this->images);
+		for (int j = 0; j < angles.size(); ++j)
+		{
+			for (int k = 0; k < colors.size(); ++k)
+			{
+				this->getAllImagesFromType(type, types.at(i), angles.at(j), colors.at(k), this->images);
+			}
+		}
 	}
 }
 
-void DatabaseHandler::buildDatabase(bool isLearningDatabase, vector<PIECE_TYPE> types, PIECE_ANGLE angle, PIECE_COLOR color)
+void DatabaseHandler::buildDatabase(DATABASE_TYPE dbType, vector<PIECE_TYPE> types, PIECE_ANGLE angle, PIECE_COLOR color)
 {
 	vector<PIECE_ANGLE> angles;
+	angles.push_back(angle);
 	vector<PIECE_COLOR> colors;
+	colors.push_back(color);
 
-	for (int i = 0; i < types.size(); ++i)
-	{
-		colors.push_back(color);
-		angles.push_back(angle);
-	}
-
-	this->buildDatabase(isLearningDatabase, types, angles, colors);
+	this->buildDatabase(dbType, types, angles, colors);
 }
 
-void DatabaseHandler::buildDatabase(bool isLearningDatabase, PIECE_TYPE type, PIECE_ANGLE angle, PIECE_COLOR color)
+void DatabaseHandler::buildDatabase(DATABASE_TYPE dbType, PIECE_TYPE type, PIECE_ANGLE angle, PIECE_COLOR color)
 {
 	vector<PIECE_TYPE> types;
 	types.push_back(type);
@@ -40,7 +42,75 @@ void DatabaseHandler::buildDatabase(bool isLearningDatabase, PIECE_TYPE type, PI
 	vector<PIECE_COLOR> colors;
 	colors.push_back(color);
 
-	this->buildDatabase(isLearningDatabase, types, angles, colors);
+	this->buildDatabase(dbType, types, angles, colors);
+}
+
+void DatabaseHandler::buildDatabase_allBlackFace(DatabaseHandler& learning, DatabaseHandler& test, DatabaseHandler& all)
+{
+	vector<PIECE_TYPE> types;
+	types.push_back(PIECE_TYPE::CAVALIER);
+	types.push_back(PIECE_TYPE::FOU);
+	types.push_back(PIECE_TYPE::PION);
+	types.push_back(PIECE_TYPE::REINE);
+	types.push_back(PIECE_TYPE::ROI);
+	types.push_back(PIECE_TYPE::TOUR);
+
+	vector<PIECE_ANGLE> angles;
+	angles.push_back(FACE);
+
+	vector<PIECE_COLOR> colors;
+	colors.push_back(NOIR);
+
+	learning.buildDatabase(LEARNING, types, angles, colors);
+	test.buildDatabase(TEST, types, angles, colors);
+	all.buildDatabase(ALL, types, angles, colors);
+}
+
+void DatabaseHandler::buildDatabase_allWhite(DatabaseHandler& learning, DatabaseHandler& test, DatabaseHandler& all)
+{
+	vector<PIECE_TYPE> types;
+	types.push_back(PIECE_TYPE::CAVALIER);
+	types.push_back(PIECE_TYPE::FOU);
+	types.push_back(PIECE_TYPE::PION);
+	types.push_back(PIECE_TYPE::REINE);
+	types.push_back(PIECE_TYPE::ROI);
+	types.push_back(PIECE_TYPE::TOUR);
+
+	vector<PIECE_COLOR> colors;
+	colors.push_back(BLANC);
+
+	vector<PIECE_ANGLE> angles;
+	angles.push_back(PIECE_ANGLE::COTE);
+	angles.push_back(PIECE_ANGLE::FACE);
+	angles.push_back(PIECE_ANGLE::HAUT);
+
+	learning.buildDatabase(LEARNING, types, angles, colors);
+	test.buildDatabase(TEST, types, angles, colors);
+	all.buildDatabase(ALL, types, angles, colors);
+}
+
+void DatabaseHandler::buildDatabase_all(DatabaseHandler& learning, DatabaseHandler& test, DatabaseHandler& all)
+{
+	vector<PIECE_TYPE> types;
+	types.push_back(PIECE_TYPE::CAVALIER);
+	types.push_back(PIECE_TYPE::FOU);
+	types.push_back(PIECE_TYPE::PION);
+	types.push_back(PIECE_TYPE::REINE);
+	types.push_back(PIECE_TYPE::ROI);
+	types.push_back(PIECE_TYPE::TOUR);
+
+	vector<PIECE_COLOR> colors;
+	colors.push_back(BLANC);
+	colors.push_back(NOIR);
+
+	vector<PIECE_ANGLE> angles;
+	angles.push_back(PIECE_ANGLE::COTE);
+	angles.push_back(PIECE_ANGLE::FACE);
+	angles.push_back(PIECE_ANGLE::HAUT);
+
+	learning.buildDatabase(LEARNING, types, angles, colors);
+	test.buildDatabase(TEST, types, angles, colors);
+	all.buildDatabase(ALL, types, angles, colors);
 }
 
 vector<DatabaseImage>& DatabaseHandler::getImages()
@@ -85,23 +155,28 @@ void DatabaseHandler::computeNumberOfImages()
 	this->numberOfImages.insert(pair<pair<pair<PIECE_TYPE, PIECE_ANGLE>, PIECE_COLOR>, int>(pair<pair<PIECE_TYPE, PIECE_ANGLE>, PIECE_COLOR>(pair<PIECE_TYPE, PIECE_ANGLE>(TOUR, COTE), NOIR), 11));
 }
 
-void DatabaseHandler::getAllImagesFromType(bool learning, DatabaseImageDescriptor d, vector<DatabaseImage>& images)
+void DatabaseHandler::getAllImagesFromType(DATABASE_TYPE type, DatabaseImageDescriptor d, vector<DatabaseImage>& images)
 {
-	this->getAllImagesFromType(learning, d.type, d.angle, d.color, images);
+	this->getAllImagesFromType(type, d.type, d.angle, d.color, images);
 }
 
-void DatabaseHandler::getAllImagesFromType(bool learning, PIECE_TYPE t, PIECE_ANGLE a, PIECE_COLOR c, vector<DatabaseImage>& images)
+void DatabaseHandler::getAllImagesFromType(DATABASE_TYPE type, PIECE_TYPE t, PIECE_ANGLE a, PIECE_COLOR c, vector<DatabaseImage>& images)
 {
 
 	int start, finish;
-	if (learning)
+	if (type == DATABASE_TYPE::LEARNING)
 	{
 		start = 1;
 		finish = static_cast<int>(this->getNumberOfImagesFromType(t, a, c) / 100.0f * DATABASE_LEARNINGRATIO);
 	}
-	else
+	else if (type == DATABASE_TYPE::TEST)
 	{
 		start = static_cast<int>(this->getNumberOfImagesFromType(t, a, c) / 100.0f * DATABASE_LEARNINGRATIO) + 1;
+		finish = this->getNumberOfImagesFromType(t, a, c);
+	}
+	else
+	{
+		start = 1;
 		finish = this->getNumberOfImagesFromType(t, a, c);
 	}
 
