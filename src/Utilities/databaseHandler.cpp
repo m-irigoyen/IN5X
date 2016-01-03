@@ -285,6 +285,9 @@ string DatabaseHandler::getNameFromType(PIECE_TYPE t, PIECE_ANGLE a, PIECE_COLOR
 	case PIECE_ANGLE::FACE:
 		name += "face";
 		break;
+	case PIECE_ANGLE::DOS:
+		name += "dos";
+		break;
 	}
 	name += " ";
 
