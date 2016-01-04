@@ -26,6 +26,7 @@ int main(int argc, char* argv[])
 		for (int j = 1; j < 3; ++j) {
 			// Construction des classes
 			ReconnaissanceHandler reconnaissance;
+
 			//reconnaissance.buildClassesPCA(dbLearning, i, j);
 			reconnaissance.buildClasses(dbLearning, i, j);
 
@@ -34,9 +35,13 @@ int main(int argc, char* argv[])
 			cout << "Ah ça, c'est un " << convert_pieceTypeToName(resultat) << endl;*/
 			// Test pour une db complète
 			vector<pair<DatabaseImageDescriptor, PIECE_TYPE>> results;
+
 			reconnaissance.completeReconnaissance_db(dbTest, results, i, j);
 			//reconnaissance.completeReconnaissance_dbPCA(dbTest, results, i, j);
+			//reconnaissance.completeReconnaissance_db(dbTest, results, 350, 1);
+			reconnaissance.completeReconnaissance_dbPCA(dbTest, results, i,j);
 			reconnaissance.analyseResults(results,i,j);
+			cout << "i = " << i << " j = " << j << endl;
 		}
 	}
 	
