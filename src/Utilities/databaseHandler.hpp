@@ -31,6 +31,7 @@ public:
 
 	// Construit une base de donnée
 	static void buildDatabase_allBlackFace(DatabaseHandler& learning, DatabaseHandler& test, DatabaseHandler& all);
+	static void buildDatabase_allBlack(DatabaseHandler& learning, DatabaseHandler& test, DatabaseHandler& all);
 	static void buildDatabase_allWhite(DatabaseHandler& learning, DatabaseHandler& test, DatabaseHandler& all);
 	static void buildDatabase_all(DatabaseHandler& learning, DatabaseHandler& test, DatabaseHandler& all);
 

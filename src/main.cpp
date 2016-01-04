@@ -22,24 +22,13 @@ int main(int argc, char* argv[])
 
 	cout << "Database built" << endl;
 
-	for (int i = 50; i < 600; i = i + 50) {
-		for (int j = 1; j < 3; ++j) {
-			// Construction des classes
-			ReconnaissanceHandler reconnaissance;
-			reconnaissance.buildClassesPCA(dbLearning, i, j);
-			//reconnaissance.buildClasses(dbLearning, 350, 1);
+	ReconnaissanceHandler reconnaissance;
+	reconnaissance.buildClassesPCA(dbLearning);
 
-			// Test pour une seule pièce
-			/*PIECE_TYPE resultat =  reconnaissance.completeReconaissance_one("n_pion_face (13)");
-			cout << "Ah ça, c'est un " << convert_pieceTypeToName(resultat) << endl;*/
-			// Test pour une db complète
-			vector<pair<DatabaseImageDescriptor, PIECE_TYPE>> results;
-			//reconnaissance.completeReconnaissance_db(dbTest, results, 350, 1);
-			reconnaissance.completeReconnaissance_dbPCA(dbTest, results, i,j);
-			reconnaissance.analyseResults(results,i,j);
-			cout << "i = " << i << " j = " << j << endl;
-		}
-	}
+	vector<pair<DatabaseImageDescriptor, PIECE_TYPE>> results;
+	reconnaissance.completeReconnaissance_dbPCA(dbTest, results);
+	reconnaissance.analyseResults(results);
+
 	
 	waitKey(0);
  	return EXIT_SUCCESS;

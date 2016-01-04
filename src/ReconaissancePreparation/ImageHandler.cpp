@@ -10,7 +10,6 @@ void ImageHandler::prepareImage_canny(Mat src, Mat & output, int gaussianKernelS
 	// La kernelSize doit être impaire et plus grande que 0. Sinon, ça plante.
 	if (gaussianKernelSize % 2 != 1 || cannyKernelSize < 3 || cannyKernelSize % 2 != 1 || cannyKernelSize >= 7)
 		return;
-	//resize(src, src, Size(), 0.4, 0.4);
 	Mat src_gray;
 	ImageHandler::convert_colorToGray(src, src_gray);
 	GaussianBlurHandler::basic(src_gray, output, gaussianKernelSize);
@@ -31,7 +30,6 @@ bool ImageHandler::loadImage_path(std::string path, Mat & output)
 		output = image;
 		return true;
 	}
-	
 }
 
 string ImageHandler::getImageExtension()
