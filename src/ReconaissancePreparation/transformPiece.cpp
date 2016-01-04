@@ -51,13 +51,16 @@ void TransformPiece::findDirection() {
  	box.points_box = box_final.points_box;
 	box.aire = box_final.aire;
 	piece = finalPiece;
-
+	img = img * 0;
+	rectangle(img, Point(box.points_box.at(0).first, box.points_box.at(0).second), Point(box.points_box.at(2).first, box.points_box.at(2).second), Scalar(255, 255, 255));
+	MAJimg();
 	//si la boite englobante est plus large que haute, on rote la pièce de 90°
 	if (box.points_box.at(2).first - box.points_box.at(0).first > box.points_box.at(1).second - box.points_box.at(0).second) {
 		piece = rotation(90, piece);
 		box = Box(piece);
 	}
-
+	img = img * 0;
+	MAJimg();
 	//compte l'écart entre le premier et le dernier pixel blancs en haut et en bas de la pièce
 	//on prend en compte la 4ème ligne en partant du haut et la 4ème en partant du bas, pour éviter une pièce légérement de travers qui commencerait avec une ligne de un pixels
 	int first_up = -1, first_down = -1, last_up, last_down;
