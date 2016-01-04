@@ -12,11 +12,14 @@ TransformPiece::TransformPiece(Mat& i){
 	}
 	box = Box(piece);
 }
+//met à jour l'image
 void TransformPiece::MAJimg() {
 	for (int i = 0; i < piece.size(); ++i) {
 		img.at<uchar>(piece.at(i).first, piece.at(i).second) = 255;
 	}
 }
+
+//rote les points de la pièce d'un angle donné
 vector<pair<int,int>> TransformPiece::rotation(float angle, vector <pair<int, int>> result) {
 	result = piece;
 	angle = angle * PI / 180;
@@ -29,10 +32,12 @@ vector<pair<int,int>> TransformPiece::rotation(float angle, vector <pair<int, in
 	return result;
 }
 
+//trouve la bonne direction de la pièce
 void TransformPiece::findDirection() {
 	vector<pair<int, int>> pieceTmp, finalPiece;
 	finalPiece = piece;
 	Box box_final = box;
+	//fait roter la pièce entre 0 et 360° avec un pas d'1° pour trouver une potentiel boite englobante ayant une aire plus petite
 	for (int i = 0; i < 360; ++i) {
 		pieceTmp = rotation(i, pieceTmp);
 		Box boxtmp = Box(pieceTmp);
@@ -42,18 +47,19 @@ void TransformPiece::findDirection() {
 			finalPiece = pieceTmp;
 		}
 	}
+	//garde la pièce ayant la boite englobante ayant une aire la plus petite
  	box.points_box = box_final.points_box;
 	box.aire = box_final.aire;
 	piece = finalPiece;
-	img = img * 0;
-	rectangle(img, Point(box.points_box.at(0).first, box.points_box.at(0).second), Point(box.points_box.at(2).first, box.points_box.at(2).second), Scalar(255, 255, 255));
-	MAJimg();
+
+	//si la boite englobante est plus large que haute, on rote la pièce de 90°
 	if (box.points_box.at(2).first - box.points_box.at(0).first > box.points_box.at(1).second - box.points_box.at(0).second) {
 		piece = rotation(90, piece);
 		box = Box(piece);
 	}
-	img = img * 0;
-	MAJimg();
+
+	//compte l'écart entre le premier et le dernier pixel blancs en haut et en bas de la pièce
+	//on prend en compte la 4ème ligne en partant du haut et la 4ème en partant du bas, pour éviter une pièce légérement de travers qui commencerait avec une ligne de un pixels
 	int first_up = -1, first_down = -1, last_up, last_down;
 	for (int i = box.points_box.at(0).first; i <= box.points_box.at(2).first; ++i) {
 		if (img.at<uchar>(box.points_box.at(0).second+4, i) == 255) {
@@ -70,6 +76,7 @@ void TransformPiece::findDirection() {
 		}
 	}
 		
+	//si la pièce est plus large en haut qu'en bas, on rote la pièce de 180°
    	if (last_up-first_up > last_down-first_down) {
 		piece = rotation(180,piece);
 		box = Box(piece);
@@ -80,12 +87,14 @@ void TransformPiece::findDirection() {
 	
 }
 
+//trouve le chemin du contour
 void TransformPiece::findPathcontour(vector<pair<int, int>>& result) {
 	result.clear();
 	bool test = true;
  	int i = img.rows - 1;
 
 	int x = box.points_box.at(0).first;
+	//trouve le point zéro, premier point en bas à gauche
 	while (test) {
 		if (img.at<uchar>(i, x) == 255) {
 			result.push_back(pair<float, float>(i, x));
@@ -100,14 +109,15 @@ void TransformPiece::findPathcontour(vector<pair<int, int>>& result) {
 	int j = 0;
 	bool testclose = true;
 
-
+	//testclose devient vrai lorsque le point zéro et dans les voisins
 	while (testclose) {
 		pair<int, int> p = result.at(j);
 		bool test_neighboor = true;
 		int z = 1;
-
+		//test_neighboor devient vrai losqu'un voisin a été ajouté
 		while (test_neighboor) {
 			vector<pair<int, int>> neighboors = vector<pair<int, int>>();
+			//trouve les voisins blancs
 			for (int x = p.second - z; x <= p.second + z; ++x) {
 				for (int y = p.first - z; y <= p.first + z; ++y) {
 					if (x != p.second || y != p.first) {
@@ -117,7 +127,7 @@ void TransformPiece::findPathcontour(vector<pair<int, int>>& result) {
 					}
 				}
 			}
-
+			//gère le premier voisins
 			if (j == 0) {
 				for (int x = 0; x < neighboors.size(); ++x) {
 					if (neighboors.at(x).first + 1 == p.first) {
@@ -132,22 +142,27 @@ void TransformPiece::findPathcontour(vector<pair<int, int>>& result) {
 						test_neighboor = false;
 						testclose = false;
 					}
+					//supprime le voisin actuel si il est déjà dans le chemin du contour
 					if (std::find(result.begin(), result.end(), neighboors.at(x)) != result.end()) {
 						neighboors.erase(neighboors.begin() + x);
 						--x;
 					}
 				}
+				//rajoute le vosin s'il n'y en a qu'un
 				if (neighboors.size() == 1) {
 					result.push_back(neighboors.at(0));
 					test_neighboor = false;
 				}
+				//ajoute un voisin connexe avec le point actuel
 				else if (neighboors.size()>1) {
+					//il met la priorité sur les 4-connexes
 					for (int x = 0; x < neighboors.size(); ++x) {
 						if ((p.first == neighboors.at(x).first || p.second == neighboors.at(x).second) && test_neighboor == false) {
 							result.push_back(neighboors.at(x));
 							test_neighboor = false;
 						}
 					}
+					//ajoute le 8-connexe le plus proche s'il n'a pas de voisin 4-connexe
 					if (test_neighboor == true) {
 						float dist_mini = 40000, dist;
 						int index_dist_mini;
@@ -163,6 +178,7 @@ void TransformPiece::findPathcontour(vector<pair<int, int>>& result) {
 
 					}
 				}
+				//augmente le cercle de voisins s'il n'en trouve pas
 				else {
 					++z;
 				}

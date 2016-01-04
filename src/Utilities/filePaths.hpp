@@ -11,7 +11,7 @@ SUIVEZ LA STRUCTURE RECURSIVE!
 
 using namespace std;
 
-#define DEBUG 1
+#define RELEASE
 
 class PATHS
 {

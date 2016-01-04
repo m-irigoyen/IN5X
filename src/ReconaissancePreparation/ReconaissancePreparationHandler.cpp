@@ -5,10 +5,6 @@ void ReconnaissancePreparationHandler::buildCaracteristicVector(Mat image, vecto
 {
 	Mat edges;
 	ImageHandler::prepareImage_canny(image, edges);
-	imshow("Image", image);
-	waitKey(0);
-	imshow("Edges", edges);
-	waitKey(0);
 	vector<pair<int, int>> contour;
 	ImageHandler::findContour(edges, contour);
 	float gap = contour.size() / n;

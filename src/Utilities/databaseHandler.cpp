@@ -66,6 +66,30 @@ void DatabaseHandler::buildDatabase_allBlackFace(DatabaseHandler& learning, Data
 	all.buildDatabase(ALL, types, angles, colors);
 }
 
+void DatabaseHandler::buildDatabase_allBlack(DatabaseHandler & learning, DatabaseHandler & test, DatabaseHandler & all)
+{
+	vector<PIECE_TYPE> types;
+	types.push_back(PIECE_TYPE::CAVALIER);
+	types.push_back(PIECE_TYPE::FOU);
+	types.push_back(PIECE_TYPE::PION);
+	types.push_back(PIECE_TYPE::REINE);
+	types.push_back(PIECE_TYPE::ROI);
+	types.push_back(PIECE_TYPE::TOUR);
+
+	vector<PIECE_COLOR> colors;
+	colors.push_back(NOIR);
+
+	vector<PIECE_ANGLE> angles;
+	angles.push_back(PIECE_ANGLE::COTE);
+	angles.push_back(PIECE_ANGLE::FACE);
+	angles.push_back(PIECE_ANGLE::HAUT);
+	angles.push_back(PIECE_ANGLE::DOS);
+
+	learning.buildDatabase(LEARNING, types, angles, colors);
+	test.buildDatabase(TEST, types, angles, colors);
+	all.buildDatabase(ALL, types, angles, colors);
+}
+
 void DatabaseHandler::buildDatabase_allWhite(DatabaseHandler& learning, DatabaseHandler& test, DatabaseHandler& all)
 {
 	vector<PIECE_TYPE> types;
